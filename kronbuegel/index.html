@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WTE Companion × Dr. Monika V. Kronbügel</title>
+<meta name="theme-color" content="#2B3B99">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@1,500;1,600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --p50:#DFE2F0; --p100:#CACEE5; --p300:#959DCC; --p400:#606CB3;
+  --p500:#2B3B99; --p600:#202C73; --p700:#161E4D; --p800:#0F1536; --p900:#0B0F26;
+  --cta:#E1F300; --cta-hover:#BECC00;
+  --paper:#FFFFFF; --paper2:#F6F6F4; --ink:#181410; --ink2:#3A342C; --ink3:#6B6358;
+  --rule:#1814101A; --rule-strong:#18141033;
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;overflow:hidden}
+body{font-family:"Inter",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Helvetica,Arial,sans-serif;
+  background:var(--paper);color:var(--ink);font-size:16px;line-height:1.5;letter-spacing:-0.005em;
+  -webkit-font-smoothing:antialiased}
+
+/* ---------- deck engine ---------- */
+.slide{position:absolute;inset:0;display:none;opacity:0;transition:opacity .45s var(--ease)}
+.slide.active{display:flex;opacity:1}
+.slide-inner{width:100%;max-width:1240px;margin:0 auto;padding:64px 64px 100px;
+  display:flex;flex-direction:column;justify-content:center;position:relative}
+.slide-inner>*{position:relative;z-index:1}
+.slide-inner>.ghost{position:absolute;top:50%;right:-30px;transform:translateY(-54%);font-size:clamp(280px,40vw,520px);
+  font-weight:800;letter-spacing:-0.06em;line-height:1;opacity:.05;pointer-events:none;user-select:none;z-index:0}
+
+/* ---------- chrome ---------- */
+#hud{position:fixed;left:0;right:0;bottom:0;z-index:50;display:flex;align-items:center;
+  justify-content:space-between;padding:20px 32px;pointer-events:none}
+#hud>*{pointer-events:auto}
+#brand{position:fixed;top:26px;left:50%;transform:translateX(-50%);z-index:50}
+.hud-logo{height:42px;width:auto;display:block;filter:brightness(0)}
+.dark-chrome .hud-logo{filter:brightness(0) invert(1)}
+.hide-brand #brand{display:none}
+.hud-spacer{width:150px}
+#dots{display:flex;gap:8px}
+#dots button{width:8px;height:8px;border-radius:50%;border:none;background:var(--rule-strong);cursor:pointer;transition:all .3s var(--ease);padding:0}
+#dots button.on{background:var(--ink);transform:scale(1.3)}
+.hud-arrows{display:flex;gap:8px;align-items:center}
+.hud-arrows button{width:38px;height:38px;border-radius:6px;border:1px solid var(--rule-strong);
+  background:transparent;color:inherit;cursor:pointer;font-size:15px;transition:all .25s var(--ease)}
+.hud-arrows button:hover{background:var(--cta);border-color:var(--cta);color:var(--ink)}
+#counter{font-size:12px;opacity:.5;font-variant-numeric:tabular-nums;margin-right:6px}
+.dark-chrome #hud{color:#fff}
+.dark-chrome #dots button{background:#ffffff3d}
+.dark-chrome #dots button.on{background:var(--cta)}
+.dark-chrome .hud-arrows button{border-color:#ffffff44}
+.neon-chrome #hud{color:var(--ink)}
+.neon-chrome #dots button{background:#18141033}
+.neon-chrome #dots button.on{background:var(--ink)}
+.neon-chrome .hud-arrows button{border-color:#18141055}
+.neon-chrome .hud-arrows button:hover{background:var(--ink);border-color:var(--ink);color:var(--cta)}
+
+/* ---------- type ---------- */
+.kicker{font-size:13.5px;font-weight:700;text-transform:uppercase;letter-spacing:.16em;color:var(--p500);margin-bottom:26px}
+.statement{font-size:clamp(52px,7.6vw,112px);line-height:.98;letter-spacing:-0.04em;font-weight:800}
+.statement.sm{font-size:clamp(40px,5.2vw,76px)}
+.lede{font-size:clamp(17px,1.6vw,22px);line-height:1.5;color:var(--ink2);max-width:46ch;margin-top:30px;font-weight:400}
+.lede b{font-weight:700;color:var(--ink)}
+.mark{position:relative;white-space:nowrap;z-index:0}
+.mark::after{content:"";position:absolute;left:-1%;right:-1%;bottom:.04em;height:.3em;background:var(--cta);
+  z-index:-1;clip-path:inset(0 100% 0 0);transition:clip-path .65s var(--ease) .5s}
+.slide.active .mark::after{clip-path:inset(0 -2% 0 0)}
+.mark.under::after{bottom:-0.03em;height:.12em}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.slide.active .reveal{opacity:1;transform:none}
+.slide.active .d1{transition-delay:.1s}.slide.active .d2{transition-delay:.22s}
+.slide.active .d3{transition-delay:.34s}.slide.active .d4{transition-delay:.48s}
+.slide.active .d5{transition-delay:.62s}.slide.active .d6{transition-delay:.78s}
+
+.face{border-radius:50%;object-fit:cover;display:block}
+.providers{margin-top:38px;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:var(--ink3)}
+.providers b{color:var(--ink)}
+.slogo{display:inline-flex;align-items:center;gap:22px;margin-bottom:26px}
+.slogo img{height:42px;width:auto;display:block}
+.dark .slogo{background:#fff;border-radius:12px;padding:10px 18px;box-shadow:0 20px 40px -20px #00000066}
+.dark .slogo img{height:34px}
+.dark{background:var(--p800);color:#fff}
+.dark .kicker{color:var(--cta)}
+.dark .lede{color:#ffffffb8}.dark .lede b{color:#fff}
+.dark .ghost{opacity:.07}
+.dark .providers{color:#ffffff80}.dark .providers b{color:#fff}
+.split{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center}
+
+/* ===== S1 cover ===== */
+#s1{background:linear-gradient(to bottom,#0F1D36 0%,#1A3252 16%,#24476D 32%,#236F9A 52%,#3791CD 68%,#4BB4FF 82%,#98D4FF 93%,#CBE9FF 100%);color:#fff}
+#s1 .kicker{color:var(--cta)}
+#s1 .lede{color:#ffffffd6}
+.logo-row{display:flex;align-items:center;gap:18px;margin-bottom:40px}
+.logo-wte{height:32px;width:auto;filter:brightness(0) invert(1)}
+.logo-x{font-size:18px;font-weight:300;color:#ffffff77}
+.logo-pill{background:#fff;border-radius:10px;padding:8px 14px;display:inline-flex;align-items:center;
+  box-shadow:0 18px 36px -18px #00000055}
+.logo-pill img{height:30px;width:auto;display:block}
+.checklist{display:flex;flex-direction:column;gap:0;max-width:430px}
+.check{display:flex;align-items:flex-start;gap:16px;padding:17px 0;border-top:1px solid #ffffff22}
+.check:first-child{border-top:none}
+.check i{width:26px;height:26px;flex:none;border-radius:50%;background:var(--cta);color:var(--ink);
+  display:grid;place-items:center;font-style:normal;font-weight:800;font-size:13px;margin-top:1px}
+.check h4{font-size:18px;font-weight:700;letter-spacing:-0.015em;line-height:1.25}
+.check p{font-size:13.5px;color:#ffffff99;font-weight:500;margin-top:2px}
+
+/* ===== S3 promise (neon + logo orbit) ===== */
+#s3{background:var(--cta)}
+#s3 .kicker{color:var(--ink)}
+#s3 .statement em{font-style:normal;background:var(--ink);color:var(--cta);padding:0 .14em;border-radius:.08em}
+#s3 .foot{margin-top:44px;font-size:14px;color:#18141099;max-width:46ch;font-weight:500}
+.orbit{position:relative;width:440px;height:440px;margin:0 auto}
+.orbit .center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:104px;height:104px;
+  z-index:2;filter:drop-shadow(0 30px 50px #18141055)}
+.orbit .center img{width:100%;height:100%;display:block}
+.orbit .ring{position:absolute;inset:30px;border:1.5px dashed #18141033;border-radius:50%;animation:spin 60s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.ptile{position:absolute;width:172px;height:68px;border-radius:16px;background:var(--paper);
+  box-shadow:0 24px 48px -20px #18141055;display:grid;place-items:center;padding:14px 20px;
+  animation:bob 5s ease-in-out infinite}
+.ptile img{width:100%;height:36px;object-fit:contain}
+.ptile.t3{width:96px;height:96px;border-radius:22px;padding:10px}
+.ptile.t3 img{height:70px}
+@keyframes bob{0%,100%{transform:translateY(0) rotate(var(--rot,0deg))}50%{transform:translateY(-14px) rotate(var(--rot,0deg))}}
+.ptile.t1{top:-10px;left:50%;margin-left:-86px;--rot:-3deg}
+.ptile.t2{top:27%;right:-62px;--rot:4deg;animation-delay:-1.2s}
+.ptile.t3{bottom:-8px;right:34px;--rot:2deg;animation-delay:-2.4s}
+.ptile.t4{top:27%;left:-62px;--rot:-4deg;animation-delay:-3.6s}
+.ptile.t5{bottom:6px;left:18px;--rot:3deg;animation-delay:-4.4s}
+
+/* ===== S-onboarding (scan once) ===== */
+#sx{background:var(--paper2)}
+.docflow{max-width:400px;margin:0 auto;display:flex;flex-direction:column;align-items:stretch}
+.doc{display:flex;align-items:center;gap:14px;background:var(--paper);border:1px solid var(--rule-strong);
+  border-radius:14px;padding:14px 18px;position:relative;overflow:hidden;
+  box-shadow:0 18px 36px -28px #18141066}
+.doc+.doc{margin-top:10px}
+.doc .di{width:40px;height:40px;flex:none;border-radius:11px;background:var(--p50);display:grid;place-items:center;font-size:18px}
+.doc h5{font-size:15px;font-weight:700;letter-spacing:-0.01em}
+.doc p{font-size:12px;color:var(--ink3);font-weight:500}
+.doc .ok{margin-left:auto;display:flex;align-items:center;gap:7px;font-size:12px;font-weight:800;color:#2c7a3c;
+  opacity:0;transition:opacity .4s var(--ease)}
+.doc .ok::before{content:"✓";width:18px;height:18px;flex:none;border-radius:50%;background:#3E9B4F;color:#fff;
+  display:grid;place-items:center;font-size:10px;font-weight:800}
+.doc .dscan{position:absolute;left:0;right:0;top:-12%;height:3px;background:var(--cta);
+  box-shadow:0 0 16px 3px #E1F30090}
+@keyframes docscan{0%{top:-12%}50%{top:104%}100%{top:-12%}}
+.slide.active .doc.s1 .dscan{animation:docscan 1.1s var(--ease) .7s 1 forwards}
+.slide.active .doc.s2 .dscan{animation:docscan 1.1s var(--ease) 1.5s 1 forwards}
+.slide.active .doc.s3 .dscan{animation:docscan 1.1s var(--ease) 2.3s 1 forwards}
+.slide.active .doc.s1 .ok{opacity:1;transition-delay:1.6s}
+.slide.active .doc.s2 .ok{opacity:1;transition-delay:2.4s}
+.slide.active .doc.s3 .ok{opacity:1;transition-delay:3.2s}
+.flow-arrow{align-self:center;margin:14px 0;color:var(--ink3);font-size:20px;opacity:0;transform:translateY(-8px);
+  transition:all .5s var(--ease)}
+.slide.active .flow-arrow{opacity:1;transform:none;transition-delay:3.5s}
+.profilecard{background:var(--ink);color:#fff;border-radius:16px;padding:22px 24px;
+  box-shadow:0 36px 60px -32px #18141088;opacity:0;transform:translateY(16px) scale(.97);transition:all .6s var(--ease)}
+.slide.active .profilecard{opacity:1;transform:none;transition-delay:3.8s}
+.profilecard .ptop{display:flex;align-items:center;gap:13px}
+.profilecard img{width:44px;height:44px}
+.profilecard h5{font-size:15px;font-weight:700}
+.profilecard .ptop p{font-size:11.5px;color:var(--cta);font-weight:700;text-transform:uppercase;letter-spacing:.08em}
+.pchips{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.pchips span{font-size:11px;font-weight:600;padding:5px 11px;border-radius:999px;background:#ffffff14;
+  border:1px solid #ffffff26;color:#ffffffd6}
+.pchips span::before{content:"✓ ";color:var(--cta);font-weight:800}
+
+/* ===== phone (app demo) ===== */
+.phone-wrap{display:flex;justify-content:center;position:relative}
+.phone{width:308px;height:600px;background:var(--ink);border-radius:44px;padding:11px;flex:none;
+  box-shadow:0 50px 100px -40px #18141077,0 0 0 1px #18141022;position:relative;z-index:1}
+.phone::after{content:"";position:absolute;top:22px;left:50%;transform:translateX(-50%);
+  width:100px;height:24px;background:var(--ink);border-radius:13px;z-index:5}
+.screen{width:100%;height:100%;background:#F4F5FA;border-radius:34px;overflow:hidden;display:flex;flex-direction:column;position:relative;color:var(--ink)}
+.statusbar{height:44px;flex:none;display:flex;align-items:flex-end;justify-content:space-between;
+  padding:0 24px 4px;font-size:11.5px;font-weight:600}
+.appbar{flex:none;display:flex;align-items:center;gap:10px;padding:8px 16px 11px;border-bottom:1px solid var(--rule)}
+.appbar .aglyph{width:28px;height:28px;flex:none;display:block}
+.appbar h5{font-size:13.5px;font-weight:600}
+.appbar p{font-size:10.5px;color:#3E9B4F;display:flex;align-items:center;gap:5px;line-height:1.2}
+.appbar p::before{content:"";width:6px;height:6px;border-radius:50%;background:#3E9B4F}
+.chat{flex:1;overflow-y:auto;padding:14px 12px 18px;display:flex;flex-direction:column;gap:9px;scroll-behavior:smooth}
+.chat::-webkit-scrollbar{display:none}
+.msg{max-width:84%;padding:9px 13px;border-radius:15px;font-size:12.5px;line-height:1.45;animation:popIn .4s var(--ease) both}
+.msg.bot{background:var(--paper);border:1px solid var(--rule);align-self:flex-start;border-bottom-left-radius:5px}
+.msg.user{background:var(--p500);color:#fff;align-self:flex-end;border-bottom-right-radius:5px}
+@keyframes popIn{from{opacity:0;transform:translateY(10px) scale(.97)}to{opacity:1;transform:none}}
+.typing{display:flex;gap:4px;padding:12px 15px;background:var(--paper);border:1px solid var(--rule);
+  border-radius:15px;border-bottom-left-radius:5px;align-self:flex-start;animation:popIn .3s var(--ease) both}
+.typing i{width:6px;height:6px;border-radius:50%;background:var(--ink3);animation:blink 1s infinite}
+.typing i:nth-child(2){animation-delay:.18s}.typing i:nth-child(3){animation-delay:.36s}
+@keyframes blink{0%,60%,100%{opacity:.25}30%{opacity:1}}
+.w{align-self:stretch;animation:popIn .45s var(--ease) both}
+.passport{background:repeating-linear-gradient(135deg,#ffffff08 0 8px,transparent 8px 16px),
+  linear-gradient(180deg,#ede4d0,#e6dcc4);border-radius:12px;padding:12px 14px;position:relative;
+  overflow:hidden;border:1px solid #d4c8a8;box-shadow:0 1px 0 #ffffff60 inset}
+.passport .ph{font-size:8.5px;font-weight:700;letter-spacing:.16em;color:#7a6f55;text-transform:uppercase}
+.passport .prow{display:flex;gap:11px;margin-top:7px;align-items:center}
+.passport .pface{width:40px;height:50px;border-radius:5px;background:linear-gradient(160deg,var(--p100),var(--p300));flex:none}
+.passport .pf{font-size:9.5px;color:#5d543e;line-height:1.7;font-family:ui-monospace,monospace}
+.passport .pf b{color:#3a3422}
+.scanline{position:absolute;left:0;right:0;top:-10%;height:3px;background:var(--cta);
+  box-shadow:0 0 18px 4px #E1F30090;animation:scan 1.5s var(--ease) .2s 2}
+@keyframes scan{0%{top:-4%}50%{top:102%}100%{top:-4%}}
+.extract{display:flex;flex-wrap:wrap;gap:5px}
+.extract span{font-size:10.5px;font-weight:600;padding:4px 9px;border-radius:999px;background:var(--paper);
+  border:1px solid var(--rule);opacity:0;animation:popIn .35s var(--ease) both}
+.extract span::before{content:"✓ ";color:#3E9B4F;font-weight:800}
+.selfie{position:relative;width:150px;height:150px;border-radius:18px;overflow:hidden;align-self:center;
+  box-shadow:0 18px 36px -20px #18141066;border:1px solid var(--rule-strong)}
+.selfie img{width:100%;height:100%;object-fit:cover;display:block}
+.inscard{background:linear-gradient(135deg,var(--p600),var(--p500) 55%,var(--p400));border-radius:14px;
+  padding:16px;color:#fff;box-shadow:0 18px 36px -18px #2B3B9988;animation:cardIn .9s var(--ease) both;position:relative}
+.inscard .cphoto{position:absolute;right:14px;top:44px;width:42px;height:52px;border-radius:6px;
+  object-fit:cover;border:2px solid #ffffff55}
+@keyframes cardIn{from{opacity:0;transform:perspective(700px) rotateX(40deg) translateY(30px)}
+  to{opacity:1;transform:perspective(700px) rotateX(0) translateY(0)}}
+.inscard .top{display:flex;justify-content:space-between;align-items:center}
+.inscard .prov{font-size:12px;font-weight:800;letter-spacing:.02em}
+.inscard .tag{font-size:8.5px;font-weight:800;background:var(--cta);color:var(--ink);padding:3px 8px;border-radius:999px;text-transform:uppercase;letter-spacing:.08em}
+.inscard .name{margin-top:14px;font-size:14px;font-weight:700}
+.inscard .sub{font-size:10px;opacity:.75;font-family:ui-monospace,monospace;margin-top:3px}
+.inscard .cfoot{margin-top:10px;font-size:9px;opacity:.65;display:flex;justify-content:space-between}
+.devcard{background:var(--paper);border:1px solid var(--rule-strong);border-radius:12px;padding:12px 14px;
+  display:flex;align-items:center;gap:12px}
+.devcard .dev{width:26px;height:44px;border:2px solid var(--ink);border-radius:6px;flex:none;position:relative}
+.devcard .dev::after{content:"";position:absolute;bottom:3px;left:50%;transform:translateX(-50%);width:8px;height:2px;border-radius:2px;background:var(--ink)}
+.devcard h6{font-size:12px;font-weight:700}
+.devcard p{font-size:10.5px;color:var(--ink3)}
+.okrow{display:flex;align-items:center;gap:7px;font-size:11.5px;font-weight:700;color:#2c7a3c;margin-top:5px}
+.okrow::before{content:"✓";width:15px;height:15px;flex:none;border-radius:50%;background:#3E9B4F;color:#fff;
+  display:grid;place-items:center;font-size:9px;font-weight:800}
+.formfill{background:var(--paper);border:1px solid var(--rule-strong);border-radius:12px;padding:12px 14px}
+.ff-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--rule);font-size:11px}
+.ff-row:last-child{border:none}
+.ff-row .k{color:var(--ink3)}
+.ff-row .v{font-weight:600;opacity:0}
+.ff-row .v.fill{opacity:1;transition:opacity .15s}
+.ff-row .v.auto::after{content:"auto";font-size:7.5px;font-weight:800;color:var(--p500);background:#F4F5FA;
+  border-radius:4px;padding:1.5px 5px;margin-left:6px;vertical-align:1.5px;letter-spacing:.05em;text-transform:uppercase}
+.bigok{background:#EAF6EC;border:1px solid #3E9B4F44;border-radius:12px;padding:12px 14px;text-align:center}
+.bigok h6{font-size:12.5px;font-weight:800;color:#256633}
+.bigok p{font-size:11px;color:#2c7a3c;margin-top:2px}
+.bigok .mono{font-family:ui-monospace,monospace;font-size:11.5px;letter-spacing:.03em;background:#fff;
+  border-radius:7px;padding:6px 9px;margin-top:9px;color:var(--ink);border:1px solid #3E9B4F33}
+/* floating confirmations around phone */
+.floatie{position:absolute;display:flex;align-items:center;gap:9px;background:var(--paper);
+  border:1px solid var(--rule-strong);border-radius:999px;padding:11px 18px;font-size:13.5px;font-weight:700;
+  box-shadow:0 24px 48px -24px #18141066;white-space:nowrap;z-index:2;opacity:0;transform:translateY(14px) scale(.9);
+  transition:all .55s var(--ease)}
+.floatie.show{opacity:1;transform:none;animation:bob 5s ease-in-out 1s infinite}
+.floatie::before{content:"✓";width:20px;height:20px;flex:none;border-radius:50%;background:#3E9B4F;
+  color:#fff;display:grid;place-items:center;font-size:11px;font-weight:800}
+.floatie.neon::before{background:var(--ink);color:var(--cta)}
+.dark .floatie{background:var(--p700);border-color:#ffffff2b;color:#fff;box-shadow:0 24px 48px -24px #00000088}
+
+/* ===== S7 haftpflicht clicks ===== */
+.clicks{display:flex;flex-direction:column;gap:14px}
+.click{display:flex;align-items:center;gap:16px;background:#ffffff10;border:1px solid #ffffff26;
+  border-radius:14px;padding:18px 24px;font-size:17px;font-weight:600;color:#fff;min-width:300px}
+.click i{width:34px;height:34px;flex:none;border-radius:50%;background:var(--cta);color:var(--ink);
+  display:grid;place-items:center;font-style:normal;font-weight:800;font-size:15px}
+.click.done{border-color:#3E9B4F;background:#3E9B4F22}
+.click.done i{background:#3E9B4F;color:#fff}
+
+/* ===== S8 portal ===== */
+#s8{background:var(--paper2)}
+#s8 .slide-inner{max-width:1320px}
+.portal-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:52px;align-items:center}
+.browser{background:var(--paper);border:1px solid var(--rule-strong);border-radius:14px;overflow:hidden;
+  box-shadow:0 50px 100px -50px #18141066}
+.browser-bar{display:flex;align-items:center;gap:8px;padding:11px 16px;border-bottom:1px solid var(--rule);background:var(--paper2)}
+.browser-bar i{width:11px;height:11px;border-radius:50%;flex:none}
+.browser-bar i:nth-child(1){background:#F2625A}.browser-bar i:nth-child(2){background:#F5BD4F}.browser-bar i:nth-child(3){background:#61C455}
+.urlbar{flex:1;margin:0 60px 0 14px;background:var(--paper);border:1px solid var(--rule);border-radius:7px;
+  padding:5px 12px;font-size:11.5px;color:var(--ink3);display:flex;align-items:center;gap:7px}
+.urlbar::before{content:"🔒";font-size:9px}
+.portal-body{display:grid;grid-template-columns:172px 1fr;min-height:330px}
+.pside{border-right:1px solid var(--rule);padding:16px 0;background:#FBFBFA;display:flex;flex-direction:column}
+.pside .plogo{display:flex;align-items:center;gap:8px;font-size:11.5px;font-weight:700;padding:2px 16px 14px;border-bottom:1px solid var(--rule)}
+.pside .plogo .glyph{width:18px;height:18px;border-radius:50%;background:var(--p500);position:relative}
+.pside .plogo .glyph::after{content:"";position:absolute;inset:0;border-radius:50%;
+  background:radial-gradient(circle at 35% 32%,var(--cta) 0 1.6px,transparent 2px),
+             radial-gradient(circle at 62% 60%,var(--cta) 0 1.3px,transparent 1.7px)}
+.pnav{padding:12px 8px;display:flex;flex-direction:column;gap:2px}
+.pnav a{display:flex;align-items:center;gap:9px;padding:8px 10px;border-radius:7px;font-size:12px;
+  font-weight:500;color:var(--ink2);text-decoration:none}
+.pnav a.on{background:var(--p500);color:#fff;font-weight:600}
+.pnav a span{font-size:12px;width:16px;text-align:center}
+.pmain{padding:14px 22px}
+.pmain-head{display:flex;justify-content:space-between;align-items:center}
+.pmain-head h5{font-size:15px;font-weight:700}
+.pmain-head p{font-size:11.5px;color:var(--ink3);margin-top:1px}
+.invite-btn{background:var(--cta);color:var(--ink);font-size:11.5px;font-weight:800;padding:8px 14px;border-radius:6px;border:none;cursor:default}
+.pstats{display:flex;gap:10px;margin-top:14px}
+.pstat-tile{flex:1;border:1px solid var(--rule);border-radius:10px;padding:10px 14px}
+.pstat-tile .n{font-size:21px;font-weight:800;letter-spacing:-0.03em}
+.pstat-tile .n em{font-style:normal;font-size:12px;color:var(--ink3);font-weight:600}
+.pstat-tile .l{font-size:10.5px;color:var(--ink3);font-weight:600;text-transform:uppercase;letter-spacing:.06em}
+.pstat-tile.hl{background:var(--p500);border-color:var(--p500);color:#fff}
+.pstat-tile.hl .l{color:#ffffff90}
+.ptable{margin-top:14px;border:1px solid var(--rule);border-radius:10px;overflow:hidden}
+.ptable .thead{display:grid;grid-template-columns:1.5fr .9fr .55fr;padding:8px 14px;background:var(--paper2);
+  font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--ink3)}
+.prow2{display:grid;grid-template-columns:1.5fr .9fr .55fr;align-items:center;padding:9px 14px;border-top:1px solid var(--rule);
+  opacity:0;transform:translateX(-14px);transition:all .55s var(--ease)}
+.slide.active .prow2{opacity:1;transform:none}
+.slide.active .prow2:nth-child(2){transition-delay:.7s}.slide.active .prow2:nth-child(3){transition-delay:.85s}
+.slide.active .prow2:nth-child(4){transition-delay:1s}.slide.active .prow2:nth-child(5){transition-delay:1.15s}
+.prow2 .cwho{display:flex;align-items:center;gap:10px}
+.prow2 img{width:30px;height:30px}
+.prow2 .nm{font-size:12px;font-weight:700;line-height:1.25}
+.prow2 .nm small{display:block;font-size:10px;font-weight:500;color:var(--ink3)}
+.tdots{display:flex;gap:5px}
+.tdot{width:22px;height:22px;border-radius:7px;display:grid;place-items:center;font-size:10px;
+  background:var(--paper2);border:1px solid var(--rule);color:var(--ink3)}
+.tdot.ok{background:var(--cta);border-color:var(--cta);color:var(--ink)}
+.tdot.wip{border-color:var(--cta);animation:pulse 1.6s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 #E1F30077}50%{box-shadow:0 0 0 5px #E1F30000}}
+.pstatus{font-size:10.5px;font-weight:800;text-align:right}
+.pstatus.ready{color:#2c7a3c}.pstatus.open{color:var(--ink3)}
+
+/* ===== S9 coming soon ===== */
+#s9{background:var(--paper)}
+.soon-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:48px;max-width:880px}
+.soon-tile{position:relative;border-radius:18px;padding:30px 30px 26px;overflow:hidden;color:#fff;
+  min-height:150px;display:flex;flex-direction:column;justify-content:flex-end;
+  transition:transform .35s var(--ease)}
+.soon-tile:hover{transform:translateY(-4px)}
+.soon-tile .bald{position:absolute;top:18px;right:18px;font-size:10px;font-weight:800;text-transform:uppercase;
+  letter-spacing:.12em;background:#ffffff22;border:1px solid #ffffff44;padding:5px 11px;border-radius:999px;backdrop-filter:blur(4px)}
+.soon-tile .wm{font-size:clamp(22px,2.4vw,32px);font-weight:800;letter-spacing:-0.03em;line-height:1.05}
+.soon-tile .ds{font-size:12.5px;opacity:.8;margin-top:6px;font-weight:500;max-width:30ch}
+.soon-tile.wtax{background:linear-gradient(135deg,#0E7A5F,#16A37F)}
+.soon-tile.wtax .wm{font-weight:700}.soon-tile.wtax .wm b{font-weight:800}
+.soon-tile.dt{background:linear-gradient(135deg,#101010,#2e2e2e)}
+.soon-tile.dt .wm .dchip{display:inline-grid;place-items:center;background:#fff;color:#101010;border-radius:8px;
+  width:1.3em;height:1.3em;margin-right:.25em;vertical-align:-0.18em;font-weight:900}
+.soon-tile.wp{background:linear-gradient(135deg,#0B3B66,#1273B5)}
+.soon-tile.wp .wm{font-weight:700}
+.soon-tile.fi{background:linear-gradient(135deg,#2A3340,#4A5568)}
+
+/* ===== S10 CTA ===== */
+#s10 .kicker{color:var(--cta)}
+.cta-split{display:grid;grid-template-columns:1.4fr .8fr;gap:64px;align-items:center}
+.btn-cta{display:inline-block;margin-top:44px;background:var(--cta);color:var(--ink);font-size:17px;font-weight:800;
+  padding:20px 36px;border-radius:8px;border:none;cursor:pointer;transition:all .25s var(--ease);
+  font-family:inherit;letter-spacing:-0.01em;text-decoration:none}
+.btn-cta:hover{background:var(--cta-hover);transform:translateY(-2px)}
+.btn-cta small{display:block;font-size:12px;font-weight:600;opacity:.7;margin-top:2px}
+.fabian{display:flex;flex-direction:column;align-items:center;gap:18px;text-align:center}
+.fabian-pic{width:220px;height:220px;border-radius:50%;overflow:hidden;border:5px solid #ffffff22;
+  background:#F6F6F4;flex:none}
+.fabian-pic img{width:100%;height:100%;object-fit:cover;object-position:50% 22%;display:block;
+  transform:scale(1.5);transform-origin:50% 22%}
+.fabian h5{font-size:17px;font-weight:700}
+.fabian p{font-size:13.5px;color:#ffffff90;text-align:center}
+
+/* ===== S-time (ROI / time saved) ===== */
+#stime{background:var(--paper2)}
+#stime .foot{margin-top:30px;font-size:15px;color:var(--ink2);max-width:42ch;font-weight:500}
+#stime .foot b{font-weight:700;color:var(--ink)}
+.ledger{background:var(--paper);border:1px solid var(--rule-strong);border-radius:18px;
+  padding:24px 26px;box-shadow:0 40px 80px -50px #18141066}
+.ledger-head{display:flex;justify-content:space-between;align-items:baseline;
+  padding-bottom:14px;margin-bottom:6px;border-bottom:1px solid var(--rule)}
+.ledger-head h5{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.12em;color:var(--ink3)}
+.ledger-head .per{font-size:11.5px;font-weight:600;color:var(--ink3)}
+.tl-row{display:grid;grid-template-columns:150px 1fr 58px;align-items:center;gap:14px;padding:8px 0}
+.tl-row .tl-label{font-size:13.5px;font-weight:600;letter-spacing:-0.01em}
+.tl-row .tl-track{height:12px;border-radius:999px;background:var(--paper2);border:1px solid var(--rule);overflow:hidden}
+.tl-row .tl-track i{display:block;height:100%;border-radius:999px;
+  background:linear-gradient(90deg,var(--p400),var(--p500));
+  transform:scaleX(0);transform-origin:left;transition:transform .46s var(--ease)}
+.tl-row.run .tl-track i{transform:scaleX(1)}
+.tl-row .tl-min{font-size:13px;font-weight:700;text-align:right;font-variant-numeric:tabular-nums;color:var(--ink2)}
+.tl-sum,.tl-now{opacity:0;transform:translateY(8px);transition:opacity .35s var(--ease),transform .35s var(--ease)}
+.tl-sum.run,.tl-now.run{opacity:1;transform:none}
+.tl-sum{display:flex;justify-content:space-between;align-items:center;
+  margin-top:14px;padding-top:14px;border-top:1.5px solid var(--rule-strong)}
+.tl-sum .lab{font-size:12.5px;font-weight:600;color:var(--ink3);text-transform:uppercase;letter-spacing:.08em}
+.tl-sum .big{font-size:22px;font-weight:700;letter-spacing:-0.02em;line-height:1;color:var(--ink3)}
+.tl-now{display:flex;justify-content:space-between;align-items:center;
+  margin-top:12px;background:var(--cta);border-radius:14px;padding:15px 22px}
+.tl-now .lab{font-size:13.5px;font-weight:800;color:var(--ink)}
+.tl-now .val{display:flex;align-items:baseline;gap:9px}
+.tl-now .val b{font-size:40px;font-weight:800;letter-spacing:-0.04em;line-height:.9;color:var(--ink)}
+.tl-now .val small{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#18141099}
+
+@media (max-width:1000px){
+  .slide-inner{padding:48px 28px 100px;overflow-y:auto;justify-content:flex-start}
+  .split,.cta-split,.portal-grid{grid-template-columns:1fr;gap:40px}
+  .ghost{font-size:200px;top:auto;bottom:0;transform:none}
+  .statement{font-size:clamp(40px,11vw,72px)}
+  .orbit{width:320px;height:320px}
+  .soon-grid{grid-template-columns:1fr}
+  .floatie{display:none}
+  .phone{transform:scale(.9);transform-origin:top center}
+}
+</style>
+</head>
+<body>
+
+<!-- 1 ─ COVER / HOOK -->
+<section class="slide" id="s1" data-chrome="dark">
+  <div class="slide-inner">
+    <div class="logo-row reveal">
+      <img src="assets/wte-companion-logo.svg" alt="WTE Companion" class="logo-wte">
+      <span class="logo-x">×</span>
+      <span class="logo-pill" style="padding:10px 22px"><span style="font-family:'Playfair Display',Georgia,serif;font-style:italic;font-weight:600;font-size:21px;line-height:1;color:#181410;letter-spacing:.01em;white-space:nowrap">Dr.&nbsp;Monika&nbsp;V.&nbsp;Kronbügel</span></span>
+    </div>
+    <div class="split" style="grid-template-columns:1.05fr .95fr;gap:64px;align-items:start">
+      <div>
+        <h1 class="statement sm reveal d1">Alle Admin<br>Essentials für<br>Ihre Kandidaten.<br>
+          <span class="mark under" style="color:#fff">Unter 10 Minuten.</span></h1>
+        <p class="lede reveal d2" style="color:#ffffffd6">Krankenversicherung, SIM-Karte, Bankkonto und
+          Haftpflicht — <b style="color:#fff">vollautomatisch, ohne manuelle Arbeit, komplett kostenlos.</b></p>
+      </div>
+      <div class="checklist">
+        <div class="check reveal d2"><i>✓</i><div><h4>Keine Dateneingabe</h4>
+          <p>Pass scannen statt abtippen — für Sie und für Ihre Kandidaten</p></div></div>
+        <div class="check reveal d3"><i>✓</i><div><h4>Fehlerfreie Daten</h4>
+          <p>Direkt aus dem Dokument übernommen, in jeden Antrag</p></div></div>
+        <div class="check reveal d4"><i>✓</i><div><h4>Kein Filialbesuch</h4>
+          <p>Alles vom Smartphone — von überall auf der Welt</p></div></div>
+        <div class="check reveal d5"><i>✓</i><div><h4>Kein Papierkram, keine Post</h4>
+          <p>Keine manuellen Schritte, kein Warten auf Briefe</p></div></div>
+        <div class="check reveal d6"><i>✓</i><div><h4>Minuten statt Wochen</h4>
+          <p>Fertig eingerichtet, bevor das Flugzeug landet</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3 ─ PROMISE (neon + logo orbit) -->
+<section class="slide" id="s3" data-chrome="neon">
+  <div class="slide-inner">
+    <div class="split">
+      <div>
+        <p class="kicker reveal">Starke Partner</p>
+        <h2 class="statement sm reveal d1">Marken, denen<br>Deutschland<br><em>vertraut.</em></h2>
+        <p class="foot reveal d3">Jeder Partner handverlesen und zugeschnitten auf internationale
+          Kandidaten: englischsprachig, digital-first, ohne Bürokratie-Hürden.</p>
+      </div>
+      <div class="reveal d2">
+        <div class="orbit">
+          <div class="ring"></div>
+          <div class="center"><img src="assets/wte-favicon.svg" alt="WTE Companion"></div>
+          <div class="ptile t1"><img src="assets/dak-logo.svg" alt="DAK-Gesundheit"></div>
+          <div class="ptile t2"><img src="assets/vodafone-logo.svg" alt="Vodafone"></div>
+          <div class="ptile t3"><img src="assets/bunq-logo.svg" alt="bunq"></div>
+          <div class="ptile t4"><img src="assets/interlloyd-logo.svg" alt="InterLloyd"></div>
+          <div class="ptile t5"><img src="assets/hansemerkur-logo.svg" alt="HanseMerkur"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3b ─ EINMAL ONBOARDEN -->
+<section class="slide" id="sx">
+  <div class="slide-inner">
+    <div class="split">
+      <div>
+        <p class="kicker reveal">Warum das so schnell geht</p>
+        <h2 class="statement sm reveal d1">Einmal gefragt.<br><span class="mark">Für immer erledigt.</span></h2>
+        <p class="lede reveal d2">Beim Onboarding scannt die App die offiziellen Dokumente —
+          <b>Pass, Mietvertrag, Arbeitsvertrag</b>. Einmal erfasst, fließen die Daten in jeden Antrag.
+          Kein Formular fragt je wieder nach dem Geburtsdatum.</p>
+        <p class="providers reveal d3">Ein Onboarding · Korrekte Daten</p>
+      </div>
+      <div class="docflow reveal d2">
+        <div class="doc s1"><div class="dscan"></div><div class="di">🛂</div>
+          <div><h5>Reisepass</h5><p>Identität, Geburtsdatum, Nationalität</p></div><span class="ok">Gescannt</span></div>
+        <div class="doc s2"><div class="dscan"></div><div class="di">🏠</div>
+          <div><h5>Mietvertrag</h5><p>Deutsche Adresse, Einzugsdatum</p></div><span class="ok">Gescannt</span></div>
+        <div class="doc s3"><div class="dscan"></div><div class="di">💼</div>
+          <div><h5>Arbeitsvertrag</h5><p>Arbeitgeber, Gehalt, Startdatum</p></div><span class="ok">Gescannt</span></div>
+        <div class="flow-arrow">↓</div>
+        <div class="profilecard">
+          <div class="ptop"><img class="face" src="assets/maria-santos.png" alt="">
+            <div><h5>Maria Santos</h5><p>Profil vollständig</p></div></div>
+          <div class="pchips">
+            <span>Name</span><span>Geburtsdatum</span><span>Nationalität</span><span>Passnummer</span>
+            <span>Adresse</span><span>Arbeitgeber</span><span>Gehalt</span><span>Startdatum</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4 ─ KRANKENVERSICHERUNG (app demo) -->
+<section class="slide" id="s4" data-chat="kv">
+  <div class="slide-inner">
+    <div class="ghost">01</div>
+    <div class="split" style="grid-template-columns:1.3fr .7fr">
+      <div>
+        <div class="slogo reveal"><img src="assets/dak-logo.svg" alt="DAK-Gesundheit"><img src="assets/hansemerkur-logo.svg" alt="HanseMerkur"></div>
+        <p class="kicker reveal">Essential 01 · Krankenversicherung</p>
+        <h2 class="statement sm reveal d1">Krankenversichert<br><span class="mark">ab Tag eins.</span></h2>
+        <p class="lede reveal d2">Antrag raus vor der Abreise, Schutz ab dem ersten Arbeitstag —
+          die Karte wartet schon an der neuen Adresse.</p>
+        <p class="providers reveal d3">Führende GKV inkl. <b>kostenfreier privater Zusatzversicherung</b></p>
+      </div>
+      <div class="phone-wrap reveal d2">
+        <div class="phone">
+          <div class="screen">
+            <div class="statusbar"><span>9:41</span><span>●●● 🔋</span></div>
+            <div class="appbar"><img src="assets/wte-favicon.svg" class="aglyph" alt=""><div><h5>Companion</h5><p>Immer erreichbar</p></div></div>
+            <div class="chat" id="chat-kv"></div>
+          </div>
+        </div>
+        <div class="floatie" data-fl="1" style="top:60px;right:-66px">Antrag übermittelt</div>
+        <div class="floatie" data-fl="2" style="bottom:-16px;left:-104px">Karte kommt zur neuen Adresse</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5 ─ SIM (app demo, dark) -->
+<section class="slide dark" id="s5" data-chrome="dark" data-chat="sim">
+  <div class="slide-inner">
+    <div class="ghost">02</div>
+    <div class="split">
+      <div>
+        <div class="slogo reveal"><img src="assets/vodafone-logo.svg" alt="Vodafone"></div>
+        <p class="kicker reveal">Essential 02 · SIM-Karte</p>
+        <h2 class="statement sm reveal d1">Erreichbar<br><span class="mark under" style="color:#fff">ab der Landung.</span></h2>
+        <p class="lede reveal d2">eSIM vor dem Abflug installiert — <b>die deutsche Nummer funktioniert,
+          sobald das Flugzeug aufsetzt.</b></p>
+        <p class="providers reveal d3">Deutschlands beste Prepaid <b>eSIM oder physische SIM</b> — die ersten 4 Wochen kostenfrei</p>
+      </div>
+      <div class="phone-wrap reveal d2">
+        <div class="phone">
+          <div class="screen">
+            <div class="statusbar"><span>9:41</span><span>●●● 🔋</span></div>
+            <div class="appbar"><img src="assets/wte-favicon.svg" class="aglyph" alt=""><div><h5>Companion</h5><p>Immer erreichbar</p></div></div>
+            <div class="chat" id="chat-sim"></div>
+          </div>
+        </div>
+        <div class="floatie" data-fl="1" style="top:70px;right:-70px">eSIM-kompatibel</div>
+        <div class="floatie" data-fl="2" style="bottom:110px;left:-78px">Online ab der Landung</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6 ─ BANKKONTO (app demo) -->
+<section class="slide" id="s6" data-chat="bank">
+  <div class="slide-inner">
+    <div class="ghost">03</div>
+    <div class="split" style="grid-template-columns:1.3fr .7fr">
+      <div>
+        <div class="slogo reveal"><img src="assets/bunq-logo.svg" alt="bunq"></div>
+        <p class="kicker reveal">Essential 03 · Bankkonto</p>
+        <h2 class="statement sm reveal d1">Digitale<br>Kontoeröffnung<br><span class="mark">ohne Filialbesuch.</span></h2>
+        <p class="lede reveal d2">Das häufigste Onboarding-Problem — <b>gelöst, bevor es entsteht.</b></p>
+        <p class="providers reveal d3">In Partnerschaft mit der führenden <b>Expat Bank</b></p>
+      </div>
+      <div class="phone-wrap reveal d2">
+        <div class="phone">
+          <div class="screen">
+            <div class="statusbar"><span>9:41</span><span>●●● 🔋</span></div>
+            <div class="appbar"><img src="assets/wte-favicon.svg" class="aglyph" alt=""><div><h5>Companion</h5><p>Immer erreichbar</p></div></div>
+            <div class="chat" id="chat-bank"></div>
+          </div>
+        </div>
+        <div class="floatie" data-fl="1" style="top:80px;right:-58px">Daten übertragen</div>
+        <div class="floatie" data-fl="2" style="bottom:-16px;left:-84px">Bereit fürs Gehalt</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 7 ─ HAFTPFLICHT -->
+<section class="slide dark" id="s7" data-chrome="dark">
+  <div class="slide-inner">
+    <div class="ghost">04</div>
+    <div class="split" style="grid-template-columns:1.3fr .7fr">
+      <div>
+        <div class="slogo reveal"><img src="assets/interlloyd-logo.svg" alt="InterLloyd"></div>
+        <p class="kicker reveal">Essential 04 · Haftpflicht</p>
+        <h2 class="statement sm reveal d1">Die Versicherung,<br>die Deutschland<br><span class="mark under" style="color:#fff">erwartet.</span></h2>
+        <p class="lede reveal d2">Vermieter, Arbeitgeber, Alltag: Ohne Haftpflicht geht hier wenig.
+          Mit der App ist sie erledigt, <b>bevor jemand danach fragt.</b></p>
+        <p class="providers reveal d3">Der <b>Check24 Preis-Leistungs-Sieger</b></p>
+      </div>
+      <div class="clicks">
+        <div class="click reveal d2"><i>1</i> Angebot ansehen</div>
+        <div class="click reveal d3"><i>2</i> Bedingungen akzeptieren</div>
+        <div class="click done reveal d4"><i>✓</i> Versichert — bis 50&thinsp;Mio.&thinsp;€</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 7b ─ ZEITERSPARNIS -->
+<section class="slide" id="stime">
+  <div class="slide-inner">
+    <div class="split" style="grid-template-columns:1.02fr .98fr;gap:56px;align-items:center">
+      <div>
+        <p class="kicker reveal">Selbst gebaut, selbst erprobt</p>
+        <h2 class="statement sm reveal d1">Aus 3 Stunden<br>werden <span class="mark">Minuten.</span></h2>
+        <p class="lede reveal d2">WTE Companion ist aus unserer eigenen Personalvermittlung entstanden.
+          Pro Kandidat gingen rund <b>3 Stunden</b> für Anträge und Behördengänge drauf — heute
+          erledigt die App das vollautomatisch in wenigen Minuten.</p>
+        <p class="foot reveal d3">So bleibt dem Team Zeit für die <b>echte Integration</b> der
+          Fachkräfte — statt Formulare auszufüllen.</p>
+      </div>
+      <div class="ledger reveal d2">
+        <div class="ledger-head"><h5>Manueller Aufwand</h5><span class="per">pro Kandidat</span></div>
+        <div class="tl-row r1">
+          <span class="tl-label">Krankenversicherung</span>
+          <span class="tl-track"><i style="width:100%"></i></span>
+          <span class="tl-min" data-min="45">0 Min.</span></div>
+        <div class="tl-row r2">
+          <span class="tl-label">Bankkonto</span>
+          <span class="tl-track"><i style="width:100%"></i></span>
+          <span class="tl-min" data-min="45">0 Min.</span></div>
+        <div class="tl-row r3">
+          <span class="tl-label">SIM-Karte</span>
+          <span class="tl-track"><i style="width:67%"></i></span>
+          <span class="tl-min" data-min="30">0 Min.</span></div>
+        <div class="tl-row r4">
+          <span class="tl-label">Haftpflicht</span>
+          <span class="tl-track"><i style="width:67%"></i></span>
+          <span class="tl-min" data-min="30">0 Min.</span></div>
+        <div class="tl-row r5">
+          <span class="tl-label">Deutschlandticket</span>
+          <span class="tl-track"><i style="width:67%"></i></span>
+          <span class="tl-min" data-min="30">0 Min.</span></div>
+        <div class="tl-sum"><span class="lab">Früher · pro Kandidat</span><span class="big">≈ 3 Std.</span></div>
+        <div class="tl-now"><span class="lab">Mit WTE Companion</span><span class="val"><b>5 Min.</b><small>automatisch</small></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 8 ─ PORTAL -->
+<section class="slide" id="s8">
+  <div class="slide-inner">
+    <div class="portal-grid">
+      <div>
+        <p class="kicker reveal">Transparent Fortschritte verfolgen</p>
+        <h2 class="statement sm reveal d1">Volle Übersicht über alle <span class="mark">Kandidaten.</span></h2>
+        <p class="lede reveal d2">Ihr eigenes Portal zeigt live, wer startklar ist —
+          bevor es am ersten Arbeitstag zum Problem wird. <b>Keine Nachfrage-E-Mails mehr.</b></p>
+      </div>
+      <div class="browser reveal d2">
+        <div class="browser-bar"><i></i><i></i><i></i><div class="urlbar">portal.wte-companion.com/kronbuegel</div></div>
+        <div class="portal-body">
+          <div class="pside">
+            <div class="plogo"><div class="glyph"></div>WTE Partner Portal</div>
+            <nav class="pnav">
+              <a class="on"><span>👥</span>Kandidaten</a>
+              <a><span>📈</span>Übersicht</a>
+              <a><span>📄</span>Dokumente</a>
+              <a><span>⚙️</span>Einstellungen</a>
+            </nav>
+          </div>
+          <div class="pmain">
+            <div class="pmain-head">
+              <div><h5>Kohorte März</h5><p>12 Kandidaten · Ankunft 1.–15. März</p></div>
+              <button class="invite-btn">+ Einladen</button>
+            </div>
+            <div class="pstats">
+              <div class="pstat-tile hl"><div class="n">9<em>/12</em></div><div class="l">Versichert</div></div>
+              <div class="pstat-tile"><div class="n">7<em>/12</em></div><div class="l">Startklar</div></div>
+              <div class="pstat-tile"><div class="n">2</div><div class="l">Brauchen Stupser</div></div>
+            </div>
+            <div class="ptable">
+              <div class="thead"><span>Kandidat</span><span>Essentials</span><span style="text-align:right">Status</span></div>
+              <div class="prow2">
+                <div class="cwho"><img class="face" src="assets/maria-santos.png" alt=""><div class="nm">Maria Santos<small>Pflegekraft · 1. März</small></div></div>
+                <div class="tdots"><span class="tdot ok">🏥</span><span class="tdot ok">📱</span><span class="tdot ok">🏦</span><span class="tdot ok">🛡</span></div>
+                <div class="pstatus ready">Startklar</div>
+              </div>
+              <div class="prow2">
+                <div class="cwho"><img class="face" src="assets/tomas-oliveira.png" alt=""><div class="nm">Tomás Oliveira<small>Elektriker · 1. März</small></div></div>
+                <div class="tdots"><span class="tdot ok">🏥</span><span class="tdot ok">📱</span><span class="tdot wip">🏦</span><span class="tdot">🛡</span></div>
+                <div class="pstatus open">In Arbeit</div>
+              </div>
+              <div class="prow2">
+                <div class="cwho"><img class="face" src="assets/mateusz-kowalski.png" alt=""><div class="nm">Mateusz Kowalski<small>Entwickler · 8. März</small></div></div>
+                <div class="tdots"><span class="tdot ok">🏥</span><span class="tdot wip">📱</span><span class="tdot">🏦</span><span class="tdot">🛡</span></div>
+                <div class="pstatus open">In Arbeit</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 9 ─ COMING SOON -->
+<section class="slide" id="s9">
+  <div class="slide-inner">
+    <p class="kicker reveal">Ausblick</p>
+    <h2 class="statement sm reveal d1">Das ist erst<br>der <span class="mark">Anfang.</span></h2>
+    <div class="soon-grid">
+      <div class="soon-tile wtax reveal d2"><span class="bald">Bald</span>
+        <div class="wm">wunder<b>tax</b></div>
+        <div class="ds">Steuererklärung speziell für Internationals</div>
+      </div>
+      <div class="soon-tile dt reveal d3"><span class="bald">Bald</span>
+        <div class="wm">Deutschland-Ticket</div>
+        <div class="ds">Mobil ab Tag eins, verwaltet in der App</div>
+      </div>
+      <div class="soon-tile wp reveal d4"><span class="bald">Bald</span>
+        <div class="wm">wechselpilot</div>
+        <div class="ds">Strom und Gas für die eigene Wohnung zu den besten Konditionen</div>
+      </div>
+      <div class="soon-tile fi reveal d5"><span class="bald">Bald</span>
+        <div class="wm">Festnetz &amp; Internet</div>
+        <div class="ds">Anschluss für die erste eigene Wohnung</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 10 ─ CTA -->
+<section class="slide dark" id="s10" data-chrome="dark">
+  <div class="slide-inner">
+    <div class="cta-split">
+      <div>
+        <p class="kicker reveal">Der nächste Schritt</p>
+        <h2 class="statement sm reveal d1">Probieren<br>Sie es direkt<br><span class="mark under" style="color:#fff">einmal aus.</span></h2>
+        <p class="lede reveal d2">Kein Vertrag, keine Kosten, keine Verpflichtungen.
+          <b>Kandidaten einladen und direkt loslegen.</b></p>
+      </div>
+      <div class="fabian reveal d3">
+        <div class="fabian-pic"><img src="assets/karol-baginski.jpg" alt="Karol Baginski"></div>
+        <div><h5>Karol Baginski</h5><p>Sales &amp; Partnerships<br>kb@wte-companion.com</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BRAND + HUD -->
+<div id="brand"><img src="assets/wte-companion-logo.svg" alt="WTE Companion" class="hud-logo"></div>
+<div id="hud">
+  <div class="hud-spacer"></div>
+  <div id="dots"></div>
+  <div class="hud-arrows">
+    <span id="counter"></span>
+    <button id="prev" aria-label="Zurück">←</button>
+    <button id="next" aria-label="Weiter">→</button>
+  </div>
+</div>
+
+<script>
+const q = new URLSearchParams(location.search);
+const prospectEl = document.getElementById('prospect');
+if (q.get('prospect') && prospectEl) prospectEl.textContent = q.get('prospect');
+
+/* ---------- chat simulations ---------- */
+const CHATS = {
+  kv: [
+    { t:'bot',  d:500,  h:`Hallo Maria 👋 Deine Daten habe ich schon vom Onboarding. Für deine
+        <b>Krankenversicherung</b> fehlt nur noch ein Foto — magst du kurz ein Selfie machen?` },
+    { t:'user', d:1500, h:`Klar! 🤳` },
+    { t:'w',    d:900,  h:`<div class="selfie"><div class="scanline"></div>
+        <img src="assets/maria-santos.png" alt=""></div>` },
+    { t:'w',    d:2500, h:`<div class="extract">
+        <span style="animation-delay:.1s">Qualität geprüft</span>
+        <span style="animation-delay:.4s">Bereit für die Karte</span></div>` },
+    { t:'bot',  d:1500, h:`Perfekt! Dein DAK-Antrag ist damit komplett. Absenden?` },
+    { t:'user', d:1400, h:`Absenden ✓` },
+    { t:'typing', d:700 },
+    { t:'w',    d:1500, h:`<div class="inscard"><img class="cphoto" src="assets/maria-santos.png" alt="">
+        <div class="top"><span class="prov">DAK-GESUNDHEIT</span>
+        <span class="tag">Aktiv</span></div>
+        <div class="name">MARIA SANTOS</div><div class="sub">Versichertennr. A123 456 789</div>
+        <div class="cfoot"><span>Gesetzliche Krankenversicherung</span><span>ab 01.03.</span></div></div>` },
+    { t:'fl',   d:600,  n:1 },
+    { t:'bot',  d:900,  h:`🎉 Krankenversichert ab <b>Tag eins</b> — die Karte mit deinem Foto
+        kommt zur neuen Adresse.` },
+    { t:'fl',   d:800,  n:2 },
+  ],
+  sim: [
+    { t:'bot',  d:500,  h:`Jetzt deine deutsche Nummer 📱 Ich prüfe kurz dein Handy…` },
+    { t:'typing', d:900 },
+    { t:'w',    d:1300, h:`<div class="devcard"><div class="dev"></div>
+        <div><h6>Galaxy S25 erkannt</h6><p>automatisch geprüft — nichts einzutippen</p>
+        <div class="okrow">eSIM-kompatibel</div></div></div>` },
+    { t:'fl',   d:700,  n:1 },
+    { t:'bot',  d:1200, h:`Gute Nachrichten — dein Handy unterstützt <b>eSIM</b>. Vodafone CallYa:
+        die ersten 4 Wochen gratis. Soll ich sie direkt installieren?` },
+    { t:'user', d:1500, h:`Ja, gerne!` },
+    { t:'typing', d:900 },
+    { t:'w',    d:1500, h:`<div class="bigok"><h6>eSIM installiert ✓</h6>
+        <p>Deine deutsche Nummer, schon auf dem Handy</p>
+        <div class="mono">+49 1520 555 0192</div></div>` },
+    { t:'bot',  d:1100, h:`Fertig — die eSIM aktiviert sich automatisch, sobald du in Deutschland landest. ✈️` },
+    { t:'fl',   d:600,  n:2 },
+  ],
+  bank: [
+    { t:'bot',  d:500,  h:`Dein <b>deutsches Bankkonto</b> bei bunq — fürs Gehalt brauchst du es.
+        Deine Daten habe ich schon. Schau:` },
+    { t:'w',    d:1400, h:`<div class="formfill" id="bankform">
+        <div class="ff-row"><span class="k">Name</span><span class="v auto">Maria Santos</span></div>
+        <div class="ff-row"><span class="k">Geburtsdatum</span><span class="v auto">12.09.1992</span></div>
+        <div class="ff-row"><span class="k">Nationalität</span><span class="v auto">Portugiesisch</span></div>
+        <div class="ff-row"><span class="k">Passnummer</span><span class="v auto">C7841920</span></div>
+        <div class="ff-row"><span class="k">Adresse (DE)</span><span class="v auto">Eppendorfer Weg 95</span></div></div>` },
+    { t:'fillform', d:500 },
+    { t:'fl',   d:2200, n:1 },
+    { t:'bot',  d:800,  h:`Ich habe schon <b>alles vorausgefüllt</b> — passt das so?` },
+    { t:'user', d:1400, h:`Passt ✓` },
+    { t:'typing', d:700 },
+    { t:'w',    d:1500, h:`<div class="bigok"><h6>Konto eröffnet</h6><p>Deine deutsche IBAN, bereit fürs Gehalt</p>
+        <div class="mono">DE89 1001 0010 0532 0130 00</div></div>` },
+    { t:'bot',  d:1100, h:`IBAN an HR schicken — und das erste Gehalt kommt pünktlich. 💶` },
+    { t:'fl',   d:600,  n:2 },
+  ],
+};
+let timers = [];
+function stopChats(){ timers.forEach(clearTimeout); timers = []; }
+function playChat(slide){
+  const name = slide.dataset.chat;
+  if (!name) return;
+  const chat = document.getElementById('chat-' + name);
+  chat.innerHTML = '';
+  slide.querySelectorAll('.floatie').forEach(f => f.classList.remove('show'));
+  let t = 0, typingEl = null;
+  CHATS[name].forEach(step => {
+    t += step.d;
+    timers.push(setTimeout(() => {
+      if (typingEl) { typingEl.remove(); typingEl = null; }
+      if (step.t === 'typing') {
+        typingEl = document.createElement('div');
+        typingEl.className = 'typing';
+        typingEl.innerHTML = '<i></i><i></i><i></i>';
+        chat.appendChild(typingEl);
+      } else if (step.t === 'fillform') {
+        slide.querySelectorAll('#bankform .v').forEach((v, i) =>
+          setTimeout(() => v.classList.add('fill'), i * 400));
+      } else if (step.t === 'fl') {
+        const f = slide.querySelector('.floatie[data-fl="' + step.n + '"]');
+        if (f) f.classList.add('show');
+        return;
+      } else {
+        const el = document.createElement('div');
+        el.className = step.t === 'w' ? 'w' : 'msg ' + step.t;
+        el.innerHTML = step.h;
+        chat.appendChild(el);
+      }
+      chat.scrollTop = chat.scrollHeight;
+    }, t));
+  });
+}
+
+/* ---------- ledger cascade (S-time) ---------- */
+let ledgerGen = 0;
+function playLedger(slide){
+  ledgerGen++;
+  const gen = ledgerGen;
+  const rows = [...slide.querySelectorAll('.tl-row')];
+  const sum = slide.querySelector('.tl-sum');
+  const now = slide.querySelector('.tl-now');
+  rows.forEach(r => {
+    r.classList.remove('run');
+    r.querySelector('.tl-min').textContent = '0 Min.';
+  });
+  sum.classList.remove('run');
+  now.classList.remove('run');
+  const STAGGER = 250, COUNT = 460, STEPS = 23;   // 5 rows + total + neon, all within ~2s
+  rows.forEach((r, idx) => {
+    timers.push(setTimeout(() => {
+      if (gen !== ledgerGen) return;          // abandoned by a newer run / navigation
+      r.classList.add('run');                 // bar fills via CSS transition
+      const minEl = r.querySelector('.tl-min');
+      const target = +minEl.dataset.min;
+      (function step(n){
+        if (gen !== ledgerGen) return;
+        const p = Math.min(1, n / STEPS);
+        minEl.textContent = Math.round(p * target) + ' Min.';
+        if (n < STEPS) timers.push(setTimeout(() => step(n + 1), COUNT / STEPS));
+      })(0);
+    }, idx * STAGGER));
+  });
+  const after = rows.length * STAGGER;        // 1250ms
+  timers.push(setTimeout(() => sum.classList.add('run'), after + 120));
+  timers.push(setTimeout(() => now.classList.add('run'), after + 320));
+}
+
+/* ---------- deck engine ---------- */
+const slides = [...document.querySelectorAll('.slide')];
+const dots = document.getElementById('dots');
+slides.forEach((s, i) => {
+  const b = document.createElement('button');
+  b.onclick = () => go(i);
+  dots.appendChild(b);
+});
+let cur = Math.max(0, Math.min((parseInt(location.hash.slice(1)) || 1) - 1, slides.length - 1));
+
+function go(i) {
+  if (i < 0 || i >= slides.length) return;
+  slides[cur]?.classList.remove('active');
+  cur = i;
+  const s = slides[cur];
+  s.classList.add('active');
+  document.body.className = (s.dataset.chrome === 'dark' ? 'dark-chrome'
+                          : s.dataset.chrome === 'neon' ? 'neon-chrome' : '')
+                          + (cur === 0 ? ' hide-brand' : '');
+  [...dots.children].forEach((d, j) => d.classList.toggle('on', j === cur));
+  document.getElementById('counter').textContent = (cur + 1) + ' / ' + slides.length;
+  history.replaceState(null, '', '#' + (cur + 1));
+  stopChats();
+  if (s.dataset.chat) playChat(s);
+  if (s.id === 'stime') playLedger(s);
+}
+document.getElementById('prev').onclick = () => go(cur - 1);
+document.getElementById('next').onclick = () => go(cur + 1);
+addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); go(cur + 1); }
+  if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); go(cur - 1); }
+  if (e.key === 'Home') go(0);
+  if (e.key === 'End') go(slides.length - 1);
+  if (e.key === 'r' && slides[cur].dataset.chat) { stopChats(); playChat(slides[cur]); }
+});
+go(cur);
+</script>
+</body>
+</html>
