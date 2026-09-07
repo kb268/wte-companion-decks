@@ -109,7 +109,6 @@
 </style>
 
 <div class="dots"></div>
-<div class="protobar">Vorschau · Antworten werden noch nicht gespeichert</div>
 <div class="shell">
   <div class="brand"><span class="bar"></span>WTE Companion · Puls-Check</div>
   <div class="progress" aria-hidden="true"><div class="fill" id="fill"></div></div>
@@ -121,6 +120,7 @@
 <script>
 (function(){
   var SWOOSH = '<svg viewBox="0 0 600 24" preserveAspectRatio="none" aria-hidden="true"><path d="M4 18 C150 6, 420 4, 596 12" stroke="#E1F300" stroke-width="11" fill="none" stroke-linecap="round"/></svg>';
+  var SUBMIT_URL = "https://script.google.com/macros/s/AKfycbw6HSQPWFHNrhv8rQ5q0IQy3V34ZXmU5zgKt3iHPx7MKi31fNWz2UXkubn7tMRAuBEX/exec";
 
   var QUESTIONS = [
     {block:"Block A · Über Ihr Unternehmen", type:"select",
@@ -181,7 +181,7 @@
         '<h1>Ankommens-Monitor <span class="mark">2026' + SWOOSH + '</span></h1>' +
         '<p class="hint" style="font-size:15.5px;color:var(--text)">Wie holen deutsche Arbeitgeber internationale Fachkräfte an Bord? 12 Fragen, rund 3 Minuten, alles anklickbar. Teilnehmer erhalten den Benchmark-Report vor der Veröffentlichung.</p>' +
         '<div class="nav"><span></span><button class="btn primary" data-act="next">Los geht’s</button></div>' +
-        '<p class="fineprint">Diese Befragung ist ohne Angabe persönlicher Daten möglich. Verantwortlich: WTE Companion. Die vollständigen Datenschutzhinweise erscheinen hier zum Start der Erhebung.</p>';
+        '<p class="fineprint">Diese Befragung ist ohne Angabe persönlicher Daten möglich. Verantwortlich: WTE Companion (Kontakt: kb@wte-companion.com). Eine E-Mail-Adresse erfragen wir nur, wenn Sie den Ergebnis-Report erhalten oder kontaktiert werden möchten; Widerruf jederzeit per Mail. Antworten speichern wir vertraulich in unserem Google Workspace und löschen oder anonymisieren sie spätestens am 31.03.2027.</p>';
       return;
     }
     if(state.step >= total){
@@ -189,9 +189,7 @@
       screen.innerHTML =
         '<div class="block-tag">Danke!</div>' +
         '<h1>Das <span class="mark">war’s' + SWOOSH + '</span> schon.</h1>' +
-        '<p class="hint" style="font-size:15.5px;color:var(--text)">Danke für Ihre 3 Minuten. Der Benchmark-Report geht vor der Veröffentlichung an alle Teilnehmer, die eine E-Mail-Adresse angegeben haben.</p>' +
-        '<div class="endnote"><strong>Vorschau-Hinweis:</strong> Diese Version speichert noch keine Antworten. Die Erhebung startet in Kürze, dann verschwindet dieser Hinweis.</div>' +
-        '<div class="nav"><button class="btn ghost" data-act="restart">Noch einmal durchklicken</button><span></span></div>';
+        '<p class="hint" style="font-size:15.5px;color:var(--text)">Ihre Antworten sind gespeichert, danke für Ihre 3 Minuten. Der Benchmark-Report geht vor der Veröffentlichung an alle Teilnehmer, die eine E-Mail-Adresse angegeben haben.</p>';
       return;
     }
     var q = QUESTIONS[state.step];
@@ -231,7 +229,8 @@
       h += '<label style="font-weight:700;font-size:14.5px" for="mailin">Wohin dürfen wir den Benchmark-Report schicken, bevor er veröffentlicht wird?</label>' +
            '<input type="email" id="mailin" placeholder="ihre@firma.de" value="'+esc(o.mail)+'" autocomplete="off">' +
            '<label class="checkrow"><input type="checkbox" id="c1" '+(o.c1?"checked":"")+'> <span>WTE Companion darf mich per E-Mail zu den Studienergebnissen und zur Companion-App kontaktieren. Widerruf jederzeit möglich.</span></label>' +
-           '<label class="checkrow"><input type="checkbox" id="c2" '+(o.c2?"checked":"")+'> <span>Ich stehe für ein 15-Minuten-Gespräch zu den Ergebnissen zur Verfügung.</span></label>';
+           '<label class="checkrow"><input type="checkbox" id="c2" '+(o.c2?"checked":"")+'> <span>Ich stehe für ein 15-Minuten-Gespräch zu den Ergebnissen zur Verfügung.</span></label>' +
+           '<input type="text" id="website" value="" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">';
     }
 
     var last = (state.step === total-1);
@@ -282,6 +281,7 @@
       return;
     }
     if(b.dataset.act === "next"){
+      if(q && q.type === "optin"){ submitAnswers(b); return; }
       saveFree();
       state.step++; render(); window.scrollTo(0,0);
     } else if(b.dataset.act === "back"){
@@ -298,6 +298,46 @@
       state.answers[state.step] = isNaN(v) ? undefined : v;
     }
   });
+
+  function buildPayload(){
+    var A = state.answers;
+    function lbl(i){ var qq=QUESTIONS[i]; return (A[i]===undefined || !qq.opts) ? "" : (qq.opts[A[i]] || ""); }
+    function multi(i){ var qq=QUESTIONS[i]; return (A[i]||[]).map(function(x){ return qq.opts[x]; }).join(", "); }
+    var o = A[12] || {};
+    var aufw = A[5];
+    return {
+      branche: lbl(0), groesse: lbl(1), rolle: lbl(2),
+      eingestellt: A[3], geplant: A[4],
+      aufwand: (aufw===undefined) ? "" : (aufw>=30 ? "30+" : String(aufw)),
+      heute: multi(6), app: lbl(7), schmerz: multi(8),
+      gescheitert: lbl(9), relevanz: A[10], wert: lbl(11),
+      mail: o.mail || "", c1: !!o.c1, c2: !!o.c2,
+      website: (document.getElementById("website")||{}).value || ""
+    };
+  }
+
+  function submitAnswers(btn){
+    saveFree();
+    btn.disabled = true; btn.textContent = "Wird gesendet…";
+    var old = document.getElementById("suberr"); if(old) old.remove();
+    fetch(SUBMIT_URL, {
+      method: "POST",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify(buildPayload())
+    }).then(function(r){ return r.json(); })
+      .then(function(j){
+        if(j && j.ok){ state.step++; render(); window.scrollTo(0,0); }
+        else { throw new Error("nok"); }
+      })
+      .catch(function(){
+        btn.disabled = false; btn.textContent = "Absenden";
+        var d = document.createElement("div");
+        d.id = "suberr"; d.className = "endnote";
+        d.textContent = "Das Senden hat gerade nicht geklappt. Bitte versuchen Sie es gleich noch einmal, Ihre Angaben bleiben erhalten.";
+        var nav = btn.parentNode;
+        nav.parentNode.insertBefore(d, nav);
+      });
+  }
 
   function saveFree(){
     var q = QUESTIONS[state.step];
