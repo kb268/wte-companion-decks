@@ -1,0 +1,500 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+</head>
+<body>
+<title>Der Meilenstein-Baum</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FFFFFF; --paper2:#F6F6F4;
+  --ink:#181410; --ink2:#3A342C; --ink3:#6B6358;
+  --blue:#2B3B99; --blue-deep:#161E4D; --navy:#0F1536;
+  --blue-wash:#DFE2F0;
+  --cta:#E1F300;
+  --rule:rgba(24,20,16,.10); --rule-strong:rgba(24,20,16,.20);
+  --card-shadow:0 24px 48px -28px rgba(24,20,16,.35);
+  --on-navy:#FFFFFF;
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0B0F26; --paper2:#0F1536;
+    --ink:#F3F4FA; --ink2:#C6CADF; --ink3:#8F95B8;
+    --blue:#959DCC; --blue-deep:#161E4D; --navy:#161E4D;
+    --blue-wash:#1A2350;
+    --rule:rgba(243,244,250,.12); --rule-strong:rgba(243,244,250,.24);
+    --card-shadow:0 24px 48px -28px rgba(0,0,0,.6);
+    --on-navy:#F3F4FA;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0B0F26; --paper2:#0F1536;
+  --ink:#F3F4FA; --ink2:#C6CADF; --ink3:#8F95B8;
+  --blue:#959DCC; --blue-deep:#161E4D; --navy:#161E4D;
+  --blue-wash:#1A2350;
+  --rule:rgba(243,244,250,.12); --rule-strong:rgba(243,244,250,.24);
+  --card-shadow:0 24px 48px -28px rgba(0,0,0,.6);
+  --on-navy:#F3F4FA;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:var(--paper);color:var(--ink);
+  font-family:"Inter",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+  font-size:15.5px;line-height:1.55;letter-spacing:-0.005em;
+  padding:56px 20px 72px;-webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1120px;margin:0 auto}
+header{text-align:center;margin-bottom:10px}
+.kicker{font-size:12.5px;font-weight:700;text-transform:uppercase;letter-spacing:.16em;color:var(--blue);margin-bottom:22px}
+h1{font-size:clamp(42px,6.4vw,84px);line-height:.98;letter-spacing:-0.04em;font-weight:800;text-wrap:balance}
+.mark{position:relative;white-space:nowrap;z-index:0}
+.mark::after{content:"";position:absolute;left:-1%;right:-1%;bottom:.02em;height:.16em;background:var(--cta);z-index:-1}
+.lede{font-size:clamp(16px,1.5vw,19px);color:var(--ink2);max-width:56ch;margin:24px auto 0;text-wrap:balance}
+.legend{
+  display:flex;flex-wrap:wrap;justify-content:center;gap:8px 20px;margin-top:22px;
+  font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--ink3);
+}
+.legend b{color:var(--blue)}
+.legend .now b{color:#181410;background:var(--cta);padding:1px 6px;border-radius:4px}
+#toggleAll{
+  margin-top:18px;display:inline-flex;align-items:center;gap:8px;
+  font:inherit;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  background:transparent;color:var(--ink2);border:1px solid var(--rule-strong);border-radius:999px;
+  padding:8px 18px;cursor:pointer;transition:all .25s var(--ease);
+}
+#toggleAll:hover{background:var(--cta);color:#181410;border-color:var(--cta)}
+#toggleAll:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+
+/* Meilenstein-Timeline */
+.timeline{
+  margin:40px auto 0;background:var(--navy);color:#FFFFFF;border-radius:18px;
+  padding:26px 28px 24px;box-shadow:var(--card-shadow);
+}
+.timeline .tl-label{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.16em;color:var(--cta);margin-bottom:20px;text-align:center}
+.tl-track{display:grid;grid-template-columns:repeat(7,1fr);grid-template-rows:auto 20px auto;column-gap:14px}
+.tl-axis{grid-row:2;grid-column:1/-1;position:relative}
+.tl-axis::before{
+  content:"";position:absolute;left:3%;right:3%;top:50%;transform:translateY(-50%);
+  height:2px;border-radius:2px;
+  background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.28) 8%,rgba(255,255,255,.28) 92%,rgba(255,255,255,0));
+}
+.tl-dot{
+  grid-row:2;place-self:center;z-index:1;
+  width:13px;height:13px;border-radius:50%;background:var(--cta);
+  box-shadow:0 0 0 4px rgba(225,243,0,.16);
+}
+.c1{grid-column:1}.c2{grid-column:2}.c3{grid-column:3}.c4{grid-column:4}.c5{grid-column:5}.c6{grid-column:6}.c7{grid-column:7}
+.tl-item{text-align:center;min-width:0}
+.tl-item.up{grid-row:1;align-self:end;padding-bottom:13px}
+.tl-item.down{grid-row:3;align-self:start;padding-top:13px}
+.tl-item .d{font-size:12px;font-weight:800;color:var(--cta);font-variant-numeric:tabular-nums;letter-spacing:.04em}
+.tl-item .t{font-size:13.5px;font-weight:700;margin-top:3px;line-height:1.3}
+.tl-item .s{font-size:11.5px;color:rgba(255,255,255,.62);margin-top:3px;line-height:1.45}
+@media(max-width:860px){
+  .tl-track{display:flex;flex-direction:column;gap:0}
+  .tl-axis{display:none}
+  .tl-dot{display:none}
+  .tl-item,.tl-item.up,.tl-item.down{
+    text-align:left;padding:10px 0 10px 22px;position:relative;
+    border-left:2px solid rgba(255,255,255,.22);margin-left:6px;
+  }
+  .tl-item::before{
+    content:"";position:absolute;left:-7px;top:14px;width:12px;height:12px;border-radius:50%;
+    background:var(--cta);box-shadow:0 0 0 4px rgba(225,243,0,.16);
+  }
+}
+
+.zone-label{
+  display:flex;align-items:center;gap:16px;
+  font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.16em;
+  color:var(--ink3);margin:48px 0 20px;
+}
+.zone-label::before,.zone-label::after{content:"";flex:1;border-top:1px solid var(--rule-strong)}
+.zone-label strong{color:var(--blue)}
+.branches{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;align-items:start}
+@media(max-width:860px){.branches{grid-template-columns:1fr}}
+
+/* ---------- Aufklapp-Karten ---------- */
+.card{
+  background:var(--paper);border:1px solid var(--rule-strong);border-radius:18px;
+  box-shadow:var(--card-shadow);overflow:hidden;
+  transition:box-shadow .3s var(--ease),transform .3s var(--ease),border-color .3s var(--ease);
+}
+:root[data-theme="dark"] .card,
+:root:not([data-theme="light"]) .card{background:var(--paper2)}
+.card:hover{transform:translateY(-2px)}
+.card-head{
+  width:100%;display:flex;align-items:center;gap:14px;text-align:left;
+  background:transparent;border:none;color:inherit;font:inherit;cursor:pointer;
+  padding:22px 22px;
+}
+.card-head:focus-visible{outline:3px solid var(--blue);outline-offset:-3px;border-radius:18px}
+.card-head h2{font-size:20px;font-weight:800;letter-spacing:-0.02em;line-height:1.15}
+.card-head .sub{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--blue);margin-top:4px}
+.card-head .headtxt{flex:1}
+.count{
+  flex:none;font-size:11px;font-weight:800;color:#181410;background:var(--cta);
+  border-radius:999px;padding:3px 10px;letter-spacing:.04em;
+}
+.chev{
+  flex:none;width:34px;height:34px;border-radius:50%;border:1px solid var(--rule-strong);
+  display:grid;place-items:center;transition:all .35s var(--ease);color:var(--ink2);
+}
+.chev svg{width:14px;height:14px;display:block}
+.card.open{border-color:var(--blue)}
+.card.open .chev{transform:rotate(180deg);background:var(--blue);border-color:var(--blue);color:#fff}
+.card-body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .55s var(--ease)}
+.card.open .card-body{grid-template-rows:1fr}
+.card-inner{overflow:hidden}
+.card-inner ul{list-style:none;padding:0 22px 18px;opacity:0;transform:translateY(-6px);transition:opacity .4s var(--ease) .1s,transform .4s var(--ease) .1s}
+.card.open .card-inner ul{opacity:1;transform:none}
+.card li{padding:11px 0;border-top:1px solid var(--rule);font-size:13.5px}
+.card li:first-child{border-top:1px solid var(--rule)}
+.idea{font-weight:700}
+.why{color:var(--ink3);font-size:12.5px;display:block;margin-top:3px;line-height:1.5}
+.pill{
+  display:inline-block;font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+  padding:3px 9px;border-radius:999px;margin-left:6px;vertical-align:1px;
+}
+.pill.fix{background:var(--cta);color:#181410}
+.pill.blue{background:var(--blue-wash);color:var(--blue)}
+.pill.offen{border:1px solid var(--rule-strong);color:var(--ink3)}
+.highlight{border-color:var(--blue);box-shadow:0 0 0 2px var(--blue),var(--card-shadow)}
+.connector{display:block;width:100%;height:auto;color:var(--rule-strong);margin:-2px 0}
+@media(max-width:860px){.connector{display:none}}
+
+.trunk{
+  max-width:760px;margin:0 auto;background:var(--blue);color:#fff;
+  border-radius:20px;padding:30px 32px;text-align:center;box-shadow:var(--card-shadow);
+}
+:root[data-theme="dark"] .trunk,
+:root:not([data-theme="light"]) .trunk{background:var(--blue-deep);color:var(--on-navy)}
+.trunk h2{font-size:30px;font-weight:800;letter-spacing:-0.03em}
+.trunk .claim{color:rgba(255,255,255,.8);max-width:56ch;margin:8px auto 18px;font-size:14.5px}
+.services{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-bottom:14px}
+.services span{
+  font-size:12.5px;font-weight:700;background:rgba(255,255,255,.1);
+  border:1px solid rgba(255,255,255,.25);border-radius:999px;padding:6px 14px;
+}
+.services span.neon{background:var(--cta);color:#181410;border-color:var(--cta)}
+.trunk .model{font-size:12.5px;color:rgba(255,255,255,.7)}
+
+.roots{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+@media(max-width:860px){.roots{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.roots{grid-template-columns:1fr}}
+.stat{background:var(--paper);border:1px solid var(--rule-strong);border-radius:18px;padding:20px;box-shadow:var(--card-shadow)}
+:root[data-theme="dark"] .stat,
+:root:not([data-theme="light"]) .stat{background:var(--paper2)}
+.stat .num{font-size:38px;font-weight:800;letter-spacing:-0.04em;line-height:1;font-variant-numeric:tabular-nums;
+  display:inline-block;position:relative;z-index:0;min-width:1.2em}
+.stat .num::after{content:"";position:absolute;left:-2%;right:-2%;bottom:.02em;height:.14em;background:var(--cta);z-index:-1}
+.stat .lab{font-size:12.5px;color:var(--ink3);margin-top:10px;line-height:1.5}
+.stat .lab b{color:var(--ink);font-weight:700}
+
+.loop{
+  margin-top:52px;background:var(--navy);color:var(--on-navy);
+  border-radius:20px;padding:28px 30px;text-align:center;box-shadow:var(--card-shadow);
+}
+.loop .mono-lab{font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--cta);display:block;margin-bottom:12px}
+.loop p{font-size:clamp(17px,2vw,21px);font-weight:700;letter-spacing:-0.015em;line-height:1.45;text-wrap:balance;max-width:66ch;margin:0 auto}
+footer{margin-top:30px;text-align:center;font-size:11.5px;font-weight:600;color:var(--ink3);letter-spacing:.02em}
+
+/* Scroll-Reveal */
+.rv{opacity:0;transform:translateY(18px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.rv.in{opacity:1;transform:none}
+.rv.d1.in{transition-delay:.08s}.rv.d2.in{transition-delay:.16s}.rv.d3.in{transition-delay:.24s}
+.rv.d4.in{transition-delay:.32s}.rv.d5.in{transition-delay:.4s}.rv.d6.in{transition-delay:.48s}.rv.d7.in{transition-delay:.56s}
+@media (prefers-reduced-motion: reduce){
+  .rv{opacity:1;transform:none;transition:none}
+  .card-body,.card-inner ul,.chev,.card{transition:none}
+}
+</style>
+
+<div class="wrap">
+<header>
+  <div class="kicker">WTE Companion · Bericht aus Vertrieb &amp; Partnerships · Stand 07.09.2026</div>
+  <h1>Ein Monat. <span class="mark">Ein Baum.</span></h1>
+  <p class="lede">Unten die Wurzeln: die Maschine, die seit dem 03.08. läuft, mit echten Zahlen. In der Mitte der Stamm: die App. Die Äste: was daraus schon gewachsen ist. Und die Krone: die Meilensteine, die jetzt kommen. Zum Entdecken: die Karten aufklappen.</p>
+  <div class="legend">
+    <span><b>Wurzeln</b> = die Zahlen</span>
+    <span><b>Stamm</b> = die App</span>
+    <span><b>Äste</b> = seit 03.08. gewachsen</span>
+    <span class="now"><b>Krone</b> = was jetzt kommt</span>
+  </div>
+  <button id="toggleAll" type="button" aria-pressed="false">Alles aufklappen</button>
+</header>
+
+<div class="timeline rv">
+  <div class="tl-label">Wichtige Termine · erledigt und geplant</div>
+  <div class="tl-track">
+    <div class="tl-axis"></div>
+    <div class="tl-dot c1 rv d1"></div><div class="tl-dot c2 rv d2"></div><div class="tl-dot c3 rv d3"></div><div class="tl-dot c4 rv d4"></div><div class="tl-dot c5 rv d5"></div><div class="tl-dot c6 rv d6"></div><div class="tl-dot c7 rv d7"></div>
+    <div class="tl-item up c1 rv d1"><div class="d">03.09.</div><div class="t">Behördentermin</div><div class="s">Welcome Center + Wirtschaftsbehörde · absolviert</div></div>
+    <div class="tl-item down c2 rv d2"><div class="d">KW 37</div><div class="t">Hamburg Invest</div><div class="s">Talent Services, Termin steht</div></div>
+    <div class="tl-item up c3 rv d3"><div class="d">KW 36/37</div><div class="t">Folgetermine</div><div class="s">Deutschakademie · Livora</div></div>
+    <div class="tl-item down c4 rv d4"><div class="d">14.09.</div><div class="t">Newsletter Nr. 2</div><div class="s">„Bleiben ist kein Zufall"</div></div>
+    <div class="tl-item up c5 rv d5"><div class="d">15.–17.09.</div><div class="t">BigBang Festival</div><div class="s">Stand B1 + Bühnenslot</div></div>
+    <div class="tl-item down c6 rv d6"><div class="d">17.09.</div><div class="t">Die Trophäe</div><div class="s">Gala + adesso-Tour</div></div>
+    <div class="tl-item up c7 rv d7"><div class="d">Mitte Sept.</div><div class="t">Videodreh Berlin</div><div class="s">Companion-Werbefilm</div></div>
+  </div>
+</div>
+
+<div class="zone-label rv"><strong>Die Krone</strong> was jetzt kommt</div>
+
+<div class="branches">
+  <div class="card highlight rv d1">
+    <button class="card-head" type="button" aria-expanded="false">
+      <span class="headtxt"><h2>BigBang Festival</h2><span class="sub">15.–17.09. Berlin · die große Bühne</span></span>
+      <span class="count">5</span>
+      <span class="chev" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6l5 5 5-5"/></svg></span>
+    </button>
+    <div class="card-body"><div class="card-inner">
+    <ul>
+      <li><span class="idea">Eigener Stand B1</span> <span class="pill fix">gebucht</span>
+        <span class="why">Start-up-Stand, von 3.900 € auf 2.000 € (netto) verhandelt, Budget von Fabian freigegeben. Drei WTE-Leute vor Ort, volle Pitch-Möglichkeit am Stand.</span></li>
+      <li><span class="idea">Fester Bühnenbeitrag</span> <span class="pill fix">gesichert</span>
+        <span class="why">Kurzer Companion-Slot auf der Bühne statt nur Verlosung, gesichert im Team-Weekly am 31.08.</span></li>
+      <li><span class="idea">Gesprächszusagen vor Ort</span> <span class="pill fix">bestätigt</span>
+        <span class="why">Mehrere Entscheider haben Gespräche am Stand zugesagt, darunter die CEOs von BKK Pfalz und ADK sowie KLforExpats und TD-IHK.</span></li>
+      <li><span class="idea">adesso-Tour durch die Start-up-Area</span> <span class="pill fix">17.09., 15 Uhr</span>
+        <span class="why">Florian Bliesch (Head of Innovation, adesso mobile solutions) tourt über die Start-up-Area, direkt an unserem Stand: die Gelegenheit, WTE und die Companion-Lösung vorzustellen.</span></li>
+      <li><span class="idea">Vorsortierte Trefflisten</span> <span class="pill blue">vorbereitet</span>
+        <span class="why">4.476 Teilnehmer ausgewertet: 350 relevante Firmen, 203 geladen, dazu 54 Personen als A/B/C-Treffliste.</span></li>
+    </ul>
+    </div></div>
+  </div>
+
+  <div class="card rv d2">
+    <button class="card-head" type="button" aria-expanded="false">
+      <span class="headtxt"><h2>Die Trophäe</h2><span class="sub">17.09. · Gala auf der Hauptbühne</span></span>
+      <span class="count">3</span>
+      <span class="chev" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6l5 5 5-5"/></svg></span>
+    </button>
+    <div class="card-body"><div class="card-inner">
+    <ul>
+      <li><span class="idea">Auszeichnung „Unternehmen der Zukunft"</span> <span class="pill fix">bestätigt</span>
+        <span class="why">diind hat WTE geprüft und die Auszeichnung bestätigt (Stand 31.08.). Verleihung am 17.09. in Berlin: Trophäe, Fotos, zwei Sätze auf der Bühne. Siegel-Laufzeit ein Jahr.</span></li>
+      <li><span class="idea">Trophäen-Übergabe mit Kurz-Pitch</span> <span class="pill fix">Bühnenmoment</span>
+        <span class="why">Wir bekommen die Trophäe auf der Bühne überreicht und beantworten dabei eine Frage: die Gelegenheit, die WTE Companion App vor dem ganzen Saal kurz zu pitchen.</span></li>
+      <li><span class="idea">Referenz-Maschine danach</span> <span class="pill blue">geplant</span>
+        <span class="why">Siegel und Bühnenfotos werden LinkedIn-Material und öffnen die nächsten Türen. Zweiter Award (PeopleTech) ist angefragt, Antwort steht aus.</span></li>
+    </ul>
+    </div></div>
+  </div>
+
+  <div class="card rv d3">
+    <button class="card-head" type="button" aria-expanded="false">
+      <span class="headtxt"><h2>Der Companion-Film</h2><span class="sub">Mitte September · Dreh in Berlin</span></span>
+      <span class="count">2</span>
+      <span class="chev" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6l5 5 5-5"/></svg></span>
+    </button>
+    <div class="card-body"><div class="card-inner">
+    <ul>
+      <li><span class="idea">Werbevideo „Der erste Tag"</span> <span class="pill blue">Script fertig</span>
+        <span class="why">90-Sekunden-Script liegt fertig vor, Kernclaim: die Pflichttermine des Ankommens, je unter 10 Minuten. Profi-Crew über Fred, voraussichtlich kostenfrei.</span></li>
+      <li><span class="idea">Danach: der Vertriebs-Turbo</span> <span class="pill offen">Termin wird fixiert</span>
+        <span class="why">Der Film bespielt Website, LinkedIn, Stand-Bildschirm und jede künftige Ansprache.</span></li>
+    </ul>
+    </div></div>
+  </div>
+</div>
+
+<svg class="connector" viewBox="0 0 1080 70" role="img" aria-label="Die Krone läuft nach unten zusammen" preserveAspectRatio="none">
+  <path d="M180 0 C180 45 540 25 540 70" fill="none" stroke="currentColor" stroke-width="1.5"/>
+  <path d="M540 0 L540 70" fill="none" stroke="currentColor" stroke-width="1.5"/>
+  <path d="M900 0 C900 45 540 25 540 70" fill="none" stroke="currentColor" stroke-width="1.5"/>
+</svg>
+
+<div class="zone-label rv"><strong>Die Äste</strong> in einem Monat gewachsen</div>
+
+<div class="branches">
+  <div class="card rv d1">
+    <button class="card-head" type="button" aria-expanded="false">
+      <span class="headtxt"><h2>Politik &amp; Behörden</h2><span class="sub">Vom Kaltkontakt zum Termin</span></span>
+      <span class="count">4</span>
+      <span class="chev" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6l5 5 5-5"/></svg></span>
+    </button>
+    <div class="card-body"><div class="card-inner">
+    <ul>
+      <li><span class="idea">Hamburg Welcome Center + Wirtschaftsbehörde</span> <span class="pill fix">Termin 03.09.</span>
+        <span class="why">Kaltmail am 26.08., intern weitergeleitet, Einladung am 28.08.: vom ersten Kontakt zum Behördentermin in zwei Tagen. Auf unserer Seite Karol und Jakob.</span></li>
+      <li><span class="idea">Hamburg Invest</span> <span class="pill fix">Meeting nächste Woche</span>
+        <span class="why">Die Wirtschaftsförderung der Stadt Hamburg, Termin steht für KW37.</span></li>
+      <li><span class="idea">Brigitte Zypries, Bundeswirtschaftsministerin a. D.</span> <span class="pill fix">Telefonat 08.09.</span>
+        <span class="why">Privater Kontakt, persönlich bekannt. Im Startup-Ökosystem hervorragend vernetzt und unterstützt mit Rat und Kontakten; Telefonat am Dienstag, 08.09.</span></li>
+      <li><span class="idea">Senatskanzlei (India Week) + Landesamt SH</span> <span class="pill offen">angeschrieben</span>
+        <span class="why">India Week Hamburg und Zentralstelle beschleunigtes Fachkräfteverfahren: Companion beginnt, wo das Verfahren endet.</span></li>
+    </ul>
+    </div></div>
+  </div>
+
+  <div class="card rv d2">
+    <button class="card-head" type="button" aria-expanded="false">
+      <span class="headtxt"><h2>Meetings &amp; Partner</h2><span class="sub">Aus Ansprachen wurden Gespräche</span></span>
+      <span class="count">4</span>
+      <span class="chev" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6l5 5 5-5"/></svg></span>
+    </button>
+    <div class="card-body"><div class="card-inner">
+    <ul>
+      <li><span class="idea">Deutschakademie</span> <span class="pill fix">2. Termin verabredet</span>
+        <span class="why">Erstes Treffen am 25.08. in Hamburg, klares Grundsatzinteresse an einer Kooperation, Folgetermin zu dritt in KW36.</span></li>
+      <li><span class="idea">Livora Holding</span> <span class="pill fix">im Gespräch</span>
+        <span class="why">Erstgespräch am 27.08. (248 Mitarbeitende, 4 Standorte), akuter Bedarf, Folgetermin mit Fabian als Ziel für KW37.</span></li>
+      <li><span class="idea">BPM, Bundesverband der Personalmanager</span> <span class="pill fix">Kooperation angebahnt</span>
+        <span class="why">Dr. Kronbügel (Regionalvorstand Nord) findet Companion interessant und verweist mit ihrem Einverständnis an die Geschäftsstelle Berlin (03.09.).</span></li>
+      <li><span class="idea">Deel &amp; Multiplikatoren</span> <span class="pill blue">läuft</span>
+        <span class="why">Deel-Dialog seit 01.09. offen, 11 Multiplikatoren am 28.08. angeschrieben, Runde 2 recherchiert.</span></li>
+    </ul>
+    </div></div>
+  </div>
+
+  <div class="card rv d3">
+    <button class="card-head" type="button" aria-expanded="false">
+      <span class="headtxt"><h2>Eigene Kanäle</h2><span class="sub">Reichweite, die uns gehört</span></span>
+      <span class="count">4</span>
+      <span class="chev" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6l5 5 5-5"/></svg></span>
+    </button>
+    <div class="card-body"><div class="card-inner">
+    <ul>
+      <li><span class="idea">LinkedIn-Newsletter „Bleiben ist kein Zufall"</span> <span class="pill fix">live seit 31.08.</span>
+        <span class="why">Eigener Newsletter auf LinkedIn, 14-tägig, Ausgabe 2 kommt am 14.09.</span></li>
+      <li><span class="idea">LinkedIn-Gruppe</span> <span class="pill fix">seit 18.08.</span>
+        <span class="why">Eigene Community für internationale Fachkräfte, 13 Mitglieder (Stand 31.08.), wöchentlicher Post.</span></li>
+      <li><span class="idea">LinkedIn-Gruppe „Singapore Expats"</span> <span class="pill fix">seit 03.09.</span>
+        <span class="why">Als Mitglied beigetreten, erster Beitrag mit 190 Impressions in den ersten zwei Stunden.</span></li>
+      <li><span class="idea">Content-Werkbank</span> <span class="pill blue">gefüllt</span>
+        <span class="why">Ankommens-Kosten-Rechner gebaut und als Post live (01.09.), WhatsApp-Kanal mit 8 Posts vorbereitet, OMR-Reviews-Eintrag eingereicht.</span></li>
+    </ul>
+    </div></div>
+  </div>
+</div>
+
+<svg class="connector" viewBox="0 0 1080 70" role="img" aria-label="Die Äste laufen zum Stamm zusammen" preserveAspectRatio="none">
+  <path d="M180 0 C180 45 540 25 540 70" fill="none" stroke="currentColor" stroke-width="1.5"/>
+  <path d="M540 0 L540 70" fill="none" stroke="currentColor" stroke-width="1.5"/>
+  <path d="M900 0 C900 45 540 25 540 70" fill="none" stroke="currentColor" stroke-width="1.5"/>
+</svg>
+
+<div class="zone-label rv"><strong>Der Stamm</strong> das Produkt in der Mitte</div>
+
+<div class="trunk rv">
+  <h2>WTE Companion App</h2>
+  <p class="claim">Neue Mitarbeiter aus dem Ausland kommen hier wirklich an. Die Pflichttermine des Ankommens, erledigt in der App:</p>
+  <div class="services">
+    <span>Krankenversicherung</span>
+    <span>Bankkonto</span>
+    <span>Mobilfunk</span>
+    <span>Haftpflicht</span>
+    <span class="neon">je unter 10 Minuten</span>
+  </div>
+  <p class="model">Kostenlos für Arbeitgeber und Mitarbeiter, Erlös über die Servicepartner.</p>
+</div>
+
+<svg class="connector" viewBox="0 0 1080 70" role="img" aria-label="Der Stamm verzweigt sich in vier Wurzeln" preserveAspectRatio="none">
+  <path d="M540 0 C540 45 180 25 180 70" fill="none" stroke="currentColor" stroke-width="1.5"/>
+  <path d="M540 0 L540 70" fill="none" stroke="currentColor" stroke-width="1.5"/>
+  <path d="M540 0 C540 45 900 25 900 70" fill="none" stroke="currentColor" stroke-width="1.5"/>
+</svg>
+
+<div class="zone-label rv"><strong>Die Wurzeln</strong> die Maschine seit 03.08., in echten Zahlen</div>
+
+<div class="roots">
+  <div class="stat rv d1"><div class="num" data-count="455" data-suffix="+">455+</div><div class="lab"><b>Vernetzungsanfragen</b> seit Kampagnenstart 10.08. Live belegt (03.09.): 293 offene + 123 angenommene, ignorierte und zurückgezogene kommen obendrauf.</div></div>
+  <div class="stat rv d2"><div class="num" data-count="123">123</div><div class="lab"><b>Zusagen</b> seit 10.08., live ausgelesen am 03.09., Quote rund 30 % (Benchmark für Kaltansprache: 20 bis 30 %).</div></div>
+  <div class="stat rv d3"><div class="num" data-count="17">17</div><div class="lab"><b>Lead-Listen neu aufgebaut</b> in Sales Navigator, zusammen über 1.000 Accounts und Leads, vorqualifiziert und mit Notizen.</div></div>
+  <div class="stat rv d4"><div class="num" data-count="16">16</div><div class="lab"><b>Anschreiben-Modelle</b> entwickelt und getestet, in 11 Zielgruppen von Logistik über Startups bis Global Mobility und Bildungsträger.</div></div>
+  <div class="stat rv d5"><div class="num" data-count="47">47</div><div class="lab"><b>Vollständig individuelle Einzeltexte</b> obendrauf, je Kontakt maßgeschneidert statt aus der Vorlage.</div></div>
+  <div class="stat rv d6"><div class="num" data-count="6">6</div><div class="lab"><b>Gesprächsskripte geschrieben:</b> Erstgespräch, Companion-Pitch, BigBang-Standscript, Roadshow, Behördentermin, Hamburg Invest.</div></div>
+</div>
+
+<div class="loop rv">
+  <span class="mono-lab">So schließt sich der Kreis</span>
+  <p>Ein Monat Arbeit hat aus einer App eine Bewegung gemacht: eine Maschine, die täglich Kontakte erzeugt, Behörden, die zuhören, Partner am Tisch und eine bestätigte Trophäe. Der September macht daraus Bühne, Film und Referenzen, und jede Referenz macht die nächste Tür leichter.</p>
+</div>
+
+<footer>WTE Companion · intern · nur belegte Zahlen (LinkedIn live ausgelesen 03.09., CRM, Meeting-Protokolle, Tagesübersichten) · zusammengestellt 03.09.2026, ergänzt 07.09.2026 (Anschreiben-Zahlen: Ansprachen-Register + Einladungsmanager-Auslese) · Karol Baginski · kb@wte-companion.com</footer>
+</div>
+
+<script>
+(function(){
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Aufklapp-Karten
+  var cards = Array.prototype.slice.call(document.querySelectorAll('.card'));
+  cards.forEach(function(card){
+    var head = card.querySelector('.card-head');
+    if(!head) return;
+    head.addEventListener('click', function(){
+      var open = card.classList.toggle('open');
+      head.setAttribute('aria-expanded', open ? 'true' : 'false');
+      syncToggleLabel();
+    });
+  });
+
+  // Alles auf-/zuklappen
+  var btn = document.getElementById('toggleAll');
+  function allOpen(){ return cards.every(function(c){ return c.classList.contains('open'); }); }
+  function syncToggleLabel(){
+    var open = allOpen();
+    btn.textContent = open ? 'Alles zuklappen' : 'Alles aufklappen';
+    btn.setAttribute('aria-pressed', open ? 'true' : 'false');
+  }
+  btn.addEventListener('click', function(){
+    var target = !allOpen();
+    cards.forEach(function(c){
+      c.classList.toggle('open', target);
+      var h = c.querySelector('.card-head');
+      if(h) h.setAttribute('aria-expanded', target ? 'true' : 'false');
+    });
+    syncToggleLabel();
+  });
+
+  // Scroll-Reveal
+  var revealables = document.querySelectorAll('.rv');
+  if(reduced || !('IntersectionObserver' in window)){
+    revealables.forEach(function(el){ el.classList.add('in'); });
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, {threshold:.15, rootMargin:'0px 0px -40px 0px'});
+    revealables.forEach(function(el){ io.observe(el); });
+  }
+
+  // Zahlen hochzählen
+  var nums = document.querySelectorAll('.stat .num[data-count]');
+  function animateNum(el){
+    var target = parseInt(el.getAttribute('data-count'), 10);
+    var suffix = el.getAttribute('data-suffix') || '';
+    var t0 = null, dur = 1200;
+    function step(ts){
+      if(t0 === null) t0 = ts;
+      var p = Math.min((ts - t0) / dur, 1);
+      var eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(target * eased) + suffix;
+      if(p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  if(reduced || !('IntersectionObserver' in window)){
+    /* Zahlen stehen bereits als finaler Text im Markup */
+  } else {
+    var ion = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ animateNum(e.target); ion.unobserve(e.target); }
+      });
+    }, {threshold:.4});
+    nums.forEach(function(el){ ion.observe(el); });
+  }
+})();
+</script>
+
+</body>
+</html>
