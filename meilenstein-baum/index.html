@@ -205,6 +205,34 @@ h1{font-size:clamp(42px,6.4vw,84px);line-height:.98;letter-spacing:-0.04em;font-
 .loop p{font-size:clamp(17px,2vw,21px);font-weight:700;letter-spacing:-0.015em;line-height:1.45;text-wrap:balance;max-width:66ch;margin:0 auto}
 footer{margin-top:30px;text-align:center;font-size:11.5px;font-weight:600;color:var(--ink3);letter-spacing:.02em}
 
+/* Ziel-Rechnung */
+.goal{
+  margin-top:20px;background:var(--blue);color:#fff;
+  border-radius:20px;padding:26px 28px 24px;box-shadow:var(--card-shadow);
+}
+:root[data-theme="dark"] .goal,
+:root:not([data-theme="light"]) .goal{background:var(--blue-deep)}
+.goal-label{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.16em;color:var(--cta);margin-bottom:20px;text-align:center}
+.goal-flow{display:grid;grid-template-columns:1fr 30px 1fr 30px 1fr 30px 1fr;gap:10px;align-items:center}
+.g-step{text-align:center;min-width:0}
+.g-step b{display:block;font-size:clamp(20px,2.4vw,28px);font-weight:800;letter-spacing:-0.02em;font-variant-numeric:tabular-nums;color:#fff}
+.g-step.final b{color:var(--cta)}
+.g-step span{display:block;font-size:12px;color:rgba(255,255,255,.78);line-height:1.45;margin-top:5px}
+.g-step i{display:block;font-style:normal;font-size:10.5px;color:rgba(255,255,255,.52);margin-top:4px;line-height:1.5}
+.g-arrow{width:30px;height:24px;color:rgba(255,255,255,.45);justify-self:center}
+.g-arrow svg{width:100%;height:100%;display:block}
+.goal-alt{
+  margin:20px auto 0;padding-top:14px;border-top:1px solid rgba(255,255,255,.2);
+  font-size:12.5px;color:rgba(255,255,255,.72);text-align:center;max-width:74ch;line-height:1.55;
+}
+.goal-alt b{color:#fff}
+@media(max-width:860px){
+  .goal-flow{display:flex;flex-direction:column;gap:0}
+  .g-step,.g-step.final{text-align:left;padding:10px 0 10px 22px;position:relative;border-left:2px solid rgba(255,255,255,.25);margin-left:6px}
+  .g-step::before{content:"";position:absolute;left:-6px;top:16px;width:10px;height:10px;border-radius:50%;background:var(--cta)}
+  .g-arrow{display:none}
+}
+
 /* Scroll-Reveal */
 .rv{opacity:0;transform:translateY(18px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
 .rv.in{opacity:1;transform:none}
@@ -418,7 +446,23 @@ footer{margin-top:30px;text-align:center;font-size:11.5px;font-weight:600;color:
   <p>Ein Monat Arbeit hat aus einer App eine Bewegung gemacht: eine Maschine, die täglich Kontakte erzeugt, Behörden, die zuhören, Partner am Tisch und eine bestätigte Trophäe. Der September macht daraus Bühne, Film und Referenzen, und jede Referenz macht die nächste Tür leichter.</p>
 </div>
 
-<footer>WTE Companion · intern · nur belegte Zahlen (LinkedIn live ausgelesen 03.09., CRM, Meeting-Protokolle, Tagesübersichten) · zusammengestellt 03.09.2026, ergänzt 07.09.2026 (Anschreiben-Zahlen: Ansprachen-Register + Einladungsmanager-Auslese) · Karol Baginski · kb@wte-companion.com</footer>
+<div class="zone-label rv"><strong>Das Ziel</strong> die Rechnung zu 40.000 € im Monat</div>
+
+<div class="goal rv">
+  <div class="goal-label">Das muss passieren, damit die Firma 40.000 € im Monat macht</div>
+  <div class="goal-flow">
+    <div class="g-step"><b>11–52</b><span>aktive Kunden</span><i>je nach Größe: Ø 10 Kandidaten/Monat → 11–16 Kunden · Ø 5 → 22–31 · Ø 3 → 37–52</i></div>
+    <span class="g-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h16"/><path d="M13 6l6 6-6 6"/></svg></span>
+    <div class="g-step"><b>110–155</b><span>neue Kandidaten pro Monat in der App</span><i>alle vier Essentials abgeschlossen; 155 in der Aufbauphase, ~110 bei konstantem Zulauf</i></div>
+    <span class="g-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h16"/><path d="M13 6l6 6-6 6"/></svg></span>
+    <div class="g-step"><b>≈ 260–360 €</b><span>Erlös je Kandidat im ersten Jahr</span><i>bezahlt von den Servicepartnern, App bleibt für Kunden und Kandidaten kostenlos</i></div>
+    <span class="g-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h16"/><path d="M13 6l6 6-6 6"/></svg></span>
+    <div class="g-step final"><b>40.000 €</b><span>Monatsumsatz</span><i>Umsatztreppe: 10k Ende Sept. · 30k Ende Dez. · 60k Ende Q1/27</i></div>
+  </div>
+  <div class="goal-alt"><b>Beschleuniger Relocation-Services:</b> Jedes Visa-&amp;-Relocation-Paket bringt 2.000 € Servicegebühr. 20 Pakete im Monat wären die 40.000 € allein; ein Mix aus 10 Paketen und rund 60 App-Kandidaten erreicht das Ziel genauso.</div>
+</div>
+
+<footer>WTE Companion · intern · nur belegte Zahlen (LinkedIn live ausgelesen 03.09., CRM, Meeting-Protokolle, Tagesübersichten) · zusammengestellt 03.09.2026, ergänzt 07.09.2026 (Anschreiben-Zahlen: Ansprachen-Register + Einladungsmanager-Auslese; 40k-Rechnung: Konditionen Stand 28.07.2026) · Karol Baginski · kb@wte-companion.com</footer>
 </div>
 
 <script>
