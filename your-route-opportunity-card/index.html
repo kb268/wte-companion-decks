@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Route to Germany · Opportunity Card</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#2B3B99">
+<link rel="icon" href="assets/wte-favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --p50:#DFE2F0; --p100:#CACEE5; --p300:#959DCC; --p400:#606CB3;
+  --p500:#2B3B99; --p600:#202C73; --p700:#161E4D; --p800:#0F1536; --p900:#0B0F26;
+  --cta:#E1F300; --cta-hover:#BECC00;
+  --paper:#FFFFFF; --paper2:#F6F6F4; --ink:#181410; --ink2:#3A342C; --ink3:#6B6358;
+  --rule:#1814101A; --rule-strong:#18141033;
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{height:100%;overflow:hidden}
+body{font-family:"Inter",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Helvetica,Arial,sans-serif;
+  background:var(--paper);color:var(--ink);font-size:16px;line-height:1.5;letter-spacing:-0.005em;
+  -webkit-font-smoothing:antialiased}
+a{color:inherit}
+
+/* ---------- deck engine ---------- */
+.slide{position:absolute;inset:0;display:none;opacity:0;transition:opacity .45s var(--ease)}
+.slide.active{display:flex;opacity:1}
+.slide-inner{width:100%;max-width:1240px;margin:0 auto;padding:64px 64px 100px;
+  display:flex;flex-direction:column;justify-content:center;position:relative}
+.slide-inner>*{position:relative;z-index:1}
+
+/* ---------- chrome ---------- */
+#hud{position:fixed;left:0;right:0;bottom:0;z-index:50;display:flex;align-items:center;
+  justify-content:space-between;padding:20px 32px;pointer-events:none}
+#hud>*{pointer-events:auto}
+#brand{position:fixed;top:26px;left:50%;transform:translateX(-50%);z-index:50}
+.hud-logo{height:42px;width:auto;display:block;filter:brightness(0)}
+.dark-chrome .hud-logo{filter:brightness(0) invert(1)}
+.hide-brand #brand{display:none}
+.hud-spacer{width:150px}
+#dots{display:flex;gap:8px}
+#dots button{width:8px;height:8px;border-radius:50%;border:none;background:var(--rule-strong);cursor:pointer;transition:all .3s var(--ease);padding:0}
+#dots button.on{background:var(--ink);transform:scale(1.3)}
+.hud-arrows{display:flex;gap:8px;align-items:center}
+.hud-arrows button{width:38px;height:38px;border-radius:6px;border:1px solid var(--rule-strong);
+  background:transparent;color:inherit;cursor:pointer;font-size:15px;transition:all .25s var(--ease)}
+.hud-arrows button:hover{background:var(--cta);border-color:var(--cta);color:var(--ink)}
+#counter{font-size:12px;opacity:.5;font-variant-numeric:tabular-nums;margin-right:6px}
+.dark-chrome #hud{color:#fff}
+.dark-chrome #dots button{background:#ffffff3d}
+.dark-chrome #dots button.on{background:var(--cta)}
+.dark-chrome .hud-arrows button{border-color:#ffffff44}
+
+/* ---------- type ---------- */
+.kicker{font-size:13.5px;font-weight:700;text-transform:uppercase;letter-spacing:.16em;color:var(--p500);margin-bottom:26px}
+.statement{font-size:clamp(48px,7vw,104px);line-height:.98;letter-spacing:-0.04em;font-weight:800}
+.statement.sm{font-size:clamp(36px,4.8vw,70px)}
+.lede{font-size:clamp(17px,1.6vw,22px);line-height:1.5;color:var(--ink2);max-width:48ch;margin-top:30px;font-weight:400}
+.lede b{font-weight:700;color:var(--ink)}
+.mark{position:relative;white-space:nowrap;z-index:0}
+.mark::after{content:"";position:absolute;left:-1%;right:-1%;bottom:.04em;height:.3em;background:var(--cta);
+  z-index:-1;clip-path:inset(0 100% 0 0);transition:clip-path .65s var(--ease) .5s}
+.slide.active .mark::after{clip-path:inset(0 -2% 0 0)}
+.mark.under::after{bottom:-0.03em;height:.12em}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.slide.active .reveal{opacity:1;transform:none}
+.slide.active .d1{transition-delay:.1s}.slide.active .d2{transition-delay:.22s}
+.slide.active .d3{transition-delay:.34s}.slide.active .d4{transition-delay:.48s}
+.slide.active .d5{transition-delay:.62s}.slide.active .d6{transition-delay:.78s}
+.split{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center}
+.dark{background:var(--p800);color:#fff}
+.dark .kicker{color:var(--cta)}
+.dark .lede{color:#ffffffb8}.dark .lede b{color:#fff}
+
+/* ---------- inline CTA ---------- */
+.cta-inline{display:flex;align-items:center;gap:18px;margin-top:34px;flex-wrap:wrap}
+.cta-inline .btn-mini{display:inline-flex;align-items:center;gap:8px;background:var(--cta);color:var(--ink);
+  border-radius:999px;padding:11px 22px;font-size:13.5px;font-weight:800;text-decoration:none;
+  letter-spacing:-.01em;transition:all .25s var(--ease);box-shadow:0 14px 28px -16px #18141066}
+.cta-inline .btn-mini:hover{background:var(--cta-hover);transform:translateY(-1px)}
+.cta-inline span{font-size:12.5px;color:var(--ink3);font-weight:500}
+.dark .cta-inline span,#s5 .cta-inline span{color:#ffffff8c}
+
+/* ===== S1 cover ===== */
+#s1{background:linear-gradient(to bottom,#0F1D36 0%,#1A3252 16%,#24476D 32%,#236F9A 52%,#3791CD 68%,#4BB4FF 82%,#98D4FF 93%,#CBE9FF 100%);color:#fff}
+#s1 .kicker{color:var(--cta)}
+#s1 .lede{color:#ffffffd6}
+#s1 .logo-wte{height:34px;width:auto;filter:brightness(0) invert(1);margin-bottom:40px;display:block}
+.prospect-tag{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;letter-spacing:.02em;
+  color:#fff;background:#ffffff1c;border:1px solid #ffffff33;border-radius:999px;padding:7px 16px;margin-bottom:26px}
+.prospect-tag i{width:7px;height:7px;border-radius:50%;background:var(--cta);font-style:normal}
+.checklist{display:flex;flex-direction:column;max-width:430px}
+.check{display:flex;align-items:flex-start;gap:16px;padding:17px 0;border-top:1px solid #ffffff22}
+.check:first-child{border-top:none}
+.check i{width:26px;height:26px;flex:none;border-radius:50%;background:var(--cta);color:var(--ink);
+  display:grid;place-items:center;font-style:normal;font-weight:800;font-size:13px;margin-top:1px}
+.check h4{font-size:18px;font-weight:700;letter-spacing:-0.015em;line-height:1.25}
+.check p{font-size:13.5px;color:#ffffff99;font-weight:500;margin-top:2px}
+
+/* ===== S2 two routes ===== */
+#s2{background:var(--paper2)}
+#s2 .kicker{margin-bottom:14px}
+#s2 .statement.sm{font-size:clamp(28px,3.4vw,48px)}
+#s2 .routes{margin-top:26px}
+#s2 .route{padding:20px 24px}
+#s2 .route h3{font-size:20px}
+#s2 .route .rsub{font-size:13px}
+#s2 .route li{padding:7px 0;font-size:13px}
+#s2 .cta-inline{margin-top:20px}
+#s2 .routes-foot{margin-top:12px;font-size:11.5px;max-width:110ch}
+.routes{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:40px}
+.route{background:var(--paper);border:1px solid var(--rule-strong);border-radius:18px;padding:30px 32px;
+  box-shadow:0 24px 48px -32px #18141055;display:flex;flex-direction:column}
+.route .rtag{font-size:11.5px;font-weight:800;text-transform:uppercase;letter-spacing:.12em;
+  color:var(--p500);background:var(--p50);border-radius:999px;padding:5px 12px;align-self:flex-start}
+.route h3{font-size:26px;font-weight:800;letter-spacing:-0.025em;margin-top:16px}
+.route .rsub{font-size:14px;color:var(--ink3);font-weight:500;margin-top:4px}
+.route ul{list-style:none;margin-top:18px;display:flex;flex-direction:column;gap:0}
+.route li{display:flex;gap:11px;padding:10px 0;border-top:1px solid var(--rule);font-size:14.5px;line-height:1.45;color:var(--ink2)}
+.route li::before{content:"✓";color:var(--p500);font-weight:800;flex:none}
+.route li b{color:var(--ink);font-weight:700}
+.route.alt .rtag{color:#7a6a00;background:#FCFFD6}
+.route.alt li::before{color:#959F04}
+.routes-foot{margin-top:22px;font-size:13.5px;color:var(--ink3);font-weight:500;max-width:70ch}
+
+/* ===== S3 process ===== */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:18px 22px;margin-top:44px;counter-reset:st}
+.step{position:relative;background:var(--paper);border:1px solid var(--rule);border-radius:14px;padding:20px;counter-increment:st}
+.step::before{content:counter(st,decimal-leading-zero);font-size:12px;font-weight:800;color:var(--p400);letter-spacing:.08em}
+.step h4{font-size:16.5px;font-weight:700;letter-spacing:-0.015em;margin-top:8px}
+.step p{font-size:13px;color:var(--ink3);font-weight:500;margin-top:5px;line-height:1.45}
+.step.hot{background:var(--p800);border-color:var(--p800);color:#fff}
+.step.hot::before{color:var(--cta)}
+.step.hot p{color:#ffffff9e}
+
+/* ===== S4 who we are ===== */
+#s4 .photo-side{position:relative}
+#s4 .photo-side img{width:100%;border-radius:18px;display:block;box-shadow:0 40px 80px -40px #18141088}
+#s4 .photo-cap{position:absolute;left:18px;bottom:18px;background:#181410d9;color:#fff;font-size:12px;
+  font-weight:600;border-radius:9px;padding:8px 14px;backdrop-filter:blur(6px)}
+.team-label{font-size:11.5px;font-weight:800;text-transform:uppercase;letter-spacing:.14em;color:var(--ink3);margin-top:30px}
+.founders{display:grid;grid-template-columns:repeat(3,1fr);gap:16px 24px;margin-top:14px}
+.founder h5{font-size:14.5px;font-weight:700}
+.founder p{font-size:11.5px;color:var(--ink3);font-weight:500;line-height:1.45}
+.sealrow{display:flex;align-items:center;gap:14px;margin-top:24px;background:var(--paper2);
+  border:1px solid var(--rule);border-radius:14px;padding:14px 18px;max-width:520px}
+.sealrow .sq{width:40px;height:40px;flex:none;border-radius:10px;background:var(--p500);color:#fff;display:grid;place-items:center;font-weight:800;font-size:13px}
+.sealrow h6{font-size:14px;font-weight:700}
+.sealrow p{font-size:12px;color:var(--ink3);font-weight:500}
+
+/* ===== S5 press ===== */
+#s5{background:var(--p800);color:#fff}
+#s5 .kicker{margin-bottom:14px}
+#s5 .statement.sm{font-size:clamp(28px,3.4vw,48px)}
+.press-split{display:grid;grid-template-columns:1.15fr .85fr;gap:44px;align-items:center;margin-top:22px}
+.press-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.press{display:block;background:#ffffff0d;border:1px solid #ffffff22;border-radius:13px;padding:14px 16px;
+  text-decoration:none;transition:all .3s var(--ease)}
+.press:hover{background:#ffffff1a;transform:translateY(-3px)}
+.press .outlet{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--cta)}
+.press h4{font-size:13px;font-weight:700;letter-spacing:-0.01em;margin-top:6px;line-height:1.3}
+.press p{display:none}
+.press .plink{display:inline-block;font-size:11px;font-weight:700;color:#fff;margin-top:8px;border-bottom:1px solid var(--cta)}
+.press-foot{margin-top:12px;font-size:12.5px;color:#ffffff80;font-weight:500}
+.press-foot a{color:#fff;font-weight:700;text-decoration:none;border-bottom:1px solid var(--cta)}
+/* Collage */
+.collage{position:relative;height:470px}
+.ctile{position:absolute;border-radius:14px;overflow:hidden;background:#fff;padding:7px 7px 26px;
+  box-shadow:0 30px 60px -24px #00000099;transform:rotate(var(--rot,0deg))}
+.ctile img{width:100%;height:calc(100% - 19px);object-fit:cover;display:block;border-radius:8px}
+.ctile figcaption{position:absolute;left:4px;right:4px;bottom:5px;text-align:center;font-size:8.5px;
+  font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:#3a342c;white-space:nowrap;overflow:hidden}
+.ctile.c1{top:0;left:4%;width:56%;height:188px;--rot:-3deg;z-index:2}
+.ctile.c2{top:28px;right:0;width:44%;height:172px;--rot:2.5deg;z-index:1}
+.ctile.c3{top:192px;left:0;width:46%;height:162px;--rot:2deg;z-index:3}
+.ctile.c4{top:212px;right:4%;width:44%;height:154px;--rot:-2.5deg;z-index:2}
+.ctile.c5{bottom:0;left:25%;width:48%;height:138px;--rot:1.5deg;z-index:4}
+
+/* ===== S6 testimonials ===== */
+#s6{background:var(--paper2)}
+.quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:42px}
+.quote{background:var(--paper);border:1px solid var(--rule-strong);border-radius:16px;padding:24px;
+  box-shadow:0 22px 44px -34px #18141066;display:flex;flex-direction:column}
+.quote p{font-size:14.5px;line-height:1.55;color:var(--ink2);flex:1}
+.quote p::before{content:"“";display:block;font-size:42px;line-height:.6;color:var(--p300);font-weight:800;margin-bottom:10px}
+.quote h6{font-size:13.5px;font-weight:700;margin-top:16px}
+.quote span{font-size:12px;color:var(--ink3);font-weight:500}
+.quotes-foot{margin-top:24px;font-size:13px;color:var(--ink3);font-weight:500}
+
+/* ===== S7 app ===== */
+.applist{display:flex;flex-direction:column;max-width:460px;margin-top:8px}
+.appitem{display:flex;align-items:center;gap:16px;padding:15px 0;border-top:1px solid var(--rule)}
+.appitem:first-child{border-top:none}
+.appitem .ai{width:42px;height:42px;flex:none;border-radius:12px;background:var(--p50);display:grid;place-items:center;font-size:19px}
+.appitem h4{font-size:16.5px;font-weight:700;letter-spacing:-0.015em}
+.appitem p{font-size:13px;color:var(--ink3);font-weight:500}
+.partners{display:flex;align-items:center;gap:26px;flex-wrap:wrap;margin-top:34px;filter:grayscale(1);opacity:.75}
+.partners img{height:22px;width:auto;display:block}
+.app-badge{display:inline-flex;align-items:center;gap:10px;background:var(--cta);color:var(--ink);border-radius:999px;
+  padding:9px 18px;font-size:13.5px;font-weight:800;margin-top:30px;letter-spacing:-.01em}
+
+/* ===== S8 price ===== */
+#s8{background:var(--paper2)}
+.pricecard{background:var(--paper);border:1px solid var(--rule-strong);border-radius:20px;overflow:hidden;
+  box-shadow:0 32px 64px -40px #18141066;max-width:520px}
+.pricecard .ptop{background:var(--p800);color:#fff;padding:26px 30px}
+.pricecard .ptop h3{font-size:17px;font-weight:700}
+.pricecard .ptop .amount{font-size:46px;font-weight:800;letter-spacing:-0.03em;margin-top:6px}
+.pricecard .ptop .amount small{font-size:15px;font-weight:600;color:#ffffff99;letter-spacing:0}
+.pricecard .ptop p{font-size:12.5px;color:#ffffff8c;font-weight:500;margin-top:6px}
+.pricecard ul{list-style:none;padding:10px 30px 24px}
+.pricecard li{display:flex;gap:11px;padding:10px 0;border-top:1px solid var(--rule);font-size:14px;color:var(--ink2)}
+.pricecard li:first-child{border-top:none}
+.pricecard li::before{content:"✓";color:var(--p500);font-weight:800;flex:none}
+.fairlist{display:flex;flex-direction:column;gap:0;margin-top:6px;max-width:440px}
+.fair{display:flex;gap:14px;padding:14px 0;border-top:1px solid var(--rule)}
+.fair:first-child{border-top:none}
+.fair i{font-style:normal;flex:none;width:26px;height:26px;border-radius:50%;background:var(--p50);color:var(--p600);
+  display:grid;place-items:center;font-weight:800;font-size:13px;margin-top:1px}
+.fair h4{font-size:15.5px;font-weight:700}
+.fair p{font-size:13px;color:var(--ink3);font-weight:500;margin-top:2px}
+.price-foot{margin-top:20px;font-size:12px;color:var(--ink3);font-weight:500;max-width:52ch}
+
+/* ===== S9 seal ===== */
+#s9{background:linear-gradient(180deg,var(--paper) 0%,var(--paper2) 100%)}
+.seal-split{display:grid;grid-template-columns:1fr auto;gap:64px;align-items:center}
+.seal-img{height:380px;width:auto;display:block;filter:drop-shadow(0 40px 60px #18141044);
+  transform:rotate(2deg)}
+.badge-row{display:flex;gap:14px;flex-wrap:wrap;margin-top:34px}
+.badge{display:flex;align-items:center;gap:11px;background:var(--paper);border:1px solid var(--rule-strong);
+  border-radius:12px;padding:11px 16px}
+.badge i{font-style:normal;width:30px;height:30px;flex:none;border-radius:8px;background:var(--p800);color:var(--cta);
+  display:grid;place-items:center;font-weight:800;font-size:12px}
+.badge h6{font-size:13px;font-weight:700;line-height:1.25}
+.badge p{font-size:11px;color:var(--ink3);font-weight:500}
+
+/* ===== S10 CTA ===== */
+.cta-split{display:grid;grid-template-columns:1.2fr .8fr;gap:48px;align-items:center}
+.fabian{display:flex;align-items:center;gap:20px;background:#ffffff10;border:1px solid #ffffff26;
+  border-radius:18px;padding:22px 26px}
+.fabian-pic{width:84px;height:84px;flex:none;border-radius:50%;overflow:hidden;border:2px solid var(--cta)}
+.fabian-pic img{width:100%;height:100%;object-fit:cover;display:block}
+.fabian h5{font-size:17px;font-weight:700}
+.fabian p{font-size:13.5px;color:#ffffffb0;font-weight:500;margin-top:3px;line-height:1.5}
+.cta-btns{display:flex;gap:12px;margin-top:34px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:9px;border-radius:10px;padding:13px 22px;font-size:14.5px;
+  font-weight:700;text-decoration:none;transition:all .25s var(--ease)}
+.btn-cta{background:var(--cta);color:var(--ink)}
+.btn-cta:hover{background:var(--cta-hover)}
+.btn-ghost{border:1px solid #ffffff44;color:#fff}
+.btn-ghost:hover{border-color:#fff}
+
+@media(max-width:960px){
+  html,body{overflow:auto}
+  .slide{position:relative;display:flex;opacity:1;min-height:100vh}
+  .slide-inner{padding:56px 24px 72px}
+  .split,.cta-split,.seal-split{grid-template-columns:1fr;gap:36px}
+  .routes,.press-grid,.quotes{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr 1fr}
+  #hud,#brand{display:none}
+  .seal-img{height:280px;margin:0 auto}
+}
+</style>
+</head>
+<body>
+
+<!-- 1 ─ COVER -->
+<section class="slide" id="s1" data-chrome="dark">
+  <div class="slide-inner">
+    <div class="split">
+      <div>
+        <img class="logo-wte reveal" src="assets/wte-companion-logo.svg" alt="WTE Companion">
+        <div class="prospect-tag reveal d1" id="prospect-wrap" hidden><i></i>Prepared for <span id="prospect"></span></div>
+        <p class="kicker reveal d1">Chancenkarte · Opportunity Card · what comes next</p>
+        <h1 class="statement sm reveal d2">Thank you for reaching out. <span class="mark under" style="color:#fff">Let’s meet.</span></h1>
+        <p class="lede reveal d3">You ran the check on <b>wte-companion.com</b>. This is the part
+          where you find out who we are. These few pages show how the journey works,
+          what it costs, and why people trust us with it. <b>Then we talk.</b></p>
+      </div>
+      <div class="checklist reveal d4">
+        <div class="check"><i>1</i><div><h4>Your check is in. Done.</h4><p>We review your answers against the embassy’s criteria before we call. Honestly.</p></div></div>
+        <div class="check"><i>2</i><div><h4>One named person</h4><p>Same coordinator on WhatsApp from the first call to your first week in Germany.</p></div></div>
+        <div class="check"><i>3</i><div><h4>Someone at the airport</h4><p>The visa is the middle of the journey, not the end. We are there when you land.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2 ─ ROUTE -->
+<section class="slide" id="s2">
+  <div class="slide-inner">
+    <p class="kicker reveal">Your route</p>
+    <h2 class="statement sm reveal d1">The Opportunity Card, <span class="mark">explained.</span></h2>
+    <div class="routes">
+      <div class="route reveal d2">
+        <span class="rtag">Chancenkarte · Opportunity Card</span>
+        <h3>Find your job from inside Germany</h3>
+        <p class="rsub">For skilled workers with a degree or 2+ years of vocational training</p>
+        <ul>
+          <li><b>One year in Germany</b> to search, legally</li>
+          <li>Work <b>up to 20 hours a week</b> while you look, plus trial jobs</li>
+          <li>Language: <b>German A1 or English B2</b> is enough for the card</li>
+          <li><b>Proof of funds: about €13,000</b> in a blocked account, in your own name, released back to you monthly after arrival</li>
+          <li>Contract signed? Switch to a full work permit <b>without leaving Germany</b></li>
+        </ul>
+      </div>
+      <div class="route alt reveal d3">
+        <span class="rtag">The year at a glance</span>
+        <h3>How the twelve months work</h3>
+        <p class="rsub">You search from inside the country, as a resident</p>
+        <ul>
+          <li><b>Month 0:</b> you land, we register you, the app sets up bank, SIM and insurance</li>
+          <li><b>Months 1 to 12:</b> you interview in person and work up to 20 hours a week</li>
+          <li><b>Contract signed:</b> switch to a skilled-worker permit, no flight home</li>
+          <li>~17,500 cards issued in 2025 · about <b>5 in 6 applications approved</b></li>
+        </ul>
+      </div>
+    </div>
+    <div class="cta-inline reveal d5">
+      <a class="btn-mini" href="https://cal.com/karol-baginski/intro-call" target="_blank" rel="noopener">Book my fifteen minutes →</a>
+      <span>Free · no obligation · you decide after the call</span>
+    </div>
+    <p class="routes-foot reveal d4">The funds amount is set by the German authorities (roughly €1,100 per month of stay in 2026) and changes from time to time; we confirm the current figure on your call.</p>
+  </div>
+</section>
+
+<!-- 3 ─ PROCESS -->
+<section class="slide" id="s3">
+  <div class="slide-inner">
+    <p class="kicker reveal">How it works</p>
+    <h2 class="statement sm reveal d1">From today to your<br>first week <span class="mark">in Germany.</span></h2>
+    <div class="steps">
+      <div class="step hot reveal d2"><h4>Check ✓ &amp; call</h4><p>Your check is done. Next: fifteen minutes with one of us. Free, no obligation.</p></div>
+      <div class="step reveal d2"><h4>Documents</h4><p>We tell you exactly what the embassy asks for and read every document before anything is filed.</p></div>
+      <div class="step reveal d3"><h4>File &amp; embassy</h4><p>We assemble the application, secure the appointment and prepare you for it. You submit in your own name.</p></div>
+      <div class="step reveal d3"><h4>Visa</h4><p>The embassy decides. Once issued, we book your flight and your first accommodation.</p></div>
+      <div class="step reveal d4"><h4>Land</h4><p>Someone meets you at the airport. Address registration, tax ID, residence permit appointment: done in your first days.</p></div>
+      <div class="step reveal d4"><h4>Settle</h4><p>The Companion app sets up bank account, SIM and liability insurance. In English, in minutes.</p></div>
+      <div class="step reveal d5"><h4>Search &amp; interview</h4><p>You interview in person. Employers hire people who are already here.</p></div>
+      <div class="step reveal d5"><h4>Stay</h4><p>Contract signed: switch to a skilled-worker permit from inside Germany. No flight home.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 4 ─ WHO WE ARE -->
+<section class="slide" id="s4">
+  <div class="slide-inner">
+    <div class="split">
+      <div>
+        <p class="kicker reveal">Who we are</p>
+        <h2 class="statement sm reveal d1">The team behind<br>the <span class="mark">Companion.</span></h2>
+        <p class="lede reveal d2">WTE Companion was founded by the brothers <b>Fabian and Jakob Scholz</b>,
+          who have run <b>Charkos Europe</b> for years: the recruiting company that brings nurses and
+          skilled workers from outside the EU into German jobs: recognition, visa, relocation and
+          everything in between. <b>We know the embassies, the authorities and the landlords</b>
+          because we deal with them every week.</p>
+        <p class="team-label reveal d3">The team beside you</p>
+        <div class="founders reveal d3">
+          <div class="founder"><h5>Fabian Scholz</h5><p>Managing director · Lawyer<br>Sales &amp; partnerships</p></div>
+          <div class="founder"><h5>Jakob Scholz</h5><p>Managing director · Economist<br>Your file, your timeline</p></div>
+          <div class="founder"><h5>Karol Baginski</h5><p>Sales &amp; business development<br>Your first call</p></div>
+          <div class="founder"><h5>Fredrik Christensen</h5><p>Product &amp; technology<br>Built the app you will use</p></div>
+          <div class="founder"><h5>Victor Gulea</h5><p>Design &amp; brand<br>Makes sure nothing is confusing</p></div>
+        </div>
+        <div class="sealrow reveal d4">
+          <div class="sq">RAL</div>
+          <div><h6>RAL quality seal 912 "Fair Recruitment Nursing Germany"</h6>
+          <p>Awarded 2025. Its core principle: candidates never pay for job placement.</p></div>
+        </div>
+      </div>
+      <div class="photo-side reveal d3">
+        <img src="assets/chr-55.jpg" alt="Candidates learning German at our partner language school">
+        <div class="photo-cap">Our candidates at the partner language school. The journey starts long before the flight</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5 ─ PRESS -->
+<section class="slide" id="s5" data-chrome="dark">
+  <div class="slide-inner">
+    <p class="kicker reveal">You don't have to take our word for it</p>
+    <h2 class="statement sm reveal d1" style="color:#fff">Known from<br>German <span class="mark under" style="color:#fff">media.</span></h2>
+    <div class="press-split">
+      <div class="press-grid">
+      <a class="press reveal d2" href="https://www.ardmediathek.de/video/mdr-thueringen-journal/indische-pflegekraefte-in-erfurter-heim/mdr/Y3JpZDovL21kci5kZS9iZWl0cmFnL2Ntcy81ZWVlNTczOS1iNjUzLTRlODAtYWJhNi00MjIxZTdhOTcxNzI" target="_blank" rel="noopener">
+        <span class="outlet">MDR · ARD television</span>
+        <h4>TV report: Indian nurses in a German care home</h4>
+        <p>Public German television visited the people we placed at work.</p>
+        <span class="plink">Watch the report →</span>
+      </a>
+      <a class="press reveal d3" href="https://www.sueddeutsche.de/projekte/artikel/bayern/pflege-zuwanderung-fachkraeftemangel-bayern-burgau-indien-e560072/" target="_blank" rel="noopener">
+        <span class="outlet">Süddeutsche Zeitung</span>
+        <h4>Feature: nurses from India for Bavarian clinics</h4>
+        <p>One of Germany's leading national newspapers on our recruitment work.</p>
+        <span class="plink">Read the article →</span>
+      </a>
+      <a class="press reveal d4" href="https://www.bild.de/geld/wirtschaft/olaf-scholz-neffen-vermitteln-pflegekraefte-was-sie-von-merz-erwarten-68a327026c3c814930b7319e" target="_blank" rel="noopener">
+        <span class="outlet">BILD</span>
+        <h4>Germany's biggest daily on our founders</h4>
+        <p>How the Scholz brothers bring skilled care workers to Germany.</p>
+        <span class="plink">Read the article →</span>
+      </a>
+      <a class="press reveal d4" href="https://www.thueringer-allgemeine.de/lokales/erfurt/article412328762/kosenamen-und-taenze-wie-zwei-pflegerinnen-aus-indien-ein-erfurter-seniorenheim-bereichern.html" target="_blank" rel="noopener">
+        <span class="outlet">Thüringer Allgemeine</span>
+        <h4>"How two nurses from India enrich a care home"</h4>
+        <p>Local press about two of our candidates, months after arrival.</p>
+        <span class="plink">Read the article →</span>
+      </a>
+      <a class="press reveal d5" href="https://digitalevorreiter.podigee.io/346-fachkraftemangel-losen-mit-pflegekraften-aus-indien" target="_blank" rel="noopener">
+        <span class="outlet">Podcast · Digitale Vorreiter</span>
+        <h4>Solving the skilled-worker shortage</h4>
+        <p>Our founders in one of Germany's leading digital business podcasts.</p>
+        <span class="plink">Listen →</span>
+      </a>
+      <a class="press reveal d5" href="https://www.tmasgff.de/medienservice/artikel/arbeitsministerin-katharina-schenk-staerkt-fachkraeftepartnerschaften-in-indien" target="_blank" rel="noopener">
+        <span class="outlet">Thuringian Ministry of Labour</span>
+        <h4>State minister visits our partnership in India</h4>
+        <p>Official government coverage of the recruitment partnership.</p>
+        <span class="plink">Read the statement →</span>
+      </a>
+    </div>
+      <figure class="collage reveal d3" aria-label="Press preview images">
+        <div class="ctile c1"><img src="assets/press/mdr.jpg" alt=""><figcaption>MDR · ARD</figcaption></div>
+        <div class="ctile c2"><img src="assets/press/podcast.jpg" alt=""><figcaption>Digitale Vorreiter</figcaption></div>
+        <div class="ctile c3"><img src="assets/press/sz.jpg" alt=""><figcaption>Süddeutsche Zeitung</figcaption></div>
+        <div class="ctile c4"><img src="assets/press/tmasgff.jpg" alt=""><figcaption>Ministry visit · India</figcaption></div>
+        <div class="ctile c5"><img src="assets/press/ta.jpg" alt=""><figcaption>Thüringer Allgemeine</figcaption></div>
+      </figure>
+    </div>
+    <p class="press-foot reveal d6">All reports and videos: <a href="https://www.charkos.eu/presse" target="_blank" rel="noopener">charkos.eu/presse</a></p>
+    <div class="cta-inline reveal d5">
+      <a class="btn-mini" href="https://cal.com/karol-baginski/intro-call" target="_blank" rel="noopener">Book my fifteen minutes →</a>
+      <span>Questions about any of this? Ask us directly.</span>
+    </div>
+  </div>
+</section>
+
+<!-- 6 ─ TESTIMONIALS -->
+<section class="slide" id="s6">
+  <div class="slide-inner">
+    <p class="kicker reveal">People who came with us</p>
+    <h2 class="statement sm reveal d1">They were where<br>you are <span class="mark">right now.</span></h2>
+    <div class="quotes">
+      <div class="quote reveal d2">
+        <p>I was so stressed about the bureaucracy. WTE handled my health insurance before I even landed. I could focus on my new job instead.</p>
+        <h6>Kathirvel Govindharajan</h6><span>Nurse · came from India</span>
+      </div>
+      <div class="quote reveal d3">
+        <p>Opening a German bank account from abroad seemed impossible. With WTE, I had my bunq account ready on day one.</p>
+        <h6>Pinto Amisha Joachim Amitha</h6><span>Nurse · came from India</span>
+      </div>
+      <div class="quote reveal d4">
+        <p>My SIM card was activated the moment I landed. I could call my family right away. Such a small thing, but it meant everything.</p>
+        <h6>Fahade Hisham Kuttattu Thodi</h6><span>Nurse · came from India</span>
+      </div>
+    </div>
+    <p class="quotes-foot reveal d5">Quotes from candidates who came to Germany through our recruitment programme, as published on wte-companion.com.</p>
+  </div>
+</section>
+
+<!-- 7 ─ THE APP -->
+<section class="slide" id="s7">
+  <div class="slide-inner">
+    <div class="split">
+      <div>
+        <p class="kicker reveal">After you land</p>
+        <h2 class="statement sm reveal d1">The German essentials, <span class="mark">in English.</span></h2>
+        <p class="lede reveal d2">The WTE Companion app walks you through every contract in a guided
+          conversation. Each one is a <b>real contract with a real partner</b>, in your name,
+          shown to you in full before you sign. <b>The app itself is free.</b></p>
+        <div class="app-badge reveal d4">⏱ Bank, SIM &amp; liability: done in minutes, not weeks</div>
+        <div class="partners reveal d5">
+          <img src="assets/dak-logo.svg" alt="DAK">
+          <img src="assets/vodafone-logo.svg" alt="Vodafone">
+          <img src="assets/bunq-logo.svg" alt="bunq">
+          <img src="assets/interlloyd-logo.svg" alt="InterLloyd">
+          <img src="assets/hansemerkur-logo.svg" alt="HanseMerkur">
+        </div>
+      </div>
+      <div class="applist reveal d3">
+        <div class="appitem"><div class="ai">🏦</div><div><h4>Bank account</h4><p>German IBAN, opened from the app</p></div></div>
+        <div class="appitem"><div class="ai">📱</div><div><h4>SIM card</h4><p>Your German number, eSIM set up automatically</p></div></div>
+        <div class="appitem"><div class="ai">🛡</div><div><h4>Liability insurance</h4><p>The insurance everyone in Germany has</p></div></div>
+        <div class="appitem"><div class="ai">❤️</div><div><h4>Health insurance</h4><p>Statutory cover, the moment you sign a work contract</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 8 ─ PRICE -->
+<section class="slide" id="s8">
+  <div class="slide-inner">
+    <div class="split">
+      <div>
+        <p class="kicker reveal">Transparent pricing</p>
+        <h2 class="statement sm reveal d1">No hidden fees.<br><span class="mark">No surprises.</span></h2>
+        <div class="fairlist reveal d3">
+          <div class="fair"><i>1</i><div><h4>You never pay for job placement</h4><p>If an employer hires you through us, the employer pays. Always.</p></div></div>
+          <div class="fair"><i>2</i><div><h4>Refund if it fails through no fault of yours</h4><p>Visa refused for reasons not caused by you? We refund our fee.</p></div></div>
+          <div class="fair"><i>3</i><div><h4>Nothing starts before you decide</h4><p>Check and first call are free. Only after your written go does anything begin.</p></div></div>
+        </div>
+      </div>
+      <div class="reveal d2">
+        <div class="pricecard">
+          <div class="ptop">
+            <h3>Visa &amp; Relocation Package</h3>
+            <div class="amount">€2,000 <small>service fee</small></div>
+            <p>plus approx. €1,000–1,500 third-party costs (translations, degree assessment, embassy fee, courier)</p>
+          </div>
+          <ul>
+            <li>Complete document preparation, every paper read by us</li>
+            <li>Embassy appointment secured, interview preparation included</li>
+            <li>Flight &amp; first accommodation organised once the visa is issued</li>
+            <li>Airport pickup, address registration, tax ID in your first days</li>
+            <li>WTE Companion app &amp; your personal coordinator on WhatsApp</li>
+          </ul>
+        </div>
+        <p class="price-foot">Your written quote states the final amount and payment schedule. Third-party costs are passed through at cost.</p>
+        <div class="cta-inline reveal d5">
+      <a class="btn-mini" href="https://cal.com/karol-baginski/intro-call" target="_blank" rel="noopener">Book my fifteen minutes →</a>
+      <span>Get your written quote on the call</span>
+    </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 9 ─ SEAL -->
+<section class="slide" id="s9">
+  <div class="slide-inner">
+    <div class="seal-split">
+      <div>
+        <p class="kicker reveal">Why you can trust this</p>
+        <h2 class="statement sm reveal d1">Audited. Licensed.<br><span class="mark">Awarded.</span></h2>
+        <p class="lede reveal d2">In 2026 the German Innovation Institute (diind) audited WTE Group in a
+          two-stage review and awarded us the seal <b>"Unternehmen der Zukunft"</b>, a
+          <b>Company of the Future</b>. The certificate is signed by Brigitte Zypries,
+          Germany's former Federal Minister of Economic Affairs.</p>
+        <div class="badge-row reveal d3">
+          <div class="badge"><i>UZ</i><div><h6>Unternehmen der Zukunft</h6><p>diind seal, valid until 09/2027</p></div></div>
+          <div class="badge"><i>RAL</i><div><h6>RAL seal 912 · Fair Recruitment</h6><p>Candidates never pay for placement</p></div></div>
+          <div class="badge"><i>§34</i><div><h6>Licensed insurance broker</h6><p>§ 34d GewO · WTE Group GmbH, HRB 179321</p></div></div>
+          <div class="badge"><i>EU</i><div><h6>Your data on EU servers</h6><p>Deletable by you, at any time</p></div></div>
+        </div>
+      </div>
+      <img class="seal-img reveal d2" src="assets/siegel-unternehmen-der-zukunft.png" alt="diind seal: Unternehmen der Zukunft">
+    </div>
+  </div>
+</section>
+
+<!-- 10 ─ CTA -->
+<section class="slide dark" id="s10" data-chrome="dark">
+  <div class="slide-inner">
+    <div class="cta-split">
+      <div>
+        <p class="kicker reveal">Your next step</p>
+        <h2 class="statement sm reveal d1">Fifteen minutes.<br>No <span class="mark under" style="color:#fff">obligation.</span></h2>
+        <p class="lede reveal d2">Reply to our message and pick a time that suits you.
+          We walk through your answers, explain your route and give you a written
+          quote. <b>You decide from there. Nothing starts before your go.</b></p>
+        <div class="cta-btns reveal d3">
+          <a class="btn btn-cta" href="https://cal.com/karol-baginski/intro-call" target="_blank" rel="noopener">Book my fifteen minutes →</a>
+          <a class="btn btn-ghost" href="https://www.wte-companion.com/en/chancenkarte" target="_blank" rel="noopener">Read more on our site</a>
+        </div>
+      </div>
+      <div class="fabian reveal d4">
+        <div class="fabian-pic"><img src="assets/karol-baginski.jpg" alt="Karol Baginski"></div>
+        <div><h5>Karol Baginski</h5><p>Sales &amp; Business Development<br>kb@wte-companion.com<br>wte-companion.com</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BRAND + HUD -->
+<div id="brand"><img src="assets/wte-companion-logo.svg" alt="WTE Companion" class="hud-logo"></div>
+<div id="hud">
+  <div class="hud-spacer"></div>
+  <div id="dots"></div>
+  <div class="hud-arrows">
+    <span id="counter"></span>
+    <button id="prev" aria-label="Back">←</button>
+    <button id="next" aria-label="Next">→</button>
+  </div>
+</div>
+
+<script>
+const q = new URLSearchParams(location.search);
+if (q.get('prospect')) {
+  document.getElementById('prospect').textContent = q.get('prospect');
+  document.getElementById('prospect-wrap').hidden = false;
+}
+const slides = [...document.querySelectorAll('.slide')];
+const dots = document.getElementById('dots');
+slides.forEach((s, i) => {
+  const b = document.createElement('button');
+  b.onclick = () => go(i);
+  dots.appendChild(b);
+});
+let cur = Math.max(0, Math.min((parseInt(location.hash.slice(1)) || 1) - 1, slides.length - 1));
+function go(i) {
+  if (i < 0 || i >= slides.length) return;
+  slides[cur]?.classList.remove('active');
+  cur = i;
+  const s = slides[cur];
+  s.classList.add('active');
+  document.body.className = (s.dataset.chrome === 'dark' ? 'dark-chrome' : '')
+                          + (cur === 0 ? ' hide-brand' : '');
+  [...dots.children].forEach((d, j) => d.classList.toggle('on', j === cur));
+  document.getElementById('counter').textContent = (cur + 1) + ' / ' + slides.length;
+  history.replaceState(null, '', '#' + (cur + 1));
+}
+document.getElementById('prev').onclick = () => go(cur - 1);
+document.getElementById('next').onclick = () => go(cur + 1);
+addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); go(cur + 1); }
+  if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); go(cur - 1); }
+  if (e.key === 'Home') go(0);
+  if (e.key === 'End') go(slides.length - 1);
+});
+go(cur);
+</script>
+</body>
+</html>
