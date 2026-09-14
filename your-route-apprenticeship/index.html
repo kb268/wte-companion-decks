@@ -86,6 +86,28 @@ a{color:inherit}
 .cta-inline span{font-size:12.5px;color:var(--ink3);font-weight:500}
 .dark .cta-inline span,#s5 .cta-inline span{color:#ffffff8c}
 
+
+/* ===== team grid ===== */
+.teamgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.tmember img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:14px;display:block;
+  box-shadow:0 20px 40px -28px #18141066}
+.tmember h5{font-size:13.5px;font-weight:700;margin-top:8px;letter-spacing:-0.01em}
+.tmember p{font-size:11px;color:var(--ink3);font-weight:500;line-height:1.35}
+.bigstat{margin-top:26px;display:flex;align-items:baseline;gap:14px}
+.bigstat .n{font-size:56px;font-weight:800;letter-spacing:-0.04em;color:var(--p500);line-height:1}
+.bigstat .l{font-size:13.5px;font-weight:600;color:var(--ink2);max-width:24ch;line-height:1.35}
+.plogo-chip{display:flex;width:fit-content;align-items:center;background:#fff;border-radius:6px;padding:4px 9px;margin-bottom:7px}
+.plogo{height:15px;width:auto;max-width:150px;object-fit:contain;display:block}
+/* ===== arrivals ===== */
+.arrivals{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:22px}
+.arrivals img{width:100%;height:170px;object-fit:cover;border-radius:14px;display:block;
+  box-shadow:0 22px 44px -30px #18141088}
+.arrivals-cap{margin-top:10px;font-size:12px;color:var(--ink3);font-weight:600}
+#s6 .quotes{margin-top:22px}
+#s6 .quote{padding:16px 18px}
+#s6 .quote p{font-size:12.5px}
+#s6 .kicker{margin-bottom:12px}
+#s6 .statement.sm{font-size:clamp(26px,3.2vw,44px)}
 /* ===== S1 cover ===== */
 #s1{background:linear-gradient(to bottom,#0F1D36 0%,#1A3252 16%,#24476D 32%,#236F9A 52%,#3791CD 68%,#4BB4FF 82%,#98D4FF 93%,#CBE9FF 100%);color:#fff}
 #s1 .kicker{color:var(--cta)}
@@ -291,91 +313,32 @@ a{color:inherit}
   </div>
 </section>
 
-<!-- 2 ─ ROUTE -->
-<section class="slide" id="s2">
-  <div class="slide-inner">
-    <p class="kicker reveal">Your route</p>
-    <h2 class="statement sm reveal d1">Learn a profession, <span class="mark">in Germany.</span></h2>
-    <div class="routes">
-      <div class="route alt reveal d2">
-        <span class="rtag">Ausbildung · Apprenticeship search</span>
-        <h3>What the visa gives you</h3>
-        <p class="rsub">For younger candidates who want German vocational training</p>
-        <ul>
-          <li><b>Under 35</b> with a school certificate that qualifies for university at home</li>
-          <li><b>Up to 9 months</b> in Germany to find your training place</li>
-          <li>Requires <b>solid German</b>, and we support you with language partners from day one</li>
-          <li><b>Proof of funds: about €10,000</b> in a blocked account, the amount for the 9-month stay</li>
-          <li>Work <b>up to 20 hours a week</b> while you search</li>
-        </ul>
-      </div>
-      <div class="route reveal d3">
-        <span class="rtag">Why an apprenticeship</span>
-        <h3>Earn while you learn</h3>
-        <p class="rsub">German vocational training is a career, not a detour</p>
-        <ul>
-          <li><b>Paid from day one:</b> a monthly training salary while you learn</li>
-          <li><b>A recognised German qualification</b> that employers trust across the country</li>
-          <li><b>A clear path to stay:</b> training contract, then a residence permit for the full apprenticeship</li>
-          <li>German companies are <b>actively searching for apprentices</b>, many places stay unfilled every year</li>
-        </ul>
-      </div>
-    </div>
-    <div class="cta-inline reveal d5">
-      <a class="btn-mini" href="https://cal.com/karol-baginski/intro-call" target="_blank" rel="noopener">Book my fifteen minutes →</a>
-      <span>Free · no obligation · you decide after the call</span>
-    </div>
-    <p class="routes-foot reveal d4">The funds amount is set by the German authorities (roughly €1,100 per month of stay in 2026) and changes from time to time; we confirm the current figure on your call.</p>
-  </div>
-</section>
-
-<!-- 3 ─ PROCESS -->
-<section class="slide" id="s3">
-  <div class="slide-inner">
-    <p class="kicker reveal">How it works</p>
-    <h2 class="statement sm reveal d1">From today to your<br>first week <span class="mark">in Germany.</span></h2>
-    <div class="steps">
-      <div class="step hot reveal d2"><h4>Check ✓ &amp; call</h4><p>Your check is done. Next: fifteen minutes with one of us. Free, no obligation.</p></div>
-      <div class="step reveal d2"><h4>Documents</h4><p>We tell you exactly what the embassy asks for and read every document before anything is filed.</p></div>
-      <div class="step reveal d3"><h4>File &amp; embassy</h4><p>We assemble the application, secure the appointment and prepare you for it. You submit in your own name.</p></div>
-      <div class="step reveal d3"><h4>Visa</h4><p>The embassy decides. Once issued, we book your flight and your first accommodation.</p></div>
-      <div class="step reveal d4"><h4>Land</h4><p>Someone meets you at the airport. Address registration, tax ID, residence permit appointment: done in your first days.</p></div>
-      <div class="step reveal d4"><h4>Settle</h4><p>The Companion app sets up bank account, SIM and liability insurance. In English, in minutes.</p></div>
-      <div class="step reveal d5"><h4>Search &amp; interview</h4><p>You visit companies and interview in person. Firms choose apprentices they have met.</p></div>
-      <div class="step reveal d5"><h4>Start your training</h4><p>Contract signed: switch to the apprenticeship residence permit and start. Paid from day one.</p></div>
-    </div>
-  </div>
-</section>
-
-<!-- 4 ─ WHO WE ARE -->
+<!-- WHO WE ARE -->
 <section class="slide" id="s4">
   <div class="slide-inner">
     <div class="split">
       <div>
         <p class="kicker reveal">Who we are</p>
         <h2 class="statement sm reveal d1">The team behind<br>the <span class="mark">Companion.</span></h2>
-        <p class="lede reveal d2">WTE Companion was founded by the brothers <b>Fabian and Jakob Scholz</b>,
+        <p class="lede reveal d2" style="font-size:17px">WTE Companion was founded by the brothers <b>Fabian and Jakob Scholz</b>,
           who have run <b>Charkos Europe</b> for years: the recruiting company that brings nurses and
-          skilled workers from outside the EU into German jobs: recognition, visa, relocation and
+          skilled workers from outside the EU into German jobs. Recognition, visa, relocation and
           everything in between. <b>We know the embassies, the authorities and the landlords</b>
           because we deal with them every week.</p>
-        <p class="team-label reveal d3">The team beside you</p>
-        <div class="founders reveal d3">
-          <div class="founder"><h5>Fabian Scholz</h5><p>Managing director · Lawyer<br>Sales &amp; partnerships</p></div>
-          <div class="founder"><h5>Jakob Scholz</h5><p>Managing director · Economist<br>Your file, your timeline</p></div>
-          <div class="founder"><h5>Karol Baginski</h5><p>Sales &amp; business development<br>Your first call</p></div>
-          <div class="founder"><h5>Fredrik Christensen</h5><p>Product &amp; technology<br>Built the app you will use</p></div>
-          <div class="founder"><h5>Victor Gulea</h5><p>Design &amp; brand<br>Makes sure nothing is confusing</p></div>
-        </div>
+        <div class="bigstat reveal d3"><span class="n">200+</span>
+          <span class="l">employment visas processed in the last twelve months</span></div>
         <div class="sealrow reveal d4">
           <div class="sq">RAL</div>
           <div><h6>RAL quality seal 912 "Fair Recruitment Nursing Germany"</h6>
           <p>Awarded 2025. Its core principle: candidates never pay for job placement.</p></div>
         </div>
       </div>
-      <div class="photo-side reveal d3">
-        <img src="assets/chr-55.jpg" alt="Candidates learning German at our partner language school">
-        <div class="photo-cap">Our candidates at the partner language school. The journey starts long before the flight</div>
+      <div class="teamgrid reveal d3">
+        <div class="tmember"><img src="assets/Fabian-bio.jpg" alt="Fabian Scholz"><h5>Fabian Scholz</h5><p>Managing director · Lawyer</p></div>
+        <div class="tmember"><img src="assets/Jakob-bio.jpg" alt="Jakob Scholz"><h5>Jakob Scholz</h5><p>Managing director · Economist</p></div>
+        <div class="tmember"><img src="assets/Karol-bio.jpg" alt="Karol Baginski"><h5>Karol Baginski</h5><p>Sales &amp; business development</p></div>
+        <div class="tmember"><img src="assets/Fredrik-bio.jpg" alt="Fredrik Christensen"><h5>Fredrik Christensen</h5><p>Product &amp; technology</p></div>
+        <div class="tmember"><img src="assets/Victor-bio.jpg" alt="Victor Gulea"><h5>Victor Gulea</h5><p>Design &amp; brand</p></div>
       </div>
     </div>
   </div>
@@ -389,19 +352,19 @@ a{color:inherit}
     <div class="press-split">
       <div class="press-grid">
       <a class="press reveal d2" href="https://www.ardmediathek.de/video/mdr-thueringen-journal/indische-pflegekraefte-in-erfurter-heim/mdr/Y3JpZDovL21kci5kZS9iZWl0cmFnL2Ntcy81ZWVlNTczOS1iNjUzLTRlODAtYWJhNi00MjIxZTdhOTcxNzI" target="_blank" rel="noopener">
-        <span class="outlet">MDR · ARD television</span>
+        <span class="plogo-chip"><img class="plogo" src="assets/press/press-mdr.png" alt="MDR"></span><span class="outlet">ARD television</span>
         <h4>TV report: Indian nurses in a German care home</h4>
         <p>Public German television visited the people we placed at work.</p>
         <span class="plink">Watch the report →</span>
       </a>
       <a class="press reveal d3" href="https://www.sueddeutsche.de/projekte/artikel/bayern/pflege-zuwanderung-fachkraeftemangel-bayern-burgau-indien-e560072/" target="_blank" rel="noopener">
-        <span class="outlet">Süddeutsche Zeitung</span>
+        <span class="plogo-chip"><img class="plogo" src="assets/press/press-sz.svg" alt="Süddeutsche Zeitung"></span><span class="outlet">National daily</span>
         <h4>Feature: nurses from India for Bavarian clinics</h4>
         <p>One of Germany's leading national newspapers on our recruitment work.</p>
         <span class="plink">Read the article →</span>
       </a>
       <a class="press reveal d4" href="https://www.bild.de/geld/wirtschaft/olaf-scholz-neffen-vermitteln-pflegekraefte-was-sie-von-merz-erwarten-68a327026c3c814930b7319e" target="_blank" rel="noopener">
-        <span class="outlet">BILD</span>
+        <span class="plogo-chip"><img class="plogo" src="assets/press/press-bild.svg" alt="BILD"></span><span class="outlet">Germany’s biggest daily</span>
         <h4>Germany's biggest daily on our founders</h4>
         <p>How the Scholz brothers bring skilled care workers to Germany.</p>
         <span class="plink">Read the article →</span>
@@ -435,8 +398,104 @@ a{color:inherit}
     </div>
     <p class="press-foot reveal d6">All reports and videos: <a href="https://www.charkos.eu/presse" target="_blank" rel="noopener">charkos.eu/presse</a></p>
     <div class="cta-inline reveal d5">
-      <a class="btn-mini" href="https://cal.com/karol-baginski/intro-call" target="_blank" rel="noopener">Book my fifteen minutes →</a>
+      <a class="btn-mini" href="mailto:kb@wte-companion.com?subject=My%20way%20to%20Germany" target="_blank" rel="noopener">Start your way to Germany →</a>
       <span>Questions about any of this? Ask us directly.</span>
+    </div>
+  </div>
+</section>
+
+<!-- 2 ─ ROUTE -->
+<section class="slide" id="s2">
+  <div class="slide-inner">
+    <p class="kicker reveal">Why this route works</p>
+    <h2 class="statement sm reveal d1">Struggling to find a training place <span class="mark">from abroad?</span></h2>
+    <p class="routes-foot reveal d2" style="margin-top:10px;font-size:14px;color:var(--ink2);font-weight:500">That is because companies choose apprentices they have met: <b>successful candidates apply while already living in Germany.</b> With the Ausbildung visa, you could do the same.</p>
+    <div class="routes">
+      <div class="route alt reveal d2">
+        <span class="rtag">Ausbildung · Apprenticeship search</span>
+        <h3>What the visa gives you</h3>
+        <p class="rsub">For younger candidates who want German vocational training</p>
+        <ul>
+          <li><b>Under 35</b> with a school certificate that qualifies for university at home</li>
+          <li><b>Up to 9 months</b> in Germany to find your training place</li>
+          <li>Requires <b>solid German</b>, and we support you with language partners from day one</li>
+          <li><b>Proof of funds: about €10,000</b> in a blocked account, the amount for the 9-month stay</li>
+          <li>Work <b>up to 20 hours a week</b> while you search</li>
+        </ul>
+      </div>
+      <div class="route reveal d3">
+        <span class="rtag">Why an apprenticeship</span>
+        <h3>Earn while you learn</h3>
+        <p class="rsub">German vocational training is a career, not a detour</p>
+        <ul>
+          <li><b>Paid from day one:</b> a monthly training salary while you learn</li>
+          <li><b>A recognised German qualification</b> that employers trust across the country</li>
+          <li><b>A clear path to stay:</b> training contract, then a residence permit for the full apprenticeship</li>
+          <li>German companies are <b>actively searching for apprentices</b>, many places stay unfilled every year</li>
+        </ul>
+      </div>
+    </div>
+    <div class="cta-inline reveal d5">
+      <a class="btn-mini" href="mailto:kb@wte-companion.com?subject=My%20way%20to%20Germany" target="_blank" rel="noopener">Start your way to Germany →</a>
+      <span>Free to ask · we reply within one working day</span>
+    </div>
+    <p class="routes-foot reveal d4">The funds amount is set by the German authorities (roughly €1,100 per month of stay in 2026) and changes from time to time; we confirm the current figure on your call.</p>
+  </div>
+</section>
+
+<!-- EXPECT -->
+<section class="slide" id="s7">
+  <div class="slide-inner">
+    <p class="kicker reveal">What you can expect from us</p>
+    <h2 class="statement sm reveal d1" style="font-size:clamp(28px,3.6vw,52px)">The best set-up to make your German <span class="mark">experience a success.</span></h2>
+    <div class="routes" style="margin-top:30px">
+      <div class="route reveal d2">
+        <span class="rtag">Your dedicated case manager</span>
+        <h3>A real person, in Germany</h3>
+        <p class="rsub">One name, one number, the whole way</p>
+        <ul>
+          <li><b>Same person on WhatsApp</b> from the first call to your first week in Germany</li>
+          <li><b>Every document read</b> and checked before anything is filed</li>
+          <li>Prepares you for the <b>embassy appointment</b></li>
+          <li><b>Meets you at the airport</b> and walks the first days with you</li>
+        </ul>
+      </div>
+      <div class="route alt reveal d3">
+        <span class="rtag">The WTE Companion app</span>
+        <h3>State of the art, for all the admin</h3>
+        <p class="rsub">Guided conversations in English, real contracts with real partners</p>
+        <ul>
+          <li><b>Bank account</b> with a German IBAN</li>
+          <li><b>SIM card</b>, your German number set up automatically</li>
+          <li><b>Liability insurance</b>, the cover everyone in Germany has</li>
+          <li><b>Health insurance</b> the moment you sign a work contract</li>
+        </ul>
+      </div>
+    </div>
+    <div class="partners reveal d5" style="margin-top:26px">
+      <img src="assets/dak-logo.svg" alt="DAK">
+      <img src="assets/vodafone-logo.svg" alt="Vodafone">
+      <img src="assets/bunq-logo.svg" alt="bunq">
+      <img src="assets/interlloyd-logo.svg" alt="InterLloyd">
+      <img src="assets/hansemerkur-logo.svg" alt="HanseMerkur">
+    </div>
+  </div>
+</section>
+
+<!-- 3 ─ PROCESS -->
+<section class="slide" id="s3">
+  <div class="slide-inner">
+    <p class="kicker reveal">How it works</p>
+    <h2 class="statement sm reveal d1">From today to your<br>first week <span class="mark">in Germany.</span></h2>
+    <div class="steps">
+      <div class="step hot reveal d2"><h4>Check ✓ &amp; call</h4><p>Your check is done. Next: fifteen minutes with one of us. Free, no obligation.</p></div>
+      <div class="step reveal d2"><h4>Documents</h4><p>We tell you exactly what the embassy asks for and read every document before anything is filed.</p></div>
+      <div class="step reveal d3"><h4>File &amp; embassy</h4><p>We assemble the application, secure the appointment and prepare you for it. You submit in your own name.</p></div>
+      <div class="step reveal d3"><h4>Visa</h4><p>The embassy decides. Once issued, we book your flight and your first accommodation.</p></div>
+      <div class="step reveal d4"><h4>Land</h4><p>Someone meets you at the airport. Address registration, tax ID, residence permit appointment: done in your first days.</p></div>
+      <div class="step reveal d4"><h4>Settle</h4><p>The Companion app sets up bank account, SIM and liability insurance. In English, in minutes.</p></div>
+      <div class="step reveal d5"><h4>Search &amp; interview</h4><p>You visit companies and interview in person. Firms choose apprentices they have met.</p></div>
+      <div class="step reveal d5"><h4>Start your training</h4><p>Contract signed: switch to the apprenticeship residence permit and start. Paid from day one.</p></div>
     </div>
   </div>
 </section>
@@ -460,71 +519,46 @@ a{color:inherit}
         <h6>Fahade Hisham Kuttattu Thodi</h6><span>Nurse · came from India</span>
       </div>
     </div>
-    <p class="quotes-foot reveal d5">Quotes from candidates who came to Germany through our recruitment programme, as published on wte-companion.com.</p>
-  </div>
-</section>
-
-<!-- 7 ─ THE APP -->
-<section class="slide" id="s7">
-  <div class="slide-inner">
-    <div class="split">
-      <div>
-        <p class="kicker reveal">After you land</p>
-        <h2 class="statement sm reveal d1">The German essentials, <span class="mark">in English.</span></h2>
-        <p class="lede reveal d2">The WTE Companion app walks you through every contract in a guided
-          conversation. Each one is a <b>real contract with a real partner</b>, in your name,
-          shown to you in full before you sign. <b>The app itself is free.</b></p>
-        <div class="app-badge reveal d4">⏱ Bank, SIM &amp; liability: done in minutes, not weeks</div>
-        <div class="partners reveal d5">
-          <img src="assets/dak-logo.svg" alt="DAK">
-          <img src="assets/vodafone-logo.svg" alt="Vodafone">
-          <img src="assets/bunq-logo.svg" alt="bunq">
-          <img src="assets/interlloyd-logo.svg" alt="InterLloyd">
-          <img src="assets/hansemerkur-logo.svg" alt="HanseMerkur">
-        </div>
-      </div>
-      <div class="applist reveal d3">
-        <div class="appitem"><div class="ai">🏦</div><div><h4>Bank account</h4><p>German IBAN, opened from the app</p></div></div>
-        <div class="appitem"><div class="ai">📱</div><div><h4>SIM card</h4><p>Your German number, eSIM set up automatically</p></div></div>
-        <div class="appitem"><div class="ai">🛡</div><div><h4>Liability insurance</h4><p>The insurance everyone in Germany has</p></div></div>
-        <div class="appitem"><div class="ai">❤️</div><div><h4>Health insurance</h4><p>Statutory cover, the moment you sign a work contract</p></div></div>
-      </div>
+        <div class="arrivals reveal d5">
+      <img src="assets/arrival-airport.jpg" alt="Pickup at the airport">
+      <img src="assets/arrival-welcome.jpg" alt="Welcome day with the team">
+      <img src="assets/arrival-happy.jpg" alt="Arrived and settled in Germany">
     </div>
+    <p class="arrivals-cap reveal d6">Real arrivals from our programme: airport pickup, welcome day with our team, and settled in Germany.</p>
+
   </div>
 </section>
 
-<!-- 8 ─ PRICE -->
+<!-- PRICE -->
 <section class="slide" id="s8">
   <div class="slide-inner">
     <div class="split">
       <div>
         <p class="kicker reveal">Transparent pricing</p>
-        <h2 class="statement sm reveal d1">No hidden fees.<br><span class="mark">No surprises.</span></h2>
+        <h2 class="statement sm reveal d1">One package.<br><span class="mark">No surprises.</span></h2>
         <div class="fairlist reveal d3">
           <div class="fair"><i>1</i><div><h4>You never pay for job placement</h4><p>If an employer hires you through us, the employer pays. Always.</p></div></div>
-          <div class="fair"><i>2</i><div><h4>Refund if it fails through no fault of yours</h4><p>Visa refused for reasons not caused by you? We refund our fee.</p></div></div>
+          <div class="fair"><i>2</i><div><h4>Refund if it fails through no fault of yours</h4><p>Visa refused for reasons not caused by you? We refund our service fee.</p></div></div>
           <div class="fair"><i>3</i><div><h4>Nothing starts before you decide</h4><p>Check and first call are free. Only after your written go does anything begin.</p></div></div>
         </div>
       </div>
       <div class="reveal d2">
         <div class="pricecard">
           <div class="ptop">
-            <h3>Visa &amp; Relocation Package</h3>
-            <div class="amount">€2,000 <small>service fee</small></div>
-            <p>plus approx. €1,000–1,500 third-party costs (translations, degree assessment, embassy fee, courier)</p>
+            <h3>The full package to Germany</h3>
+            <div class="amount">€5,000 <small>flat, everything below included</small></div>
+            <p>plus approx. €1,000 third-party costs and expenses, your flight included</p>
           </div>
           <ul>
-            <li>Complete document preparation, every paper read by us</li>
-            <li>Embassy appointment secured, interview preparation included</li>
-            <li>Flight &amp; first accommodation organised once the visa is issued</li>
-            <li>Airport pickup, address registration, tax ID in your first days</li>
-            <li>WTE Companion app &amp; your personal coordinator on WhatsApp</li>
+            <li><b>Visa &amp; relocation · €2,000:</b> every document reviewed, degree recognition where needed, correct submission, appointment support</li>
+            <li><b>Accommodation search · €1,500:</b> living space in Germany, guaranteed</li>
+            <li><b>Integration support · €2,000:</b> airport pickup, address registration, tax ID, residence permit appointment, your first days</li>
           </ul>
         </div>
         <p class="price-foot">Your written quote states the final amount and payment schedule. Third-party costs are passed through at cost.</p>
         <div class="cta-inline reveal d5">
-      <a class="btn-mini" href="https://cal.com/karol-baginski/intro-call" target="_blank" rel="noopener">Book my fifteen minutes →</a>
-      <span>Get your written quote on the call</span>
+      <a class="btn-mini" href="mailto:kb@wte-companion.com?subject=My%20way%20to%20Germany">Start your way to Germany →</a>
+      <span>We reply within one working day</span>
     </div>
       </div>
     </div>
@@ -554,18 +588,18 @@ a{color:inherit}
   </div>
 </section>
 
-<!-- 10 ─ CTA -->
+<!-- CTA -->
 <section class="slide dark" id="s10" data-chrome="dark">
   <div class="slide-inner">
     <div class="cta-split">
       <div>
         <p class="kicker reveal">Your next step</p>
-        <h2 class="statement sm reveal d1">Fifteen minutes.<br>No <span class="mark under" style="color:#fff">obligation.</span></h2>
-        <p class="lede reveal d2">Reply to our message and pick a time that suits you.
-          We walk through your answers, explain your route and give you a written
-          quote. <b>You decide from there. Nothing starts before your go.</b></p>
+        <h2 class="statement sm reveal d1">Start your way<br><span class="mark under" style="color:#fff">to Germany.</span></h2>
+        <p class="lede reveal d2">Reply to this presentation by email. Tell us where you stand and attach
+          your CV if you like. We come back to you <b>within one working day</b> with your next step,
+          and nothing starts before your written go.</p>
         <div class="cta-btns reveal d3">
-          <a class="btn btn-cta" href="https://cal.com/karol-baginski/intro-call" target="_blank" rel="noopener">Book my fifteen minutes →</a>
+          <a class="btn btn-cta" href="mailto:kb@wte-companion.com?subject=My%20way%20to%20Germany">Write to us →</a>
           <a class="btn btn-ghost" href="https://www.wte-companion.com/en/chancenkarte" target="_blank" rel="noopener">Read more on our site</a>
         </div>
       </div>
