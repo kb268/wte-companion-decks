@@ -110,6 +110,7 @@ section{margin-top:52px}
 .step h3 span{font-weight:600;color:var(--mut);font-size:14px}
 .step .frame{margin-top:14px}
 .step .qs{margin-top:10px}
+.prog{display:inline-block;margin-left:6px;font-weight:800;color:var(--ink)}
 @media(max-width:860px){.picker{grid-template-columns:1fr}}
 
 /* bilingual say block */
@@ -140,7 +141,16 @@ section{margin-top:52px}
   text-transform:uppercase;color:var(--mut);margin-bottom:6px}
 .route .frame .de{display:block;margin-top:10px;padding-top:10px;border-top:1px solid var(--rule);color:var(--mut)}
 .qs{list-style:none;counter-reset:q;margin-top:6px}
-.qs li{counter-increment:q;display:block;position:relative;padding:11px 0 11px 30px;border-top:1px solid var(--rule);font-size:14px;color:var(--ink2)}
+.qs li{counter-increment:q;position:relative;padding:11px 46px 11px 30px;border-top:1px solid var(--rule);font-size:14px;color:var(--ink2)}
+.qs li .ok{position:absolute;right:0;top:10px;display:inline-flex;align-items:center;gap:6px;cursor:pointer;
+  font-size:10px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--mut);user-select:none}
+.qs li .ok input{width:18px;height:18px;margin:0}
+.path.a .qs li .ok input{accent-color:#2B3B99}
+.path.b .qs li .ok input{accent-color:#959F04}
+.qs li:has(.ok input:checked){opacity:.55}
+.qs li:has(.ok input:checked) .ok{color:#2c7a3c}
+.qs li:has(.ok input:checked)::after{content:"passt";position:absolute;right:46px;top:12px;font-size:10px;
+  font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#2c7a3c}
 .qs li::before{content:counter(q);position:absolute;left:0;top:12px;width:22px;height:22px;border-radius:50%;font-size:11.5px;
   font-weight:800;display:grid;place-items:center}
 .route.a .qs li::before{background:var(--blue);color:#fff}
@@ -187,9 +197,9 @@ footer{margin-top:64px;border-top:1px solid var(--rule);padding-top:16px;font-si
     <h2>Das Outcome: drei Ja, kein Verkauf</h2>
     <p>Erfolg ist nicht „er klingt interessiert". Erfolg ist, wenn alle drei Stufen stehen, bevor Ihr auflegt:</p>
     <ol>
-      <li><b>C1 · Investitions-Ja</b>„Ja, das will ich investieren", Einwände jetzt statt nach dem Angebot</li>
-      <li><b>C2 · Unterlagen + Deadline</b>Konkrete Liste, konkreter Tag, explizites „yes"</li>
-      <li><b>C3 · Folgetermin gebucht</b>Kalendereintrag entsteht noch während des Calls</li>
+      <li><label class="ok" title="Antwort passt"><input type="checkbox"></label><b>C1 · Investitions-Ja</b>„Ja, das will ich investieren", Einwände jetzt statt nach dem Angebot</li>
+      <li><label class="ok" title="Antwort passt"><input type="checkbox"></label><b>C2 · Unterlagen + Deadline</b>Konkrete Liste, konkreter Tag, explizites „yes"</li>
+      <li><label class="ok" title="Antwort passt"><input type="checkbox"></label><b>C3 · Folgetermin gebucht</b>Kalendereintrag entsteht noch während des Calls</li>
     </ol>
   </div>
 </header>
@@ -313,7 +323,7 @@ footer{margin-top:64px;border-top:1px solid var(--rule);padding-top:16px;font-si
       <span class="popen">Diesen Weg öffnen →</span>
     </button>
   </div>
-<div class="path" id="path-a" hidden>
+<div class="path a" id="path-a" hidden>
   <div class="pathhead a"><span class="ptag">Weg A · abgeschlossene Qualifikation</span><h2>Chancenkarte · Opportunity Card</h2></div>
   <div class="step"><span class="stepno">Schritt 1</span><h3>Den Weg erklären <span>· Set the frame</span></h3><p class="frame"><span class="lab">Rahmen setzen · SAY</span>
           "Good, then this is actually simple. Because you already have your qualification, you do not need a job
@@ -327,30 +337,30 @@ footer{margin-top:64px;border-top:1px solid var(--rule);padding-top:16px;font-si
           Stunden pro Woche arbeiten, Sie sitzen also nicht herum und geben nur Geld aus. Ich frage Sie kurz ein paar
           Dinge, dann sage ich Ihnen ehrlich, ob das passt."</span></p></div>
   <div class="step"><span class="stepno">Schritt 2</span><h3>Seine Lage verstehen <span>· Understand his situation</span></h3>
-    <p class="note">Der Reihe nach fragen, das Geld nicht ans Ende schieben.</p><ol class="qs">
-          <li>"What exactly is your <b>qualification</b>, and which year did you finish?"
+    <p class="note">Der Reihe nach fragen, das Geld nicht ans Ende schieben. Rechts abhaken, was <b>passt</b>. <span class="prog"></span></p><ol class="qs">
+          <li><label class="ok" title="Antwort passt"><input type="checkbox"></label>"What exactly is your <b>qualification</b>, and which year did you finish?"
             <span class="de">„Welchen Abschluss haben Sie genau, und in welchem Jahr haben Sie ihn gemacht?"</span></li>
-          <li>"Has a German authority ever <b>assessed</b> it? If not, that is normal. We check that for you."
+          <li><label class="ok" title="Antwort passt"><input type="checkbox"></label>"Has a German authority ever <b>assessed</b> it? If not, that is normal. We check that for you."
             <span class="de">„Wurde er schon einmal von einer deutschen Stelle bewertet? Falls nicht, ist das
             normal. Das prüfen wir für Sie."</span></li>
-          <li>"How many <b>years have you worked</b> in this field since?"
+          <li><label class="ok" title="Antwort passt"><input type="checkbox"></label>"How many <b>years have you worked</b> in this field since?"
             <span class="de">„Wie viele Jahre haben Sie seitdem in diesem Beruf gearbeitet?"</span></li>
-          <li>"Which <b>language certificates</b> do you hold, German or English, and from which institute?"
+          <li><label class="ok" title="Antwort passt"><input type="checkbox"></label>"Which <b>language certificates</b> do you hold, German or English, and from which institute?"
             <span class="de">„Welche Sprachzertifikate haben Sie, Deutsch oder Englisch, und von welchem
             Institut?"</span>
             <span class="why">Zertifikat zählt, Selbsteinschätzung nicht</span></li>
-          <li>"The blocked account needs about <b>thirteen thousand euros</b>. Is that available today, and where
+          <li><label class="ok" title="Antwort passt"><input type="checkbox"></label>"The blocked account needs about <b>thirteen thousand euros</b>. Is that available today, and where
             does it come from?"
             <span class="de">„Für das Sperrkonto brauchen Sie rund <b>dreizehntausend Euro</b>. Ist das Geld heute
             verfügbar, und woher kommt es?"</span>
             <span class="why">Der häufigste Antrags-Killer, nie ans Ende schieben</span></li>
-          <li>"Have you been to Germany or Schengen before, and has a <b>visa ever been refused</b>?"
+          <li><label class="ok" title="Antwort passt"><input type="checkbox"></label>"Have you been to Germany or Schengen before, and has a <b>visa ever been refused</b>?"
             <span class="de">„Waren Sie schon einmal in Deutschland oder im Schengenraum, und wurde Ihnen jemals
             ein Visum abgelehnt?"</span>
             <span class="why">Alte Ablehnung = andere Strategie, muss jetzt kommen</span></li>
-          <li>"<b>Who</b> would come with you, and <b>how soon</b> could you leave?"
+          <li><label class="ok" title="Antwort passt"><input type="checkbox"></label>"<b>Who</b> would come with you, and <b>how soon</b> could you leave?"
             <span class="de">„Wer würde mitkommen, und wie schnell könnten Sie reisen?"</span></li>
-        </ol><p class="warn">🇲🇦 <b>Wenn er aus Marokko kommt:</b> Die Chancenkarte steht bei der Botschaft Rabat in der Gruppe <b>ohne Zeitangabe</b> („hohe Nachfrage"), also keine Terminzusage machen. Und Rabat erkennt <b>telc-Zertifikate derzeit nicht</b> als verlässlichen Nachweis an, also Goethe oder ÖSD empfehlen.</p></div>
+        </ol></div>
   <div class="step"><span class="stepno">Schritt 3</span><h3>Geld und nächster Schritt <span>· Money and the next step</span></h3><div class="say">
 <div class="en"><span class="lab">SAY · ENGLISH</span><p>"Before the money, one thing straight: <b>nobody can promise you a job or a visa, and anyone who does is lying to you.</b> What we can promise is that your file is complete and correct, that you apply in your own name, and that roughly five in six of these applications get approved."</p><p>"So, money, openly, because I do not want any surprises later. <b>Today you pay nothing.</b> After our call I look at your documents and send you a written quote. Only when you say yes, we start."</p><p>"Our work is <b>five thousand euros</b> as one package: the visa and relocation, the apartment search, and the support when you land. Booked separately those three would be five and a half thousand, so the package saves you five hundred."</p><p>"And you do not pay that at once. It comes in <b>three steps</b>: one thousand when we open your file. One thousand when we submit it and book your embassy appointment. And three thousand before you fly, for the apartment and your first days here."</p><p>"On top there are about <b>one thousand euros</b> of real costs that we simply pass on: translations, the degree comparison, the embassy fee, and your flight."</p><p>"And then there is the <b>blocked account: about thirteen thousand euros</b>. That one is not a fee and it never belongs to us. <b>It stays your money</b>, in an account in your name. The embassy only wants to see that you can support yourself, and after you land it is paid back to you month by month."</p><p>"So what you really spend with us is five thousand plus about one thousand, spread over the months before you leave. <b>How does that sound to you?</b>"</p></div>
 <div class="de"><span class="lab">DEUTSCH</span><p>„Bevor wir über Geld reden, eines klar: <b>Niemand kann Ihnen einen Job oder ein Visum versprechen, und wer das tut, lügt Sie an.</b> Was wir versprechen können: Ihre Akte ist vollständig und korrekt, Sie beantragen in Ihrem eigenen Namen, und rund fünf von sechs dieser Anträge werden genehmigt."</p><p>„Also, das Geld, offen, weil ich später keine Überraschungen will. <b>Heute zahlen Sie nichts.</b> Nach unserem Gespräch sehe ich mir Ihre Unterlagen an und schicke Ihnen ein schriftliches Angebot. Erst wenn Sie Ja sagen, fangen wir an."</p><p>„Unsere Arbeit kostet <b>fünftausend Euro</b> als Paket: Visum und Relocation, die Wohnungssuche und die Begleitung, wenn Sie ankommen. Einzeln gebucht wären das fünftausendfünfhundert, das Paket spart Ihnen also fünfhundert."</p><p>„Und Sie zahlen das nicht auf einmal, sondern in <b>drei Schritten</b>: tausend, wenn wir Ihre Akte eröffnen. Tausend, wenn wir sie einreichen und Ihren Botschaftstermin buchen. Und dreitausend vor dem Flug, für die Wohnung und Ihre ersten Tage hier."</p><p>„Dazu kommen rund <b>tausend Euro</b> echte Kosten, die wir einfach weitergeben: Übersetzungen, die Zeugnisbewertung, die Botschaftsgebühr und Ihr Flug."</p><p>„Und dann gibt es das <b>Sperrkonto: rund dreizehntausend Euro</b>. Das ist keine Gebühr und gehört nie uns. <b>Es bleibt Ihr Geld</b>, auf einem Konto in Ihrem Namen. Die Botschaft will nur sehen, dass Sie sich selbst versorgen können, und nach der Ankunft wird es Ihnen Monat für Monat ausgezahlt."</p><p>„Was Sie also wirklich bei uns ausgeben, sind fünftausend plus rund tausend, verteilt auf die Monate vor der Abreise. <b>Wie klingt das für Sie?</b>"</p></div>
@@ -365,7 +375,7 @@ footer{margin-top:64px;border-top:1px solid var(--rule);padding-top:16px;font-si
 <div class="en"><span class="lab">SAY · ENGLISH</span><p>"And let us put our next call in the calendar right now. Fifteen minutes on [Tag], <b>I am sending you the invite while we speak.</b>"</p><p>Schlusssatz: "Then that is a plan. Documents by [Tag A], we speak on [Tag B], and you will have my written quote before that call."</p></div>
 <div class="de"><span class="lab">DEUTSCH</span><p>„Und lassen Sie uns den nächsten Termin gleich jetzt eintragen. Fünfzehn Minuten am [Tag], <b>ich schicke Ihnen die Einladung, während wir sprechen.</b>"</p><p>Schlusssatz: „Dann steht der Plan. Unterlagen bis [Tag A], wir sprechen am [Tag B], und mein schriftliches Angebot haben Sie vor diesem Termin."</p></div>
 </div></div></div></div>
-</div><div class="path" id="path-b" hidden>
+</div><div class="path b" id="path-b" hidden>
   <div class="pathhead b"><span class="ptag">Weg B · Beruf erst lernen</span><h2>Ausbildung · Apprenticeship</h2></div>
   <div class="step"><span class="stepno">Schritt 1</span><h3>Den Weg erklären <span>· Set the frame</span></h3><p class="frame"><span class="lab">Rahmen setzen · SAY</span>
           "Good. Then we are talking about an apprenticeship, and honestly, that is the route most people abroad
@@ -378,32 +388,32 @@ footer{margin-top:64px;border-top:1px solid var(--rule);padding-top:16px;font-si
           am Ende halten Sie einen deutschen Abschluss in der Hand, den die Arbeitgeber hier wirklich schätzen. Ich
           frage Sie kurz ein paar Dinge, dann sage ich Ihnen, ob das für Sie funktioniert."</span></p></div>
   <div class="step"><span class="stepno">Schritt 2</span><h3>Seine Lage verstehen <span>· Understand his situation</span></h3>
-    <p class="note">Der Reihe nach fragen, das Geld nicht ans Ende schieben.</p><ol class="qs">
-          <li>"How <b>old</b> are you exactly?"
+    <p class="note">Der Reihe nach fragen, das Geld nicht ans Ende schieben. Rechts abhaken, was <b>passt</b>. <span class="prog"></span></p><ol class="qs">
+          <li><label class="ok" title="Antwort passt"><input type="checkbox"></label>"How <b>old</b> are you exactly?"
             <span class="de">„Wie alt sind Sie genau?"</span>
             <span class="why">Grenze: unter 35, taggenau</span></li>
-          <li>"Which <b>school certificate</b> do you hold, and does it qualify you for university in your home
+          <li><label class="ok" title="Antwort passt"><input type="checkbox"></label>"Which <b>school certificate</b> do you hold, and does it qualify you for university in your home
             country?"
             <span class="de">„Welchen Schulabschluss haben Sie, und berechtigt er in Ihrem Land zum Studium?"</span>
             <span class="why">Harte gesetzliche Bedingung</span></li>
-          <li>"Which <b>profession</b> do you want to learn, and why this one?"
+          <li><label class="ok" title="Antwort passt"><input type="checkbox"></label>"Which <b>profession</b> do you want to learn, and why this one?"
             <span class="de">„Welchen Beruf wollen Sie lernen, und warum genau diesen?"</span>
             <span class="why">Betriebe spüren Beliebigkeit sofort</span></li>
-          <li>"What is your <b>German level</b>, and which certificate can you show?" Danach immer: "German is the
+          <li><label class="ok" title="Antwort passt"><input type="checkbox"></label>"What is your <b>German level</b>, and which certificate can you show?" Danach immer: "German is the
             make-or-break on this route. If you need more, our language partners start before you fly."
             <span class="de">„Wie gut ist Ihr Deutsch, und welches Zertifikat können Sie vorlegen?" Danach immer:
             „Deutsch entscheidet auf diesem Weg. Wenn Sie mehr brauchen, starten unsere Sprachpartner schon vor dem
             Flug."</span></li>
-          <li>"For nine months the blocked account needs about <b>ten thousand euros</b>. Is that available today,
+          <li><label class="ok" title="Antwort passt"><input type="checkbox"></label>"For nine months the blocked account needs about <b>ten thousand euros</b>. Is that available today,
             and where does it come from?"
             <span class="de">„Für neun Monate braucht das Sperrkonto rund <b>zehntausend Euro</b>. Ist das Geld
             heute verfügbar, und woher kommt es?"</span></li>
-          <li>"Have you been to Germany or Schengen before, and has a <b>visa ever been refused</b>?"
+          <li><label class="ok" title="Antwort passt"><input type="checkbox"></label>"Have you been to Germany or Schengen before, and has a <b>visa ever been refused</b>?"
             <span class="de">„Waren Sie schon einmal in Deutschland oder im Schengenraum, und wurde Ihnen jemals
             ein Visum abgelehnt?"</span></li>
-          <li>"<b>Who</b> would come with you, and <b>how soon</b> could you leave?"
+          <li><label class="ok" title="Antwort passt"><input type="checkbox"></label>"<b>Who</b> would come with you, and <b>how soon</b> could you leave?"
             <span class="de">„Wer würde mitkommen, und wie schnell könnten Sie reisen?"</span></li>
-        </ol><p class="warn">🇲🇦 <b>Wenn er aus Marokko kommt:</b> Reine Ausbildungsplatzsuche steht bei der Botschaft Rabat <b>ohne Zeitangabe</b> („hohe Nachfrage"), mit Vorabzustimmung der Arbeitsagentur dagegen bei rund <b>4 Monaten</b>. Sag ihm: erst den Ausbildungsvertrag suchen, dann das Visum, das spart bis zu einem Jahr. Und Rabat erkennt <b>telc-Zertifikate derzeit nicht</b> als verlässlichen Nachweis an, also Goethe oder ÖSD empfehlen.</p></div>
+        </ol></div>
   <div class="step"><span class="stepno">Schritt 3</span><h3>Geld und nächster Schritt <span>· Money and the next step</span></h3><div class="say">
 <div class="en"><span class="lab">SAY · ENGLISH</span><p>"Before the money, one thing straight: <b>nobody can promise you a job or a visa, and anyone who does is lying to you.</b> What we can promise is that your file is complete and correct, that you apply in your own name, and that roughly five in six of these applications get approved."</p><p>"So, money, openly, because I do not want any surprises later. <b>Today you pay nothing.</b> After our call I look at your documents and send you a written quote. Only when you say yes, we start."</p><p>"Our work is <b>five thousand euros</b> as one package: the visa and relocation, the apartment search, and the support when you land. Booked separately those three would be five and a half thousand, so the package saves you five hundred."</p><p>"And you do not pay that at once. It comes in <b>three steps</b>: one thousand when we open your file. One thousand when we submit it and book your embassy appointment. And three thousand before you fly, for the apartment and your first days here."</p><p>"On top there are about <b>one thousand euros</b> of real costs that we simply pass on: translations, the degree comparison, the embassy fee, and your flight."</p><p>"And then there is the <b>blocked account: about ten thousand euros</b> for the nine months. That one is not a fee and it never belongs to us. <b>It stays your money</b>, in an account in your name, and after you land it is paid back to you month by month."</p><p>"And one good thing about your route: <b>once you have a training contract, your training salary counts as proof of funds.</b> The blocked account gets smaller then, sometimes it disappears completely."</p><p>"So what you really spend with us is five thousand plus about one thousand, spread over the months before you leave. <b>How does that sound to you?</b>"</p></div>
 <div class="de"><span class="lab">DEUTSCH</span><p>„Bevor wir über Geld reden, eines klar: <b>Niemand kann Ihnen einen Job oder ein Visum versprechen, und wer das tut, lügt Sie an.</b> Was wir versprechen können: Ihre Akte ist vollständig und korrekt, Sie beantragen in Ihrem eigenen Namen, und rund fünf von sechs dieser Anträge werden genehmigt."</p><p>„Also, das Geld, offen, weil ich später keine Überraschungen will. <b>Heute zahlen Sie nichts.</b> Nach unserem Gespräch sehe ich mir Ihre Unterlagen an und schicke Ihnen ein schriftliches Angebot. Erst wenn Sie Ja sagen, fangen wir an."</p><p>„Unsere Arbeit kostet <b>fünftausend Euro</b> als Paket: Visum und Relocation, die Wohnungssuche und die Begleitung, wenn Sie ankommen. Einzeln gebucht wären das fünftausendfünfhundert, das Paket spart Ihnen also fünfhundert."</p><p>„Und Sie zahlen das nicht auf einmal, sondern in <b>drei Schritten</b>: tausend, wenn wir Ihre Akte eröffnen. Tausend, wenn wir sie einreichen und Ihren Botschaftstermin buchen. Und dreitausend vor dem Flug, für die Wohnung und Ihre ersten Tage hier."</p><p>„Dazu kommen rund <b>tausend Euro</b> echte Kosten, die wir einfach weitergeben: Übersetzungen, die Zeugnisbewertung, die Botschaftsgebühr und Ihr Flug."</p><p>„Und dann gibt es das <b>Sperrkonto: rund zehntausend Euro</b> für die neun Monate. Das ist keine Gebühr und gehört nie uns. <b>Es bleibt Ihr Geld</b>, auf einem Konto in Ihrem Namen, und nach der Ankunft wird es Ihnen Monat für Monat ausgezahlt."</p><p>„Und eine gute Nachricht zu Ihrem Weg: <b>Sobald Sie einen Ausbildungsvertrag haben, zählt Ihre Ausbildungsvergütung als Nachweis.</b> Das Sperrkonto wird dann kleiner, manchmal fällt es ganz weg."</p><p>„Was Sie also wirklich bei uns ausgeben, sind fünftausend plus rund tausend, verteilt auf die Monate vor der Abreise. <b>Wie klingt das für Sie?</b>"</p></div>
@@ -447,5 +457,15 @@ document.querySelectorAll('.pick').forEach(function(b){
     document.querySelectorAll('.path').forEach(function(pnl){ pnl.hidden = (pnl.id !== 'path-' + id); });
     document.getElementById('path-' + id).scrollIntoView({behavior:'smooth', block:'start'});
   });
+});
+document.querySelectorAll('.path').forEach(function(pnl){
+  var boxes = pnl.querySelectorAll('.qs .ok input');
+  var out = pnl.querySelector('.prog');
+  function upd(){
+    var done = pnl.querySelectorAll('.qs .ok input:checked').length;
+    if(out) out.textContent = done + ' von ' + boxes.length + ' geprüft';
+  }
+  boxes.forEach(function(b){ b.addEventListener('change', upd); });
+  upd();
 });
 </script>
