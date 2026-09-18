@@ -83,6 +83,35 @@ section{margin-top:52px}
 .precheck .foot{padding:14px 22px 18px;border-top:1px solid var(--rule);font-size:12.5px;color:var(--mut)}
 @media(max-width:860px){.ccols{grid-template-columns:1fr}.ccol + .ccol{border-left:none;border-top:1px solid var(--rule)}}
 
+
+/* ===== Weg-Auswahl ===== */
+.picker{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:22px}
+.pick{text-align:left;border:1px solid var(--rule);border-radius:16px;padding:20px 22px;background:var(--card);
+  cursor:pointer;font:inherit;color:inherit;transition:all .18s ease;display:block}
+.pick:hover{transform:translateY(-2px);box-shadow:0 18px 36px -24px #18141055}
+.pick .ptag{display:block;font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.12em}
+.pick.a .ptag{color:var(--blue)} .pick.b .ptag{color:var(--oliv)}
+.pick .ph3{display:block;font-size:22px;font-weight:800;letter-spacing:-0.025em;margin-top:5px}
+.pick .ph3 em{font-style:normal;font-weight:600;color:var(--mut);font-size:15px}
+.pick .pdesc{display:block;font-size:13.5px;color:var(--ink2);margin-top:8px;line-height:1.45}
+.pick .popen{display:inline-block;margin-top:14px;font-size:13px;font-weight:800}
+.pick.a .popen{color:var(--blue)} .pick.b .popen{color:var(--oliv)}
+.pick.a.on{background:var(--blue-soft);border-color:var(--blue)}
+.pick.b.on{background:var(--oliv-soft);border-color:var(--oliv)}
+.path{margin-top:26px}
+.pathhead{padding:18px 22px;border-radius:14px}
+.pathhead.a{background:var(--blue-soft)} .pathhead.b{background:var(--oliv-soft)}
+.pathhead .ptag{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.12em}
+.pathhead.a .ptag{color:var(--blue)} .pathhead.b .ptag{color:var(--oliv)}
+.pathhead h2{font-size:24px;font-weight:800;letter-spacing:-0.025em;margin-top:3px}
+.step{margin-top:28px;padding-left:18px;border-left:2px solid var(--rule)}
+.step .stepno{font-family:ui-monospace,Menlo,monospace;font-size:11px;font-weight:700;color:var(--mut);letter-spacing:.06em}
+.step h3{font-size:18px;font-weight:800;letter-spacing:-0.02em;margin-top:2px}
+.step h3 span{font-weight:600;color:var(--mut);font-size:14px}
+.step .frame{margin-top:14px}
+.step .qs{margin-top:10px}
+@media(max-width:860px){.picker{grid-template-columns:1fr}}
+
 /* bilingual say block */
 .say{margin-top:16px;border:1px solid var(--rule);border-left:4px solid var(--blue);
   border-radius:0 12px 12px 0;overflow:hidden;display:grid;grid-template-columns:1fr 1fr}
@@ -267,13 +296,26 @@ footer{margin-top:64px;border-top:1px solid var(--rule);padding-top:16px;font-si
 </section>
 
 <section>
-  <div class="shead"><span class="t">4–10 MIN</span><h2>Die Fragen, je nach Weg <span>· The questions, depending on the route</span></h2></div>
-  <div class="routes">
-    <div class="route a">
-      <div class="rhead"><span class="rtag">Weg A · abgeschlossene Qualifikation (completed qualification)</span>
-        <h3>Chancenkarte <span>(Opportunity Card)</span></h3></div>
-      <div class="rbody">
-        <p class="frame"><span class="lab">Rahmen setzen · SAY</span>
+  <div class="shead"><span class="t">4–15 MIN</span><h2>Jetzt den Weg wählen <span>· Pick the route</span></h2></div>
+  <p class="note">Nach der Weichenfrage: Karte anklicken, dann läuft nur noch <b>ein</b> Gespräch durch, von der
+  Erklärung über die Fragen und das Geld bis zum Commitment.</p>
+  <div class="picker">
+    <button class="pick a" data-path="a">
+      <span class="ptag">Weg A · abgeschlossene Qualifikation</span>
+      <span class="ph3">Chancenkarte <em>(Opportunity Card)</em></span>
+      <span class="pdesc">Er hat einen Abschluss und sucht Arbeit. Ein Jahr Zeit, 20 Stunden Arbeit pro Woche erlaubt.</span>
+      <span class="popen">Diesen Weg öffnen →</span>
+    </button>
+    <button class="pick b" data-path="b">
+      <span class="ptag">Weg B · Beruf erst lernen</span>
+      <span class="ph3">Ausbildung <em>(Apprenticeship)</em></span>
+      <span class="pdesc">Er will einen Beruf lernen. Neun Monate Suche, bezahlte Ausbildung ab Tag eins.</span>
+      <span class="popen">Diesen Weg öffnen →</span>
+    </button>
+  </div>
+<div class="path" id="path-a" hidden>
+  <div class="pathhead a"><span class="ptag">Weg A · abgeschlossene Qualifikation</span><h2>Chancenkarte · Opportunity Card</h2></div>
+  <div class="step"><span class="stepno">Schritt 1</span><h3>Den Weg erklären <span>· Set the frame</span></h3><p class="frame"><span class="lab">Rahmen setzen · SAY</span>
           "Good, then this is actually simple. Because you already have your qualification, you do not need a job
           offer at all. The Opportunity Card is made for exactly your situation: you come over, you live here, and
           you look for the job from inside Germany, for up to a year. And you are allowed to work twenty hours a week
@@ -283,8 +325,9 @@ footer{margin-top:64px;border-top:1px solid var(--rule);padding-top:16px;font-si
           gar kein Jobangebot. Die Chancenkarte ist für genau Ihre Situation gemacht: Sie kommen her, Sie wohnen
           hier, und Sie suchen den Job von Deutschland aus, bis zu einem Jahr lang. Und Sie dürfen dabei zwanzig
           Stunden pro Woche arbeiten, Sie sitzen also nicht herum und geben nur Geld aus. Ich frage Sie kurz ein paar
-          Dinge, dann sage ich Ihnen ehrlich, ob das passt."</span></p>
-        <ol class="qs">
+          Dinge, dann sage ich Ihnen ehrlich, ob das passt."</span></p></div>
+  <div class="step"><span class="stepno">Schritt 2</span><h3>Seine Lage verstehen <span>· Understand his situation</span></h3>
+    <p class="note">Der Reihe nach fragen, das Geld nicht ans Ende schieben.</p><ol class="qs">
           <li>"What exactly is your <b>qualification</b>, and which year did you finish?"
             <span class="de">„Welchen Abschluss haben Sie genau, und in welchem Jahr haben Sie ihn gemacht?"</span></li>
           <li>"Has a German authority ever <b>assessed</b> it? If not, that is normal. We check that for you."
@@ -307,14 +350,24 @@ footer{margin-top:64px;border-top:1px solid var(--rule);padding-top:16px;font-si
             <span class="why">Alte Ablehnung = andere Strategie, muss jetzt kommen</span></li>
           <li>"<b>Who</b> would come with you, and <b>how soon</b> could you leave?"
             <span class="de">„Wer würde mitkommen, und wie schnell könnten Sie reisen?"</span></li>
-        </ol>
-      </div>
-    </div>
-    <div class="route b">
-      <div class="rhead"><span class="rtag">Weg B · Beruf erst lernen (wants to learn a profession first)</span>
-        <h3>Ausbildung <span>(Apprenticeship)</span></h3></div>
-      <div class="rbody">
-        <p class="frame"><span class="lab">Rahmen setzen · SAY</span>
+        </ol><p class="warn">🇲🇦 <b>Wenn er aus Marokko kommt:</b> Die Chancenkarte steht bei der Botschaft Rabat in der Gruppe <b>ohne Zeitangabe</b> („hohe Nachfrage"), also keine Terminzusage machen. Und Rabat erkennt <b>telc-Zertifikate derzeit nicht</b> als verlässlichen Nachweis an, also Goethe oder ÖSD empfehlen.</p></div>
+  <div class="step"><span class="stepno">Schritt 3</span><h3>Geld und nächster Schritt <span>· Money and the next step</span></h3><div class="say">
+<div class="en"><span class="lab">SAY · ENGLISH</span><p>"Before the money, one thing straight: <b>nobody can promise you a job or a visa, and anyone who does is lying to you.</b> What we can promise is that your file is complete and correct, that you apply in your own name, and that roughly five in six of these applications get approved."</p><p>"So, money, openly, because I do not want any surprises later. <b>Today you pay nothing.</b> After our call I look at your documents and send you a written quote. Only when you say yes, we start."</p><p>"Our work is <b>five thousand euros</b> as one package: the visa and relocation, the apartment search, and the support when you land. Booked separately those three would be five and a half thousand, so the package saves you five hundred."</p><p>"And you do not pay that at once. It comes in <b>three steps</b>: one thousand when we open your file. One thousand when we submit it and book your embassy appointment. And three thousand before you fly, for the apartment and your first days here."</p><p>"On top there are about <b>one thousand euros</b> of real costs that we simply pass on: translations, the degree comparison, the embassy fee, and your flight."</p><p>"And then there is the <b>blocked account: about thirteen thousand euros</b>. That one is not a fee and it never belongs to us. <b>It stays your money</b>, in an account in your name. The embassy only wants to see that you can support yourself, and after you land it is paid back to you month by month."</p><p>"So what you really spend with us is five thousand plus about one thousand, spread over the months before you leave. <b>How does that sound to you?</b>"</p></div>
+<div class="de"><span class="lab">DEUTSCH</span><p>„Bevor wir über Geld reden, eines klar: <b>Niemand kann Ihnen einen Job oder ein Visum versprechen, und wer das tut, lügt Sie an.</b> Was wir versprechen können: Ihre Akte ist vollständig und korrekt, Sie beantragen in Ihrem eigenen Namen, und rund fünf von sechs dieser Anträge werden genehmigt."</p><p>„Also, das Geld, offen, weil ich später keine Überraschungen will. <b>Heute zahlen Sie nichts.</b> Nach unserem Gespräch sehe ich mir Ihre Unterlagen an und schicke Ihnen ein schriftliches Angebot. Erst wenn Sie Ja sagen, fangen wir an."</p><p>„Unsere Arbeit kostet <b>fünftausend Euro</b> als Paket: Visum und Relocation, die Wohnungssuche und die Begleitung, wenn Sie ankommen. Einzeln gebucht wären das fünftausendfünfhundert, das Paket spart Ihnen also fünfhundert."</p><p>„Und Sie zahlen das nicht auf einmal, sondern in <b>drei Schritten</b>: tausend, wenn wir Ihre Akte eröffnen. Tausend, wenn wir sie einreichen und Ihren Botschaftstermin buchen. Und dreitausend vor dem Flug, für die Wohnung und Ihre ersten Tage hier."</p><p>„Dazu kommen rund <b>tausend Euro</b> echte Kosten, die wir einfach weitergeben: Übersetzungen, die Zeugnisbewertung, die Botschaftsgebühr und Ihr Flug."</p><p>„Und dann gibt es das <b>Sperrkonto: rund dreizehntausend Euro</b>. Das ist keine Gebühr und gehört nie uns. <b>Es bleibt Ihr Geld</b>, auf einem Konto in Ihrem Namen. Die Botschaft will nur sehen, dass Sie sich selbst versorgen können, und nach der Ankunft wird es Ihnen Monat für Monat ausgezahlt."</p><p>„Was Sie also wirklich bei uns ausgeben, sind fünftausend plus rund tausend, verteilt auf die Monate vor der Abreise. <b>Wie klingt das für Sie?</b>"</p></div>
+</div></div>
+  <div class="step"><span class="stepno">Schritt 4</span><h3>Das Commitment, in drei Stufen <span>· The commitment</span></h3><div class="cstep"><div class="cnum">C1</div><div style="flex:1"><h3>Die Investitionsfrage <span>· The investment question</span></h3><p class="cwhy">Hier fällt das innere Ja. Einwände jetzt hören, nicht nach dem Angebot</p><div class="say">
+<div class="en"><span class="lab">SAY · ENGLISH</span><p>"So let me ask you straight: if your documents check out and my written quote says exactly what I just explained, <b>is this something you want to invest in yourself?</b>"</p><p>Bei Zögern: "What would need to be true for this to be a clear yes? The money, your family, the timing?"</p><p>Wenn das Ja kommt: "Good. Then let us do this properly, step by step."</p></div>
+<div class="de"><span class="lab">DEUTSCH</span><p>„Dann frage ich Sie direkt: Wenn Ihre Unterlagen passen und mein schriftliches Angebot genau das sagt, was ich Ihnen gerade erklärt habe, <b>ist das etwas, das Sie in sich selbst investieren wollen?</b>"</p><p>Bei Zögern: „Was müsste zutreffen, damit es ein klares Ja wird? Das Geld, Ihre Familie, der Zeitpunkt?"</p><p>Wenn das Ja kommt: „Gut. Dann machen wir das richtig, Schritt für Schritt."</p></div>
+</div></div></div><div class="cstep"><div class="cnum">C2</div><div style="flex:1"><h3>Unterlagen mit Deadline <span>· Documents with a deadline</span></h3><p class="cwhy">Explizites „yes" abwarten, sonst zählt es nicht</p><div class="say">
+<div class="en"><span class="lab">SAY · ENGLISH</span><p>"Here is your homework: passport, school certificate, language certificate, degree and work certificates on WhatsApp <b>by [Wochentag]</b>. Deal?"</p></div>
+<div class="de"><span class="lab">DEUTSCH</span><p>„Ihre Hausaufgabe: Pass, Schulzeugnis, Sprachzertifikat, Abschluss- und Arbeitszeugnisse per WhatsApp <b>bis [Wochentag]</b>. Abgemacht?"</p></div>
+</div></div></div><div class="cstep"><div class="cnum">C3</div><div style="flex:1"><h3>Folgetermin sofort buchen <span>· Book the next call now</span></h3><p class="cwhy">Der Kalendereintrag entsteht, während Ihr sprecht</p><div class="say">
+<div class="en"><span class="lab">SAY · ENGLISH</span><p>"And let us put our next call in the calendar right now. Fifteen minutes on [Tag], <b>I am sending you the invite while we speak.</b>"</p><p>Schlusssatz: "Then that is a plan. Documents by [Tag A], we speak on [Tag B], and you will have my written quote before that call."</p></div>
+<div class="de"><span class="lab">DEUTSCH</span><p>„Und lassen Sie uns den nächsten Termin gleich jetzt eintragen. Fünfzehn Minuten am [Tag], <b>ich schicke Ihnen die Einladung, während wir sprechen.</b>"</p><p>Schlusssatz: „Dann steht der Plan. Unterlagen bis [Tag A], wir sprechen am [Tag B], und mein schriftliches Angebot haben Sie vor diesem Termin."</p></div>
+</div></div></div></div>
+</div><div class="path" id="path-b" hidden>
+  <div class="pathhead b"><span class="ptag">Weg B · Beruf erst lernen</span><h2>Ausbildung · Apprenticeship</h2></div>
+  <div class="step"><span class="stepno">Schritt 1</span><h3>Den Weg erklären <span>· Set the frame</span></h3><p class="frame"><span class="lab">Rahmen setzen · SAY</span>
           "Good. Then we are talking about an apprenticeship, and honestly, that is the route most people abroad
           underestimate. You come over for up to nine months to find your training place. And once you have it, you
           earn money from day one while you learn the profession, and at the end you hold a German qualification that
@@ -323,8 +376,9 @@ footer{margin-top:64px;border-top:1px solid var(--rule);padding-top:16px;font-si
           meisten im Ausland unterschätzen. Sie kommen für bis zu neun Monate her, um Ihren Ausbildungsplatz zu
           finden. Und sobald Sie ihn haben, verdienen Sie ab dem ersten Tag Geld, während Sie den Beruf lernen, und
           am Ende halten Sie einen deutschen Abschluss in der Hand, den die Arbeitgeber hier wirklich schätzen. Ich
-          frage Sie kurz ein paar Dinge, dann sage ich Ihnen, ob das für Sie funktioniert."</span></p>
-        <ol class="qs">
+          frage Sie kurz ein paar Dinge, dann sage ich Ihnen, ob das für Sie funktioniert."</span></p></div>
+  <div class="step"><span class="stepno">Schritt 2</span><h3>Seine Lage verstehen <span>· Understand his situation</span></h3>
+    <p class="note">Der Reihe nach fragen, das Geld nicht ans Ende schieben.</p><ol class="qs">
           <li>"How <b>old</b> are you exactly?"
             <span class="de">„Wie alt sind Sie genau?"</span>
             <span class="why">Grenze: unter 35, taggenau</span></li>
@@ -349,103 +403,22 @@ footer{margin-top:64px;border-top:1px solid var(--rule);padding-top:16px;font-si
             ein Visum abgelehnt?"</span></li>
           <li>"<b>Who</b> would come with you, and <b>how soon</b> could you leave?"
             <span class="de">„Wer würde mitkommen, und wie schnell könnten Sie reisen?"</span></li>
-        </ol>
-        <p class="warn">⚠️ Keine Ausbildungsvergütungs-Zahlen nennen: sie altern und variieren je Beruf und Betrieb.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section>
-  <div class="shead"><span class="t">10–12 MIN</span><h2>Geld und nächster Schritt <span>· Money and the next step</span></h2></div>
-  <p class="note">Ruhig und offen sprechen, als würdest Du einem Freund erklären, was auf ihn zukommt. Zuerst die
-  Ehrlichkeit, dann die Summe, dann die <b>Raten</b>, und am Ende die Frage, die das Ja auslöst. Zahlen für die
-  Ausbildung in Klammern.</p>
-  <div class="say">
-    <div class="en"><span class="lab">SAY · ENGLISH</span>
-      <p>"Before the money, one thing straight: <b>nobody can promise you a job or a visa, and anyone who does is
-      lying to you.</b> What we can promise is that your file is complete and correct, that you apply in your own
-      name, and that roughly five in six of these applications get approved."</p>
-      <p>"So, money, openly, because I do not want any surprises later. <b>Today you pay nothing.</b> After our call
-      I look at your documents and send you a written quote. Only when you say yes, we start."</p>
-      <p>"Our work is <b>five thousand euros</b> as one package: the visa and relocation, the apartment search, and
-      the support when you land. Booked separately those three would be five and a half thousand, so the package
-      saves you five hundred."</p>
-      <p>"And you do not pay that at once. It comes in <b>three steps</b>: one thousand when we open your file. One
-      thousand when we submit it and book your embassy appointment. And three thousand before you fly, for the
-      apartment and your first days here."</p>
-      <p>"On top there are about <b>one thousand euros</b> of real costs that we simply pass on: translations, the
-      degree comparison, the embassy fee, and your flight."</p>
-      <p>"And then there is the <b>blocked account: thirteen thousand euros</b> (Ausbildung: ten thousand). That one
-      is not a fee and it never belongs to us. <b>It stays your money</b>, in an account in your name. The embassy
-      only wants to see that you can support yourself, and after you land it is paid back to you month by month."</p>
-      <p>"So what you really spend with us is five thousand plus about one thousand, spread over the months before
-      you leave. <b>How does that sound to you?</b>"</p></div>
-    <div class="de"><span class="lab">DEUTSCH</span>
-      <p>„Bevor wir über Geld reden, eines klar: <b>Niemand kann Ihnen einen Job oder ein Visum versprechen, und wer
-      das tut, lügt Sie an.</b> Was wir versprechen können: Ihre Akte ist vollständig und korrekt, Sie beantragen in
-      Ihrem eigenen Namen, und rund fünf von sechs dieser Anträge werden genehmigt."</p>
-      <p>„Also, das Geld, offen, weil ich später keine Überraschungen will. <b>Heute zahlen Sie nichts.</b> Nach
-      unserem Gespräch sehe ich mir Ihre Unterlagen an und schicke Ihnen ein schriftliches Angebot. Erst wenn Sie Ja
-      sagen, fangen wir an."</p>
-      <p>„Unsere Arbeit kostet <b>fünftausend Euro</b> als Paket: Visum und Relocation, die Wohnungssuche und die
-      Begleitung, wenn Sie ankommen. Einzeln gebucht wären das fünftausendfünfhundert, das Paket spart Ihnen also
-      fünfhundert."</p>
-      <p>„Und Sie zahlen das nicht auf einmal, sondern in <b>drei Schritten</b>: tausend, wenn wir Ihre Akte
-      eröffnen. Tausend, wenn wir sie einreichen und Ihren Botschaftstermin buchen. Und dreitausend vor dem Flug,
-      für die Wohnung und Ihre ersten Tage hier."</p>
-      <p>„Dazu kommen rund <b>tausend Euro</b> echte Kosten, die wir einfach weitergeben: Übersetzungen, die
-      Zeugnisbewertung, die Botschaftsgebühr und Ihr Flug."</p>
-      <p>„Und dann gibt es das <b>Sperrkonto: dreizehntausend Euro</b> (Ausbildung: zehntausend). Das ist keine
-      Gebühr und gehört nie uns. <b>Es bleibt Ihr Geld</b>, auf einem Konto in Ihrem Namen. Die Botschaft will nur
-      sehen, dass Sie sich selbst versorgen können, und nach der Ankunft wird es Ihnen Monat für Monat
-      ausgezahlt."</p>
-      <p>„Was Sie also wirklich bei uns ausgeben, sind fünftausend plus rund tausend, verteilt auf die Monate vor
-      der Abreise. <b>Wie klingt das für Sie?</b>"</p></div>
-  </div>
-  <p class="note">⚠️ <b>Der Ratenplan (1.000 / 1.000 / 3.000) ist meine Ableitung</b> aus dem dokumentierten
-  1.000-Euro-Vorschuss im Visa-Paket. Fabian und Jakob müssen ihn einmal bestätigen, bevor er in einem schriftlichen
-  Angebot steht. Im Call ist er als Struktur trotzdem richtig: Der Kandidat muss hören, dass es Schritte gibt und
-  nicht eine große Summe auf einmal.</p>
-
-  <div class="shead"><span class="t">12–15 MIN</span><h2>Das Commitment, in drei Stufen <span>· The commitment, in three steps</span></h2></div>
-  <div class="cstep"><div class="cnum">C1</div><div style="flex:1">
-    <h3>Die Investitionsfrage <span>· The investment question</span></h3><p class="cwhy">Hier fällt das innere Ja. Einwände jetzt hören, nicht nach dem Angebot</p>
-    <div class="say">
-      <div class="en"><span class="lab">SAY · ENGLISH</span><p>"So let me ask you straight: if your documents check out and my
-        written quote says exactly what I just explained, <b>is this something you want to invest in yourself?</b>"</p>
-        <p>Bei Zögern: "What would need to be true for this to be a clear yes? The money, your family, the timing?"</p>
-        <p>Wenn das Ja kommt: "Good. Then let us do this properly, step by step."</p></div>
-      <div class="de"><span class="lab">DEUTSCH</span><p>„Dann frage ich Sie direkt: Wenn Ihre Unterlagen passen und mein
-        schriftliches Angebot genau das sagt, was ich Ihnen gerade erklärt habe, <b>ist das etwas, das Sie in sich
-        selbst investieren wollen?</b>"</p>
-        <p>Bei Zögern: „Was müsste zutreffen, damit es ein klares Ja wird? Das Geld, Ihre Familie, der Zeitpunkt?"</p>
-        <p>Wenn das Ja kommt: „Gut. Dann machen wir das richtig, Schritt für Schritt."</p></div>
-    </div>
-  </div></div>
-  <div class="cstep"><div class="cnum">C2</div><div style="flex:1">
-    <h3>Unterlagen mit Deadline <span>· Documents with a deadline</span></h3><p class="cwhy">Explizites „yes" abwarten, sonst zählt es nicht</p>
-    <div class="say">
-      <div class="en"><span class="lab">SAY · ENGLISH</span><p>"Here is your homework: passport, school certificate,
-        language certificate [Weg A zusätzlich: degree and work certificates] on WhatsApp <b>by [Wochentag]</b>.
-        Deal?"</p></div>
-      <div class="de"><span class="lab">DEUTSCH</span><p>„Ihre Hausaufgabe: Pass, Schulzeugnis, Sprachzertifikat
-        [Weg A zusätzlich: Abschluss- und Arbeitszeugnisse] per WhatsApp <b>bis [Wochentag]</b>. Abgemacht?"</p></div>
-    </div>
-  </div></div>
-  <div class="cstep"><div class="cnum">C3</div><div style="flex:1">
-    <h3>Folgetermin sofort buchen <span>· Book the next call now</span></h3><p class="cwhy">Der Kalendereintrag entsteht, während Ihr sprecht</p>
-    <div class="say">
-      <div class="en"><span class="lab">SAY · ENGLISH</span><p>"And let's put our next call in the calendar right now.
-        Fifteen minutes on [Tag], <b>I am sending you the invite while we speak.</b>"</p>
-        <p>Schlusssatz: "Then that's a plan. Documents by [Tag A], we speak on [Tag B], and you will have my written
-        quote before that call."</p></div>
-      <div class="de"><span class="lab">DEUTSCH</span><p>„Und lassen Sie uns den nächsten Termin gleich jetzt
-        eintragen. Fünfzehn Minuten am [Tag], <b>ich schicke Ihnen die Einladung, während wir sprechen.</b>"</p>
-        <p>Schlusssatz: „Dann steht der Plan. Unterlagen bis [Tag A], wir sprechen am [Tag B], und mein schriftliches
-        Angebot haben Sie vor diesem Termin."</p></div>
-    </div>
-  </div></div>
+        </ol><p class="warn">🇲🇦 <b>Wenn er aus Marokko kommt:</b> Reine Ausbildungsplatzsuche steht bei der Botschaft Rabat <b>ohne Zeitangabe</b> („hohe Nachfrage"), mit Vorabzustimmung der Arbeitsagentur dagegen bei rund <b>4 Monaten</b>. Sag ihm: erst den Ausbildungsvertrag suchen, dann das Visum, das spart bis zu einem Jahr. Und Rabat erkennt <b>telc-Zertifikate derzeit nicht</b> als verlässlichen Nachweis an, also Goethe oder ÖSD empfehlen.</p></div>
+  <div class="step"><span class="stepno">Schritt 3</span><h3>Geld und nächster Schritt <span>· Money and the next step</span></h3><div class="say">
+<div class="en"><span class="lab">SAY · ENGLISH</span><p>"Before the money, one thing straight: <b>nobody can promise you a job or a visa, and anyone who does is lying to you.</b> What we can promise is that your file is complete and correct, that you apply in your own name, and that roughly five in six of these applications get approved."</p><p>"So, money, openly, because I do not want any surprises later. <b>Today you pay nothing.</b> After our call I look at your documents and send you a written quote. Only when you say yes, we start."</p><p>"Our work is <b>five thousand euros</b> as one package: the visa and relocation, the apartment search, and the support when you land. Booked separately those three would be five and a half thousand, so the package saves you five hundred."</p><p>"And you do not pay that at once. It comes in <b>three steps</b>: one thousand when we open your file. One thousand when we submit it and book your embassy appointment. And three thousand before you fly, for the apartment and your first days here."</p><p>"On top there are about <b>one thousand euros</b> of real costs that we simply pass on: translations, the degree comparison, the embassy fee, and your flight."</p><p>"And then there is the <b>blocked account: about ten thousand euros</b> for the nine months. That one is not a fee and it never belongs to us. <b>It stays your money</b>, in an account in your name, and after you land it is paid back to you month by month."</p><p>"And one good thing about your route: <b>once you have a training contract, your training salary counts as proof of funds.</b> The blocked account gets smaller then, sometimes it disappears completely."</p><p>"So what you really spend with us is five thousand plus about one thousand, spread over the months before you leave. <b>How does that sound to you?</b>"</p></div>
+<div class="de"><span class="lab">DEUTSCH</span><p>„Bevor wir über Geld reden, eines klar: <b>Niemand kann Ihnen einen Job oder ein Visum versprechen, und wer das tut, lügt Sie an.</b> Was wir versprechen können: Ihre Akte ist vollständig und korrekt, Sie beantragen in Ihrem eigenen Namen, und rund fünf von sechs dieser Anträge werden genehmigt."</p><p>„Also, das Geld, offen, weil ich später keine Überraschungen will. <b>Heute zahlen Sie nichts.</b> Nach unserem Gespräch sehe ich mir Ihre Unterlagen an und schicke Ihnen ein schriftliches Angebot. Erst wenn Sie Ja sagen, fangen wir an."</p><p>„Unsere Arbeit kostet <b>fünftausend Euro</b> als Paket: Visum und Relocation, die Wohnungssuche und die Begleitung, wenn Sie ankommen. Einzeln gebucht wären das fünftausendfünfhundert, das Paket spart Ihnen also fünfhundert."</p><p>„Und Sie zahlen das nicht auf einmal, sondern in <b>drei Schritten</b>: tausend, wenn wir Ihre Akte eröffnen. Tausend, wenn wir sie einreichen und Ihren Botschaftstermin buchen. Und dreitausend vor dem Flug, für die Wohnung und Ihre ersten Tage hier."</p><p>„Dazu kommen rund <b>tausend Euro</b> echte Kosten, die wir einfach weitergeben: Übersetzungen, die Zeugnisbewertung, die Botschaftsgebühr und Ihr Flug."</p><p>„Und dann gibt es das <b>Sperrkonto: rund zehntausend Euro</b> für die neun Monate. Das ist keine Gebühr und gehört nie uns. <b>Es bleibt Ihr Geld</b>, auf einem Konto in Ihrem Namen, und nach der Ankunft wird es Ihnen Monat für Monat ausgezahlt."</p><p>„Und eine gute Nachricht zu Ihrem Weg: <b>Sobald Sie einen Ausbildungsvertrag haben, zählt Ihre Ausbildungsvergütung als Nachweis.</b> Das Sperrkonto wird dann kleiner, manchmal fällt es ganz weg."</p><p>„Was Sie also wirklich bei uns ausgeben, sind fünftausend plus rund tausend, verteilt auf die Monate vor der Abreise. <b>Wie klingt das für Sie?</b>"</p></div>
+</div></div>
+  <div class="step"><span class="stepno">Schritt 4</span><h3>Das Commitment, in drei Stufen <span>· The commitment</span></h3><div class="cstep"><div class="cnum">C1</div><div style="flex:1"><h3>Die Investitionsfrage <span>· The investment question</span></h3><p class="cwhy">Hier fällt das innere Ja. Einwände jetzt hören, nicht nach dem Angebot</p><div class="say">
+<div class="en"><span class="lab">SAY · ENGLISH</span><p>"So let me ask you straight: if your documents check out and my written quote says exactly what I just explained, <b>is this something you want to invest in yourself?</b>"</p><p>Bei Zögern: "What would need to be true for this to be a clear yes? The money, your family, the timing?"</p><p>Wenn das Ja kommt: "Good. Then let us do this properly, step by step."</p></div>
+<div class="de"><span class="lab">DEUTSCH</span><p>„Dann frage ich Sie direkt: Wenn Ihre Unterlagen passen und mein schriftliches Angebot genau das sagt, was ich Ihnen gerade erklärt habe, <b>ist das etwas, das Sie in sich selbst investieren wollen?</b>"</p><p>Bei Zögern: „Was müsste zutreffen, damit es ein klares Ja wird? Das Geld, Ihre Familie, der Zeitpunkt?"</p><p>Wenn das Ja kommt: „Gut. Dann machen wir das richtig, Schritt für Schritt."</p></div>
+</div></div></div><div class="cstep"><div class="cnum">C2</div><div style="flex:1"><h3>Unterlagen mit Deadline <span>· Documents with a deadline</span></h3><p class="cwhy">Explizites „yes" abwarten, sonst zählt es nicht</p><div class="say">
+<div class="en"><span class="lab">SAY · ENGLISH</span><p>"Here is your homework: passport, school certificate, language certificate, and your degree if you have one on WhatsApp <b>by [Wochentag]</b>. Deal?"</p></div>
+<div class="de"><span class="lab">DEUTSCH</span><p>„Ihre Hausaufgabe: Pass, Schulzeugnis, Sprachzertifikat, und Ihr Studienabschluss, falls vorhanden per WhatsApp <b>bis [Wochentag]</b>. Abgemacht?"</p></div>
+</div></div></div><div class="cstep"><div class="cnum">C3</div><div style="flex:1"><h3>Folgetermin sofort buchen <span>· Book the next call now</span></h3><p class="cwhy">Der Kalendereintrag entsteht, während Ihr sprecht</p><div class="say">
+<div class="en"><span class="lab">SAY · ENGLISH</span><p>"And let us put our next call in the calendar right now. Fifteen minutes on [Tag], <b>I am sending you the invite while we speak.</b>"</p><p>Schlusssatz: "Then that is a plan. Documents by [Tag A], we speak on [Tag B], and you will have my written quote before that call."</p></div>
+<div class="de"><span class="lab">DEUTSCH</span><p>„Und lassen Sie uns den nächsten Termin gleich jetzt eintragen. Fünfzehn Minuten am [Tag], <b>ich schicke Ihnen die Einladung, während wir sprechen.</b>"</p><p>Schlusssatz: „Dann steht der Plan. Unterlagen bis [Tag A], wir sprechen am [Tag B], und mein schriftliches Angebot haben Sie vor diesem Termin."</p></div>
+</div></div></div></div>
+</div>
 </section>
 
 <section>
@@ -465,3 +438,14 @@ footer{margin-top:64px;border-top:1px solid var(--rule);padding-top:16px;font-si
   <span>MASTER: sales-companion/playbooks/2026-09-14_intro-call-kandidaten.md</span>
 </footer>
 </div>
+
+<script>
+document.querySelectorAll('.pick').forEach(function(b){
+  b.addEventListener('click', function(){
+    var id = b.dataset.path;
+    document.querySelectorAll('.pick').forEach(function(x){ x.classList.toggle('on', x === b); });
+    document.querySelectorAll('.path').forEach(function(pnl){ pnl.hidden = (pnl.id !== 'path-' + id); });
+    document.getElementById('path-' + id).scrollIntoView({behavior:'smooth', block:'start'});
+  });
+});
+</script>
