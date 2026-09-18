@@ -51,6 +51,30 @@ section{margin-top:52px}
 .note{margin-top:16px;color:var(--mut);font-size:13.5px;max-width:78ch}
 .note b{color:var(--ink)}
 
+
+/* ===== Laender-Wartezeiten ===== */
+.lands{margin-top:28px;border:1px solid var(--rule);border-radius:16px;background:var(--card);overflow:hidden}
+.lands > summary{list-style:none;cursor:pointer;padding:16px 22px;display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.lands > summary::-webkit-details-marker{display:none}
+.lands > summary h2{font-size:17px;font-weight:800;letter-spacing:-0.02em}
+.lands > summary .hint{font-size:12.5px;color:var(--mut)}
+.lands > summary::after{content:"Aufklappen";margin-left:auto;font-size:11px;font-weight:800;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--blue)}
+.lands[open] > summary::after{content:"Zuklappen"}
+.lands .lbody{padding:0 22px 20px;border-top:1px solid var(--rule)}
+.lands table{width:100%;border-collapse:collapse;margin-top:14px;font-size:13px}
+.lands th{text-align:left;font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;
+  color:var(--mut);padding:8px 10px 8px 0;border-bottom:1px solid var(--rule)}
+.lands td{padding:11px 10px 11px 0;border-bottom:1px solid var(--rule);vertical-align:top;color:var(--ink2)}
+.lands td.land{font-weight:800;color:var(--ink);white-space:normal;padding-right:18px}
+.lands td.land .src{display:block;font-weight:500;margin-top:3px;line-height:1.35}
+.lands .kA{color:var(--mut);font-style:normal}
+.lands .num{font-weight:700;color:var(--ink)}
+.lands .src{font-size:11px;color:var(--mut)}
+.lands .lfoot{margin-top:14px;font-size:12px;color:var(--mut);max-width:90ch}
+@media(max-width:860px){.lands table,.lands thead,.lands tbody,.lands tr,.lands td,.lands th{display:block}
+ .lands th{display:none}.lands td{border:none;padding:3px 0}.lands tr{border-bottom:1px solid var(--rule);padding:10px 0;display:block}}
+
 /* ===== Schnell-Check ===== */
 .precheck{margin-top:34px;border:1px solid var(--rule);border-radius:16px;overflow:hidden;background:var(--card)}
 .precheck .ph{padding:18px 22px 14px;border-bottom:1px solid var(--rule)}
@@ -203,6 +227,57 @@ footer{margin-top:64px;border-top:1px solid var(--rule);padding-top:16px;font-si
     </ol>
   </div>
 </header>
+
+
+<details class="lands">
+  <summary><h2>Wartezeiten je Land</h2><span class="hint">offizielle Angaben der Auslandsvertretungen, geprüft 18.09.2026</span></summary>
+  <div class="lbody">
+    <table>
+      <thead><tr><th>Land</th><th>Chancenkarte</th><th>Ausbildung mit Vertrag</th><th>Ausbildungsplatzsuche</th><th>Bearbeitung nach Termin</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="land">🇲🇦 Marokko<span class="src">rabat.diplo.de, Stand 04.07.2025</span></td>
+          <td><span class="kA">keine offizielle Angabe, „hohe Nachfrage"</span></td>
+          <td><span class="num">ca. 4 Monate</span> mit Vorabzustimmung der Arbeitsagentur<br><span class="src">Pflege ohne Vorabzustimmung: ca. 6 Monate</span></td>
+          <td><span class="kA">keine offizielle Angabe</span> (läuft unter „Ausbildung sonstige")</td>
+          <td><span class="kA">keine zugesicherte Frist</span></td>
+        </tr>
+        <tr>
+          <td class="land">🇹🇷 Türkei<span class="src">tuerkei.diplo.de, Dienstleister iDATA</span></td>
+          <td><span class="num">1 Monat bis über 1 Jahr</span>, je nach Vertretung (Kategorie Erwerbstätigkeit)</td>
+          <td><span class="kA">nicht als Kategorie gelistet</span></td>
+          <td><span class="kA">nicht als Kategorie gelistet</span></td>
+          <td><span class="num">15 bis 45 Tage</span></td>
+        </tr>
+        <tr>
+          <td class="land">🇻🇳 Vietnam<span class="src">vietnam.diplo.de, Annahme über VFS Global</span></td>
+          <td>Termin <span class="num">max. 2 Tage</span></td>
+          <td>Termin <span class="num">max. 2 Tage</span></td>
+          <td>Termin <span class="num">max. 2 Tage</span></td>
+          <td><span class="num">ca. 3 Monate</span>, im Einzelfall länger</td>
+        </tr>
+        <tr>
+          <td class="land">🇮🇳 Indien<span class="src">india.diplo.de, Termine über VFS Global</span></td>
+          <td><span class="kA">keine veröffentlichte Wartezeit</span></td>
+          <td><span class="kA">keine veröffentlichte Wartezeit</span></td>
+          <td><span class="kA">keine veröffentlichte Wartezeit</span></td>
+          <td><span class="kA">keine veröffentlichte Angabe</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="lfoot"><b>So benutzt Du das im Call:</b> Wo eine Zahl steht, darfst Du sie nennen, immer mit dem Zusatz,
+    dass es die Schätzung der Botschaft ist und ohne Gewähr. Wo „keine offizielle Angabe" steht, sag genau das und
+    erfinde keine Zahl. Das ist kein Schwächezeichen, sondern genau der Unterschied zu den Agenten, vor denen diese
+    Kandidaten Angst haben.</p>
+    <p class="lfoot"><b>Der wichtigste Hebel:</b> In Marokko halbiert ein <b>Ausbildungsvertrag vor dem Visumantrag</b>
+    die Wartezeit (4 Monate statt unbestimmt), weil der Betrieb die Vorabzustimmung der Arbeitsagentur holt. Dieselbe
+    Logik gilt überall: erst der Vertrag, dann das Visum. In Vietnam ist nicht der Termin der Engpass, sondern die
+    Bearbeitung von rund drei Monaten.</p>
+    <p class="lfoot">⚠️ Nur Marokko und die Türkei veröffentlichen überhaupt Kategorien-Wartezeiten. Marokkos Tabelle
+    trägt den Stand 04.07.2025, ist also über ein Jahr alt. Vor einer verbindlichen Aussage an einen Kandidaten
+    kurz gegenprüfen.</p>
+  </div>
+</details>
 
 <section class="precheck">
   <div class="ph">
