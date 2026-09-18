@@ -50,6 +50,37 @@ section{margin-top:52px}
 .shead h2 span{font-weight:600;color:var(--mut);font-size:16px}
 .note{margin-top:16px;color:var(--mut);font-size:13.5px;max-width:78ch}
 .note b{color:var(--ink)}
+
+/* ===== Schnell-Check ===== */
+.precheck{margin-top:34px;border:1px solid var(--rule);border-radius:16px;overflow:hidden;background:var(--card)}
+.precheck .ph{padding:18px 22px 14px;border-bottom:1px solid var(--rule)}
+.precheck .ph h2{font-size:20px;font-weight:800;letter-spacing:-0.02em}
+.precheck .ph p{font-size:13px;color:var(--mut);margin-top:4px;max-width:80ch}
+.q0{display:flex;gap:14px;align-items:flex-start;padding:16px 22px;background:var(--cta);color:var(--cta-ink)}
+.q0 input{margin-top:3px;width:18px;height:18px;flex:none;accent-color:#181410}
+.q0 b{display:block;font-size:14.5px;font-weight:800}
+.q0 span{display:block;font-size:12.5px;font-weight:500;margin-top:3px}
+.q0 .de{opacity:.75;font-style:normal}
+.ccols{display:grid;grid-template-columns:1fr 1fr}
+.ccol{padding:18px 22px 22px}
+.ccol + .ccol{border-left:1px solid var(--rule)}
+.ccol h3{font-size:16px;font-weight:800;letter-spacing:-0.015em}
+.ccol h3 span{font-weight:600;color:var(--mut);font-size:13px}
+.ccol .tag{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.12em;margin-bottom:5px;display:block}
+.ccol.a .tag{color:var(--blue)}
+.ccol.b .tag{color:var(--oliv)}
+.chk{display:flex;gap:11px;align-items:flex-start;padding:10px 0;border-top:1px solid var(--rule);font-size:13.5px;color:var(--ink2)}
+.chk:first-of-type{border-top:none;margin-top:8px}
+.chk input{margin-top:3px;width:16px;height:16px;flex:none}
+.ccol.a .chk input{accent-color:#2B3B99}
+.ccol.b .chk input{accent-color:#959F04}
+.chk b{color:var(--ink)}
+.chk .de{display:block;color:var(--mut);font-size:12.5px;margin-top:2px}
+.chk .hard{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;
+  color:#a33;background:#a3333312;border-radius:4px;padding:1px 6px;margin-left:6px;vertical-align:1px}
+.precheck .foot{padding:14px 22px 18px;border-top:1px solid var(--rule);font-size:12.5px;color:var(--mut)}
+@media(max-width:860px){.ccols{grid-template-columns:1fr}.ccol + .ccol{border-left:none;border-top:1px solid var(--rule)}}
+
 /* bilingual say block */
 .say{margin-top:16px;border:1px solid var(--rule);border-left:4px solid var(--blue);
   border-radius:0 12px 12px 0;overflow:hidden;display:grid;grid-template-columns:1fr 1fr}
@@ -131,6 +162,63 @@ footer{margin-top:64px;border-top:1px solid var(--rule);padding-top:16px;font-si
     </ol>
   </div>
 </header>
+
+<section class="precheck">
+  <div class="ph">
+    <h2>Schnell-Check vor dem Gespräch: wofür qualifiziert er sich?</h2>
+    <p>Zum Abhaken während des Calls. Links Chancenkarte, rechts Ausbildung. Was rot markiert ist, ist eine
+    gesetzliche Bedingung: fehlt sie, ist der Weg zu. Passt keine Spalte, sag es ehrlich und beende freundlich.</p>
+  </div>
+  <label class="q0">
+    <input type="checkbox">
+    <span><b>Frage 0: Hat er den Check auf unserer Website wirklich bis zum Ende ausgefüllt?</b>
+    <span>"Before we start: did you finish all nine questions of the check on our website, right to the end?"</span>
+    <span class="de">„Bevor wir anfangen: Haben Sie den Check auf unserer Webseite wirklich bis zum Ende
+    ausgefüllt, alle neun Fragen?" — Wenn nein: die fehlenden Punkte jetzt am Telefon durchgehen, sonst fehlen
+    Dir die Grundlagen für alles Weitere.</span></span>
+  </label>
+  <div class="ccols">
+    <div class="ccol a">
+      <span class="tag">Weg A · Chancenkarte</span>
+      <h3>Wann qualifiziert er sich? <span>(Opportunity Card)</span></h3>
+      <label class="chk"><input type="checkbox"><span><b>Abschluss vorhanden</b><span class="hard">Pflicht</span>
+        <span class="de">Hochschulabschluss oder staatlich anerkannte Berufsausbildung ab 2 Jahren</span></span></label>
+      <label class="chk"><input type="checkbox"><span><b>Anerkennung oder 6 Punkte</b><span class="hard">Pflicht</span>
+        <span class="de">Entweder in Deutschland voll anerkannt, oder 6 Punkte aus Erfahrung, Alter, Sprache,
+        Engpassberuf, Voraufenthalt, Partner</span></span></label>
+      <label class="chk"><input type="checkbox"><span><b>Sprache: Deutsch A1 oder Englisch B2</b><span class="hard">Pflicht</span>
+        <span class="de">Zertifikat, keine Selbsteinschätzung</span></span></label>
+      <label class="chk"><input type="checkbox"><span><b>Lebensunterhalt rund 13.000 €</b><span class="hard">Pflicht</span>
+        <span class="de">Sperrkonto, rund 1.100 € je Monat, Geld bleibt seines</span></span></label>
+      <label class="chk"><input type="checkbox"><span><b>Alter: bis etwa 40 sinnvoll</b>
+        <span class="de">Kein gesetzliches Limit, aber unter 35 gibt einen Extrapunkt und der Arbeitsmarkt
+        reagiert besser</span></span></label>
+      <label class="chk"><input type="checkbox"><span><b>Keine Visa-Ablehnung verschwiegen</b>
+        <span class="de">Alte Ablehnung ändert die Strategie, muss vorher auf den Tisch</span></span></label>
+    </div>
+    <div class="ccol b">
+      <span class="tag">Weg B · Ausbildung</span>
+      <h3>Wann qualifiziert er sich? <span>(Apprenticeship)</span></h3>
+      <label class="chk"><input type="checkbox"><span><b>Unter 35 Jahre</b><span class="hard">Pflicht</span>
+        <span class="de">Taggenau, nicht ungefähr</span></span></label>
+      <label class="chk"><input type="checkbox"><span><b>Schulabschluss mit Hochschulzugang</b><span class="hard">Pflicht</span>
+        <span class="de">Muss im Heimatland zum Studium berechtigen, oder deutscher Schulabschluss im
+        Ausland</span></span></label>
+      <label class="chk"><input type="checkbox"><span><b>Deutsch mindestens B1</b><span class="hard">Pflicht</span>
+        <span class="de">Mit Zertifikat. Fehlt es, zuerst Sprachpartner, dann Antrag</span></span></label>
+      <label class="chk"><input type="checkbox"><span><b>Lebensunterhalt rund 10.000 €</b><span class="hard">Pflicht</span>
+        <span class="de">Sperrkonto für die 9 Monate Suche</span></span></label>
+      <label class="chk"><input type="checkbox"><span><b>Ausbildungsvertrag noch nicht nötig</b>
+        <span class="de">Den sucht er ja erst hier, das ist der Sinn des Visums</span></span></label>
+      <label class="chk"><input type="checkbox"><span><b>Keine Visa-Ablehnung verschwiegen</b>
+        <span class="de">Gleiche Regel wie links</span></span></label>
+    </div>
+  </div>
+  <p class="foot"><b>Faustregel:</b> Abschluss schon fertig und Geld da, dann Weg A. Jung, Schulabschluss,
+  gutes Deutsch, dann Weg B. Beides möglich? Dann entscheidet, ob er sofort verdienen will (Ausbildung) oder
+  seinen Beruf weiterführen will (Chancenkarte). ⚠️ Rechtsstand der Ausbildungs-Bedingungen einmal von Fabian
+  gegenprüfen lassen, bevor Du sie einem Kandidaten als Zusage nennst.</p>
+</section>
 
 <section>
   <div class="shead"><span class="t">0–4 MIN</span><h2>Gemeinsamer Einstieg <span>· Opening</span></h2></div>
