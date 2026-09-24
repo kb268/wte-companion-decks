@@ -47,7 +47,7 @@ section{margin-top:52px}
 .shead{display:flex;align-items:baseline;gap:14px;border-bottom:2px solid var(--ink);padding-bottom:10px;flex-wrap:wrap}
 .shead .t{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:12px;font-weight:700;color:var(--mut);white-space:nowrap}
 .shead h2{font-size:24px;font-weight:800;letter-spacing:-0.025em}
-.shead h2 span{font-weight:600;color:var(--mut);font-size:16px}
+.shead h2 .sub2{font-weight:600;color:var(--mut);font-size:16px}
 .note{margin-top:16px;color:var(--mut);font-size:13.5px;max-width:78ch}
 .note b{color:var(--ink)}
 
@@ -89,7 +89,7 @@ section{margin-top:52px}
 .ccol{padding:18px 22px 22px}
 .ccol + .ccol{border-left:1px solid var(--rule)}
 .ccol h3{font-size:16px;font-weight:800;letter-spacing:-0.015em}
-.ccol h3 span{font-weight:600;color:var(--mut);font-size:13px}
+.ccol h3 .sub2{font-weight:600;color:var(--mut);font-size:13px}
 .ccol .tag{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.12em;margin-bottom:5px;display:block}
 .ccol.a .tag{color:var(--blue)}
 .ccol.b .tag{color:var(--oliv)}
@@ -100,8 +100,7 @@ section{margin-top:52px}
 .ccol.b .chk input{accent-color:#959F04}
 .chk b{color:var(--ink)}
 .chk .de{display:block;color:var(--mut);font-size:12.5px;margin-top:2px}
-.chk .en{display:block;font-size:12px;color:var(--mut);margin-top:3px;opacity:.9}
-.chk .en::before{content:"EN · ";font-weight:800;letter-spacing:.06em;opacity:.7}
+.chk .en{display:block;color:var(--mut);font-size:12.5px;margin-top:2px}
 .chk .hard{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;
   color:#a33;background:#a3333312;border-radius:4px;padding:1px 6px;margin-left:6px;vertical-align:1px}
 .precheck .foot{padding:14px 22px 18px;border-top:1px solid var(--rule);font-size:12.5px;color:var(--mut)}
@@ -131,7 +130,7 @@ section{margin-top:52px}
 .step{margin-top:28px;padding-left:18px;border-left:2px solid var(--rule)}
 .step .stepno{font-family:ui-monospace,Menlo,monospace;font-size:11px;font-weight:700;color:var(--mut);letter-spacing:.06em}
 .step h3{font-size:18px;font-weight:800;letter-spacing:-0.02em;margin-top:2px}
-.step h3 span{font-weight:600;color:var(--mut);font-size:14px}
+.step h3 .sub2{font-weight:600;color:var(--mut);font-size:14px}
 .step .frame{margin-top:14px}
 .step .qs{margin-top:10px}
 .prog{display:inline-block;margin-left:6px;font-weight:800;color:var(--ink)}
@@ -139,10 +138,10 @@ section{margin-top:52px}
 
 /* bilingual say block */
 .say{margin-top:16px;border:1px solid var(--rule);border-left:4px solid var(--blue);
-  border-radius:0 12px 12px 0;overflow:hidden;display:grid;grid-template-columns:1fr 1fr}
+  border-radius:0 12px 12px 0;overflow:hidden;display:grid;grid-template-columns:1fr}
 .say > div{padding:16px 20px;position:relative}
 .say .en{background:var(--say-bg)}
-.say .de{background:var(--de-bg);border-left:1px solid var(--rule)}
+.say .de{background:var(--de-bg)}
 .say .lab{display:block;font-size:9.5px;font-weight:800;letter-spacing:.14em;color:var(--mut);margin-bottom:7px}
 .say p{font-size:14.5px;line-height:1.6;color:var(--ink2)}
 .say p b{color:var(--ink)}
@@ -189,7 +188,7 @@ section{margin-top:52px}
 .cstep .cnum{flex:none;width:34px;height:34px;border-radius:10px;background:var(--ink);color:var(--bg);
   display:grid;place-items:center;font-weight:800;font-size:13px}
 .cstep h3{font-size:16px;font-weight:800;letter-spacing:-0.015em}
-.cstep h3 span{font-weight:600;color:var(--mut);font-size:13.5px}
+.cstep h3 .sub2{font-weight:600;color:var(--mut);font-size:13.5px}
 .cstep .cwhy{font-size:12.5px;color:var(--mut);margin-top:2px}
 .cstep .say{margin-top:12px}
 .flags{margin-top:18px;display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
@@ -204,33 +203,92 @@ footer{margin-top:64px;border-top:1px solid var(--rule);padding-top:16px;font-si
   .routes,.flags,.outcome ol{grid-template-columns:1fr}
 }
 @media print{ body{font-size:11.5px} .wrap{padding:18px} section{margin-top:26px} .say{break-inside:avoid} }
+
+/* Rahmen-Block in den Schritten */
+.step .frame{display:block;margin-top:14px;border:1px dashed var(--rule);border-radius:12px;padding:14px 16px;
+  font-size:14.5px;line-height:1.6;color:var(--ink2)}
+.step .frame .lab{display:block;font-size:9.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--mut);margin-bottom:7px}
+.step .frame b{color:var(--ink)}
+
+/* Geld als Liste */
+.say ul.money{margin:12px 0 0;padding:0;list-style:none}
+.say ul.money > li{position:relative;padding:9px 0 9px 20px;border-top:1px solid var(--rule);
+  font-size:14.5px;line-height:1.55;color:var(--ink2)}
+.say ul.money > li:first-child{border-top:none}
+.say ul.money > li::before{content:"";position:absolute;left:2px;top:17px;width:6px;height:6px;
+  border-radius:50%;background:var(--blue)}
+.path.b .say ul.money > li::before{background:var(--oliv)}
+.say ul.money ul{margin:7px 0 7px;padding:0;list-style:none}
+.say ul.money ul li{position:relative;padding:3px 0 3px 16px;font-size:14px}
+.say ul.money ul li::before{content:"–";position:absolute;left:0;top:3px;color:var(--mut);font-weight:700}
+.say ul.money b{color:var(--ink)}
+
+/* ===== Steuerleiste: Sprache + Weg ===== */
+.controls{position:sticky;top:0;z-index:20;margin-top:28px;display:flex;gap:18px;flex-wrap:wrap;
+  align-items:center;background:var(--bg);border:1px solid var(--rule);border-radius:16px;padding:14px 16px;
+  box-shadow:0 10px 28px -26px #18141088}
+.ctl{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.ctl + .ctl{border-left:1px solid var(--rule);padding-left:18px}
+.ctllab{font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--mut)}
+.lbtn,.rbtn{font:inherit;text-align:left;cursor:pointer;border:1px solid var(--rule);background:var(--card);
+  color:var(--ink);border-radius:999px;padding:8px 18px;font-size:13.5px;font-weight:700;transition:all .15s ease}
+.lbtn:hover,.rbtn:hover{border-color:var(--ink)}
+.lbtn.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.rbtn{border-radius:14px;padding:7px 16px}
+.rbtn small{display:block;font-size:11px;font-weight:600;color:var(--mut);margin-top:1px}
+.rbtn.a.on{background:var(--blue-soft);border-color:var(--blue);color:var(--blue-ink)}
+.rbtn.b.on{background:var(--oliv-soft);border-color:var(--oliv);color:var(--oliv-ink)}
+.rbtn.on small{color:inherit;opacity:.75}
+.chint{font-size:12px;color:var(--mut);margin-top:9px}
+.pickhint{margin-top:30px;border:1px dashed var(--rule);border-radius:14px;padding:22px;text-align:center;
+  font-size:14px;color:var(--mut)}
+@media(max-width:860px){.controls{position:static;flex-direction:column;align-items:flex-start}
+ .ctl + .ctl{border-left:none;padding-left:0;border-top:1px solid var(--rule);padding-top:12px;width:100%}}
+
+/* ===== Sprache umschalten ===== */
+body[data-lang="en"] .de,body[data-lang="en"] [lang="de"]{display:none}
+body[data-lang="de"] .en,body[data-lang="de"] [lang="en"]{display:none}
+
+/* ===== Weg filtern ===== */
+body[data-path="a"] .ccol.b,body[data-path="b"] .ccol.a{display:none}
+body[data-path] .ccols{grid-template-columns:1fr}
+body[data-path] .pickhint{display:none}
+.cprog{font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--mut);margin-top:5px}
 </style>
 
 <div class="wrap">
 <header>
   <h1>Der Kandidaten-Call</h1>
-  <p class="sub">15 Minuten mit einem Bewerber, der den Check gemacht hat. <b>Links steht, was Du sagst
-  (Englisch), rechts dieselbe Aussage auf Deutsch</b> zum Mitlesen. Regie-Hinweise auf Deutsch.
-  <b>Die Unterschrift fällt nicht in diesem Call</b>, sie kommt nach Unterlagen-Prüfung und
-  schriftlichem Angebot.</p>
+  <p class="sub" lang="de">15 Minuten mit einem Bewerber, der den Check gemacht hat. <b>Oben wählst Du die
+  Sprache und den Weg</b>, dann steht auf der Seite nur noch das, was Du in genau diesem Call brauchst.
+  <b>Die Unterschrift fällt nicht in diesem Call</b>, sie kommt nach Unterlagen-Prüfung und schriftlichem Angebot.</p>
+  <p class="sub" lang="en">Fifteen minutes with a candidate who has done the check. <b>Pick the language and the
+  route at the top</b>, and the page shows only what you need in this one call. <b>Nothing is signed in this
+  call</b>, that comes after the document review and the written offer.</p>
   <div class="meta">
     <span class="chip">15 MIN</span><span class="chip">CAL.COM/KAROL-BAGINSKI/INTRO-CALL</span>
-    <span class="chip">EN GESPROCHEN · DE ZUM MITLESEN</span><span class="chip">STAND 14.09.2026</span>
-  </div>
-  <div class="outcome">
-    <h2>Das Outcome: drei Ja, kein Verkauf</h2>
-    <p>Erfolg ist nicht „er klingt interessiert". Erfolg ist, wenn alle drei Stufen stehen, bevor Ihr auflegt:</p>
-    <ol>
-      <li><label class="ok" title="Antwort passt"><input type="checkbox"></label><b>C1 · Investitions-Ja</b>„Ja, das will ich investieren", Einwände jetzt statt nach dem Angebot</li>
-      <li><label class="ok" title="Antwort passt"><input type="checkbox"></label><b>C2 · Unterlagen + Deadline</b>Konkrete Liste, konkreter Tag, explizites „yes"</li>
-      <li><label class="ok" title="Antwort passt"><input type="checkbox"></label><b>C3 · Folgetermin gebucht</b>Kalendereintrag entsteht noch während des Calls</li>
-    </ol>
+    <span class="chip" lang="de">EN / DE UMSCHALTBAR</span><span class="chip" lang="en">EN / DE SWITCHABLE</span><span class="chip" lang="de">STAND 23.09.2026</span><span class="chip" lang="en">UPDATED 23.09.2026</span>
   </div>
 </header>
 
+<div class="controls">
+  <div class="ctl">
+    <span class="ctllab"><span lang="en">Language</span><span lang="de">Sprache</span></span>
+    <button type="button" class="lbtn on" data-lang="en">English version</button>
+    <button type="button" class="lbtn" data-lang="de">Deutsche Version</button>
+  </div>
+  <div class="ctl">
+    <span class="ctllab"><span lang="en">Route</span><span lang="de">Weg</span></span>
+    <button type="button" class="rbtn a" data-path="a">Chancenkarte<small><span lang="en">Qualification done, one year to find a job</span><span lang="de">Abschluss fertig, ein Jahr Jobsuche</span></small></button>
+    <button type="button" class="rbtn b" data-path="b">Ausbildung<small><span lang="en">Learn a profession, nine months to search</span><span lang="de">Beruf lernen, neun Monate Suche</span></small></button>
+  </div>
+</div>
+<p class="chint" lang="de">Die Umschaltung gilt für Sprechsätze, Überschriften und Checklisten. Die grauen Regie-Hinweise bleiben Deutsch, die sagst Du nicht.</p>
+<p class="chint" lang="en">The switch covers spoken lines, headings and checklists. The grey stage directions stay German, you never say those out loud.</p>
 
 <section>
-  <div class="shead"><span class="t">0–3 MIN</span><h2>Gemeinsamer Einstieg <span>· Opening</span></h2></div>
+  <div class="shead"><span class="t">0–3 MIN</span><h2><span lang="de">Gemeinsamer Einstieg</span><span lang="en">Opening</span> <span class="sub2" lang="de">· Opening</span><span class="sub2" lang="en">· 0 to 3 minutes</span></h2></div>
   <p class="note"><b>Führung übernehmen.</b> Langsam sprechen, viele hören Englisch als Zweitsprache.</p>
   <div class="say">
     <div class="en"><span class="lab">SAY · ENGLISH</span><p>"Hi [Name], good to meet you. I have seen your answers
@@ -266,105 +324,59 @@ footer{margin-top:64px;border-top:1px solid var(--rule);padding-top:16px;font-si
   </div>
   </section>
 
-<details class="lands">
-  <summary><h2>Wartezeiten je Land</h2><span class="hint">offizielle Angaben der Auslandsvertretungen, geprüft 18.09.2026</span></summary>
-  <div class="lbody">
-    <table>
-      <thead><tr><th>Land</th><th>Chancenkarte</th><th>Ausbildung mit Vertrag</th><th>Ausbildungsplatzsuche</th><th>Bearbeitung nach Termin</th></tr></thead>
-      <tbody>
-        <tr>
-          <td class="land">🇲🇦 Marokko<span class="src">rabat.diplo.de, Stand 04.07.2025</span></td>
-          <td><span class="kA">keine offizielle Angabe, „hohe Nachfrage"</span></td>
-          <td><span class="num">ca. 4 Monate</span> mit Vorabzustimmung der Arbeitsagentur<br><span class="src">Pflege ohne Vorabzustimmung: ca. 6 Monate</span></td>
-          <td><span class="kA">keine offizielle Angabe</span> (läuft unter „Ausbildung sonstige")</td>
-          <td><span class="kA">keine zugesicherte Frist</span></td>
-        </tr>
-        <tr>
-          <td class="land">🇹🇷 Türkei<span class="src">tuerkei.diplo.de, Dienstleister iDATA</span></td>
-          <td><span class="num">1 Monat bis über 1 Jahr</span>, je nach Vertretung (Kategorie Erwerbstätigkeit)</td>
-          <td><span class="kA">nicht als Kategorie gelistet</span></td>
-          <td><span class="kA">nicht als Kategorie gelistet</span></td>
-          <td><span class="num">15 bis 45 Tage</span></td>
-        </tr>
-        <tr>
-          <td class="land">🇻🇳 Vietnam<span class="src">vietnam.diplo.de, Annahme über VFS Global</span></td>
-          <td>Termin <span class="num">max. 2 Tage</span></td>
-          <td>Termin <span class="num">max. 2 Tage</span></td>
-          <td>Termin <span class="num">max. 2 Tage</span></td>
-          <td><span class="num">ca. 3 Monate</span>, im Einzelfall länger</td>
-        </tr>
-        <tr>
-          <td class="land">🇮🇳 Indien<span class="src">india.diplo.de, Termine über VFS Global</span></td>
-          <td><span class="kA">keine veröffentlichte Wartezeit</span></td>
-          <td><span class="kA">keine veröffentlichte Wartezeit</span></td>
-          <td><span class="kA">keine veröffentlichte Wartezeit</span></td>
-          <td><span class="kA">keine veröffentlichte Angabe</span></td>
-        </tr>
-      </tbody>
-    </table>
-    <p class="lfoot"><b>So benutzt Du das im Call:</b> Wo eine Zahl steht, darfst Du sie nennen, immer mit dem Zusatz,
-    dass es die Schätzung der Botschaft ist und ohne Gewähr. Wo „keine offizielle Angabe" steht, sag genau das und
-    erfinde keine Zahl. Das ist kein Schwächezeichen, sondern genau der Unterschied zu den Agenten, vor denen diese
-    Kandidaten Angst haben.</p>
-    <p class="lfoot"><b>Der wichtigste Hebel:</b> In Marokko halbiert ein <b>Ausbildungsvertrag vor dem Visumantrag</b>
-    die Wartezeit (4 Monate statt unbestimmt), weil der Betrieb die Vorabzustimmung der Arbeitsagentur holt. Dieselbe
-    Logik gilt überall: erst der Vertrag, dann das Visum. In Vietnam ist nicht der Termin der Engpass, sondern die
-    Bearbeitung von rund drei Monaten.</p>
-    <p class="lfoot">⚠️ Nur Marokko und die Türkei veröffentlichen überhaupt Kategorien-Wartezeiten. Marokkos Tabelle
-    trägt den Stand 04.07.2025, ist also über ein Jahr alt. Vor einer verbindlichen Aussage an einen Kandidaten
-    kurz gegenprüfen.</p>
-  </div>
-</details>
-
 <section class="precheck">
   <div class="ph">
-    <h2>3–5 Min · Die Vorab-Fragen: wofür qualifiziert er sich?</h2>
-    <p>Kommt nach dem Kennenlernen. Leite so über: „Damit ich Dir gleich den richtigen Weg zeigen kann, stelle ich Dir vorab ein paar kurze Fragen." Zum Abhaken während des Calls. Links Chancenkarte, rechts Ausbildung. Was rot markiert ist, ist eine
-    gesetzliche Bedingung: fehlt sie, ist der Weg zu. Passt keine Spalte, sag es ehrlich und beende freundlich.</p>
+    <h2><span lang="de">3–5 Min · Die Vorab-Fragen: wofür qualifiziert er sich?</span><span lang="en">3–5 min · The pre-questions: what does he qualify for?</span></h2>
+    <p lang="de">Kommt nach dem Kennenlernen. Leite so über: „Damit ich Dir gleich den richtigen Weg zeigen kann,
+    stelle ich Dir vorab ein paar kurze Fragen." Zum Abhaken während des Calls. Was rot markiert ist, ist eine
+    gesetzliche Bedingung: fehlt sie, ist der Weg zu. Passt nichts davon, sag es ehrlich und beende freundlich.</p>
+    <p lang="en">Comes after the introductions. Lead in with: "So that I can show you the right route, let me ask you
+    a few short questions first." Tick the boxes during the call. Anything marked in red is a legal condition: if it is
+    missing, that route is closed. If nothing fits, say so honestly and end the call warmly.</p>
   </div>
   <label class="q0">
     <input type="checkbox">
-    <span><b>Frage 0: Hat er den Check auf unserer Website wirklich bis zum Ende ausgefüllt?</b>
-    <span>"Before we start: did you finish all nine questions of the check on our website, right to the end?"</span>
+    <span><b><span lang="en">Question 0: did he really finish the check on our website?</span><span lang="de">Frage 0: Hat er den Check auf unserer Website wirklich bis zum Ende ausgefüllt?</span></b>
+    <span class="en">"Before we start: did you finish all nine questions of the check on our website, right to the end?"</span>
     <span class="de">„Bevor wir anfangen: Haben Sie den Check auf unserer Webseite wirklich bis zum Ende
-    ausgefüllt, alle neun Fragen?" — Wenn nein: die fehlenden Punkte jetzt am Telefon durchgehen, sonst fehlen
-    Dir die Grundlagen für alles Weitere.</span></span>
+    ausgefüllt, alle neun Fragen?"</span>
+    <span lang="de">Wenn nein: die fehlenden Punkte jetzt am Telefon durchgehen, sonst fehlen Dir die Grundlagen
+    für alles Weitere.</span>
+    <span lang="en">If not: go through the missing points on the phone now, otherwise you are missing the basis for
+    everything that follows.</span></span>
   </label>
   <div class="ccols">
     <div class="ccol a">
-      <span class="tag">Weg A · Chancenkarte</span>
-      <h3>Wann qualifiziert er sich? <span>(Opportunity Card)</span></h3>
-      <label class="chk"><input type="checkbox"><span><b>Abschluss vorhanden</b><span class="hard">Pflicht</span>
-        <span class="de">Hochschulabschluss oder staatlich anerkannte Berufsausbildung ab 2 Jahren</span><span class="en">Degree, or state-recognised vocational training of two years or more</span></span></label>
-      <label class="chk"><input type="checkbox"><span><b>Anerkennung oder 6 Punkte</b><span class="hard">Pflicht</span>
-        <span class="de">Entweder in Deutschland voll anerkannt, oder 6 Punkte aus Erfahrung, Alter, Sprache,
-        Engpassberuf, Voraufenthalt, Partner</span><span class="en">Either fully recognised in Germany, or six points from experience, age, language, shortage occupation</span></span></label>
-      <label class="chk"><input type="checkbox"><span><b>Sprache: Deutsch A1 oder Englisch B2</b><span class="hard">Pflicht</span>
-        <span class="de">Zertifikat, keine Selbsteinschätzung</span><span class="en">German A1 or English B2, proven by certificate, not self-assessment</span></span></label>
-      <label class="chk"><input type="checkbox"><span><b>Lebensunterhalt rund 13.000 €</b><span class="hard">Pflicht</span>
-        <span class="de">Sperrkonto, rund 1.100 € je Monat, Geld bleibt seines</span><span class="en">About €13,000 in a blocked account, roughly €1,100 per month, it stays his own money</span></span></label>
-      <label class="chk"><input type="checkbox"><span><b>Alter: bis etwa 40 sinnvoll</b>
-        <span class="de">Kein gesetzliches Limit, aber unter 35 gibt einen Extrapunkt und der Arbeitsmarkt
-        reagiert besser</span><span class="en">No legal age limit, but under 35 scores an extra point and the market responds better</span></span></label>
-      <label class="chk"><input type="checkbox"><span><b>Keine Visa-Ablehnung verschwiegen</b>
-        <span class="de">Alte Ablehnung ändert die Strategie, muss vorher auf den Tisch</span><span class="en">Any past visa refusal changes the strategy and must be on the table before we file</span></span></label>
+      <span class="tag"><span lang="en">Route A · Opportunity Card</span><span lang="de">Weg A · Chancenkarte</span></span>
+      <h3><span lang="en">When does he qualify?</span><span lang="de">Wann qualifiziert er sich?</span> <span class="sub2" lang="de">(Opportunity Card)</span><span class="sub2" lang="en">(Chancenkarte)</span></h3>
+      <p class="cprog"></p>
+      <label class="chk"><input type="checkbox"><span><b><span lang="en">Qualification in hand</span><span lang="de">Abschluss vorhanden</span></b><span class="hard" lang="de">Pflicht</span><span class="hard" lang="en">Required</span>
+        <span class="de">Hochschulabschluss oder staatlich anerkannte Berufsausbildung ab 2 Jahren</span><span class="en">A degree, or state-recognised vocational training of two years or more</span></span></label>
+      <label class="chk"><input type="checkbox"><span><b><span lang="en">Language: German A1 or English B2</span><span lang="de">Sprache: Deutsch A1 oder Englisch B2</span></b><span class="hard" lang="de">Pflicht</span><span class="hard" lang="en">Required</span>
+        <span class="de">Zertifikat, keine Selbsteinschätzung</span><span class="en">Proven by certificate, not by self-assessment</span></span></label>
+      <label class="chk"><input type="checkbox"><span><b><span lang="en">Living costs, about €13,000</span><span lang="de">Lebensunterhalt rund 13.000 €</span></b><span class="hard" lang="de">Pflicht</span><span class="hard" lang="en">Required</span>
+        <span class="de">Sperrkonto, rund 1.100 € je Monat, Geld bleibt seines</span><span class="en">Blocked account, roughly €1,100 per month, it stays his own money</span></span></label>
+      <label class="chk"><input type="checkbox"><span><b><span lang="en">Age: up to about 40 makes sense</span><span lang="de">Alter: bis etwa 40 sinnvoll</span></b>
+        <span class="de">Kein gesetzliches Limit, aber unter 35 gibt einen Extrapunkt und der Arbeitsmarkt reagiert besser</span><span class="en">No legal age limit, but under 35 scores an extra point and the market responds better</span></span></label>
+      <label class="chk"><input type="checkbox"><span><b><span lang="en">No hidden visa refusal</span><span lang="de">Keine Visa-Ablehnung verschwiegen</span></b>
+        <span class="de">Alte Ablehnung ändert die Strategie, muss vorher auf den Tisch</span><span class="en">A past refusal changes the strategy and must be on the table before we file</span></span></label>
     </div>
     <div class="ccol b">
-      <span class="tag">Weg B · Ausbildung</span>
-      <h3>Wann qualifiziert er sich? <span>(Apprenticeship)</span></h3>
-      <label class="chk"><input type="checkbox"><span><b>Unter 35 Jahre</b><span class="hard">Pflicht</span>
-        <span class="de">Taggenau, nicht ungefähr</span><span class="en">Under 35, to the day, not roughly</span></span></label>
-      <label class="chk"><input type="checkbox"><span><b>Schulabschluss mit Hochschulzugang</b><span class="hard">Pflicht</span>
-        <span class="de">Muss im Heimatland zum Studium berechtigen, oder deutscher Schulabschluss im
-        Ausland</span><span class="en">School certificate that qualifies for university in his home country</span></span></label>
-      <label class="chk"><input type="checkbox"><span><b>Deutsch mindestens B1</b><span class="hard">Pflicht</span>
-        <span class="de">Mit Zertifikat. Fehlt es, zuerst Sprachpartner, dann Antrag</span><span class="en">German B1 minimum, with certificate. If it is missing: language partner first, then the application</span></span></label>
-      <label class="chk"><input type="checkbox"><span><b>Lebensunterhalt rund 10.000 €</b><span class="hard">Pflicht</span>
-        <span class="de">Sperrkonto für die 9 Monate Suche</span><span class="en">About €10,000 in a blocked account for the nine months of searching</span></span></label>
-      <label class="chk"><input type="checkbox"><span><b>Ausbildungsvertrag noch nicht nötig</b>
-        <span class="de">Den sucht er ja erst hier, das ist der Sinn des Visums</span><span class="en">No training contract needed yet, finding one is the whole point of this visa</span></span></label>
-      <label class="chk"><input type="checkbox"><span><b>Keine Visa-Ablehnung verschwiegen</b>
-        <span class="de">Gleiche Regel wie links</span><span class="en">Same rule as on the left</span></span></label>
+      <span class="tag"><span lang="en">Route B · Apprenticeship</span><span lang="de">Weg B · Ausbildung</span></span>
+      <h3><span lang="en">When does he qualify?</span><span lang="de">Wann qualifiziert er sich?</span> <span class="sub2" lang="de">(Apprenticeship)</span><span class="sub2" lang="en">(Ausbildung)</span></h3>
+      <p class="cprog"></p>
+      <label class="chk"><input type="checkbox"><span><b><span lang="en">Under 35 years of age</span><span lang="de">Unter 35 Jahre</span></b><span class="hard" lang="de">Pflicht</span><span class="hard" lang="en">Required</span>
+        <span class="de">Taggenau, nicht ungefähr</span><span class="en">To the day, not roughly</span></span></label>
+      <label class="chk"><input type="checkbox"><span><b><span lang="en">School certificate with university access</span><span lang="de">Schulabschluss mit Hochschulzugang</span></b><span class="hard" lang="de">Pflicht</span><span class="hard" lang="en">Required</span>
+        <span class="de">Muss im Heimatland zum Studium berechtigen, oder deutscher Schulabschluss im Ausland</span><span class="en">Must qualify him for university in his home country, or a German school certificate obtained abroad</span></span></label>
+      <label class="chk"><input type="checkbox"><span><b><span lang="en">German at B1 or better</span><span lang="de">Deutsch mindestens B1</span></b><span class="hard" lang="de">Pflicht</span><span class="hard" lang="en">Required</span>
+        <span class="de">Mit Zertifikat. Fehlt es, zuerst Sprachpartner, dann Antrag</span><span class="en">With certificate. If it is missing: language partner first, then the application</span></span></label>
+      <label class="chk"><input type="checkbox"><span><b><span lang="en">Living costs, about €10,000</span><span lang="de">Lebensunterhalt rund 10.000 €</span></b><span class="hard" lang="de">Pflicht</span><span class="hard" lang="en">Required</span>
+        <span class="de">Sperrkonto für die 9 Monate Suche</span><span class="en">Blocked account for the nine months of searching</span></span></label>
+      <label class="chk"><input type="checkbox"><span><b><span lang="en">No training contract needed yet</span><span lang="de">Ausbildungsvertrag noch nicht nötig</span></b>
+        <span class="de">Den sucht er ja erst hier, das ist der Sinn des Visums</span><span class="en">He looks for one here, that is the whole point of this visa</span></span></label>
+      <label class="chk"><input type="checkbox"><span><b><span lang="en">No hidden visa refusal</span><span lang="de">Keine Visa-Ablehnung verschwiegen</span></b>
+        <span class="de">Gleiche Regel wie auf dem anderen Weg</span><span class="en">Same rule as on the other route</span></span></label>
     </div>
   </div>
   <p class="foot"><b>Faustregel:</b> Abschluss schon fertig und Geld da, dann Weg A. Jung, Schulabschluss,
@@ -374,149 +386,72 @@ footer{margin-top:64px;border-top:1px solid var(--rule);padding-top:16px;font-si
 </section>
 
 <section>
-  <div class="shead"><span class="t">5–15 MIN</span><h2>Die Weiche, dann der Weg <span>· The switch, then the route</span></h2></div>
-  <p class="note"><b>Die Weiche.</b> Diese eine Frage entscheidet, welche Spalte unten gilt.</p>
-  <div class="say">
-    <div class="en"><span class="lab">SAY · ENGLISH</span><p>"Have you already <b>completed</b> your professional
-      training, or do you want to <b>learn</b> a profession in Germany?"</p></div>
-    <div class="de"><span class="lab">DEUTSCH</span><p>„Haben Sie Ihre Berufsausbildung bereits
-      <b>abgeschlossen</b>, oder wollen Sie einen Beruf in Deutschland erst <b>erlernen</b>?"</p></div>
-  </div>
-
-  <p class="note">Nach der Weichenfrage: Karte anklicken, dann läuft nur noch <b>ein</b> Gespräch durch, von der
-  Erklärung über die Fragen und das Geld bis zum Commitment.</p>
-  <div class="picker">
-    <button class="pick a" data-path="a">
-      <span class="ptag">Weg A · abgeschlossene Qualifikation</span>
-      <span class="ph3">Chancenkarte <em>(Opportunity Card)</em></span>
-      <span class="pdesc">Er hat einen Abschluss und sucht Arbeit. Ein Jahr Zeit, 20 Stunden Arbeit pro Woche erlaubt.</span>
-      <span class="popen">Diesen Weg öffnen →</span>
-    </button>
-    <button class="pick b" data-path="b">
-      <span class="ptag">Weg B · Beruf erst lernen</span>
-      <span class="ph3">Ausbildung <em>(Apprenticeship)</em></span>
-      <span class="pdesc">Er will einen Beruf lernen. Neun Monate Suche, bezahlte Ausbildung ab Tag eins.</span>
-      <span class="popen">Diesen Weg öffnen →</span>
-    </button>
-  </div>
+  <p class="pickhint" lang="de">Oben den Weg wählen, dann erscheint hier der Rest des Gesprächs.</p><p class="pickhint" lang="en">Pick the route at the top, and the rest of the call appears here.</p>
 <div class="path a" id="path-a" hidden>
-  <div class="pathhead a"><span class="ptag">Weg A · abgeschlossene Qualifikation</span><h2>Chancenkarte · Opportunity Card</h2></div>
-  <div class="step"><span class="stepno">Schritt 1</span><h3>Den Weg erklären <span>· Set the frame</span></h3><p class="frame"><span class="lab">Rahmen setzen · SAY</span>
-          "Good, then this is actually simple. Because you already have your qualification, you do not need a job
-          offer at all. The Opportunity Card is made for exactly your situation: you come over, you live here, and
-          you look for the job from inside Germany, for up to a year. And you are allowed to work twenty hours a week
-          while you look, so you are not just sitting around spending money. Let me ask you a few things, then I can
-          tell you honestly whether this fits."
-          <span class="de">„Gut, dann ist es eigentlich einfach. Weil Sie Ihren Abschluss schon haben, brauchen Sie
-          gar kein Jobangebot. Die Chancenkarte ist für genau Ihre Situation gemacht: Sie kommen her, Sie wohnen
-          hier, und Sie suchen den Job von Deutschland aus, bis zu einem Jahr lang. Und Sie dürfen dabei zwanzig
-          Stunden pro Woche arbeiten, Sie sitzen also nicht herum und geben nur Geld aus. Ich frage Sie kurz ein paar
-          Dinge, dann sage ich Ihnen ehrlich, ob das passt."</span></p></div>
-  <div class="step"><span class="stepno">Schritt 2</span><h3>Seine Lage verstehen <span>· Understand his situation</span></h3>
-    <p class="note">Der Reihe nach fragen, das Geld nicht ans Ende schieben. Rechts abhaken, was <b>passt</b>. <span class="prog"></span></p><ol class="qs">
-          <li><label class="ok" title="Antwort passt"><input type="checkbox"></label>"What exactly is your <b>qualification</b>, and which year did you finish?"
-            <span class="de">„Welchen Abschluss haben Sie genau, und in welchem Jahr haben Sie ihn gemacht?"</span></li>
-          <li><label class="ok" title="Antwort passt"><input type="checkbox"></label>"Has a German authority ever <b>assessed</b> it? If not, that is normal. We check that for you."
-            <span class="de">„Wurde er schon einmal von einer deutschen Stelle bewertet? Falls nicht, ist das
-            normal. Das prüfen wir für Sie."</span></li>
-          <li><label class="ok" title="Antwort passt"><input type="checkbox"></label>"How many <b>years have you worked</b> in this field since?"
-            <span class="de">„Wie viele Jahre haben Sie seitdem in diesem Beruf gearbeitet?"</span></li>
-          <li><label class="ok" title="Antwort passt"><input type="checkbox"></label>"Which <b>language certificates</b> do you hold, German or English, and from which institute?"
-            <span class="de">„Welche Sprachzertifikate haben Sie, Deutsch oder Englisch, und von welchem
-            Institut?"</span>
-            <span class="why">Zertifikat zählt, Selbsteinschätzung nicht</span></li>
-          <li><label class="ok" title="Antwort passt"><input type="checkbox"></label>"The blocked account needs about <b>thirteen thousand euros</b>. Is that available today, and where
-            does it come from?"
-            <span class="de">„Für das Sperrkonto brauchen Sie rund <b>dreizehntausend Euro</b>. Ist das Geld heute
-            verfügbar, und woher kommt es?"</span>
-            <span class="why">Der häufigste Antrags-Killer, nie ans Ende schieben</span></li>
-          <li><label class="ok" title="Antwort passt"><input type="checkbox"></label>"Have you been to Germany or Schengen before, and has a <b>visa ever been refused</b>?"
-            <span class="de">„Waren Sie schon einmal in Deutschland oder im Schengenraum, und wurde Ihnen jemals
-            ein Visum abgelehnt?"</span>
-            <span class="why">Alte Ablehnung = andere Strategie, muss jetzt kommen</span></li>
-          <li><label class="ok" title="Antwort passt"><input type="checkbox"></label>"<b>Who</b> would come with you, and <b>how soon</b> could you leave?"
-            <span class="de">„Wer würde mitkommen, und wie schnell könnten Sie reisen?"</span></li>
-        </ol></div>
-  <div class="step"><span class="stepno">Schritt 3</span><h3>Geld und nächster Schritt <span>· Money and the next step</span></h3><p class="note">💶 <b>So passt es zum Deck:</b> Die drei Raten entsprechen genau den drei Blöcken auf der Preisfolie (Visum und Relocation 2.000, Wohnungssuche 1.500, Integration 2.000, zusammen 5.500, als Paket 5.000). Der Paketvorteil von 500 wird beim letzten Schritt abgezogen. ⚠️ Die Aufteilung ist aus dem Deck abgeleitet, Fabian und Jakob bestätigen sie, bevor sie in einem schriftlichen Angebot oder auf einem Zahlungslink steht.</p><div class="say">
-<div class="en"><span class="lab">SAY · ENGLISH</span><p>"Before the money, one thing straight: <b>nobody can promise you a job or a visa, and anyone who does is lying to you.</b> What we can promise is that your file is complete and correct, that you apply in your own name, and that roughly five in six of these applications get approved."</p><p>"So, money, openly, because I do not want any surprises later. <b>Today you pay nothing.</b> After our call I look at your documents and send you a written quote. Only when you say yes, we start."</p><p>"Our work is <b>five thousand euros</b> as one package: the visa and relocation, the apartment search, and the support when you land. Booked separately those three would be five and a half thousand, so the package saves you five hundred."</p><p>"And you do not pay it all at once. It follows the three parts of the package: <b>two thousand</b> when we open your file and start the visa work. <b>One thousand five hundred</b> when the apartment search begins. And <b>one thousand five hundred</b> before you fly, for the arrival support. That is five thousand in total, and your five hundred discount comes off the last step."</p><p>"On top there are about <b>one thousand euros</b> of real costs that we simply pass on: translations, the degree comparison, the embassy fee, and your flight."</p><p>"And then there is the <b>blocked account: about thirteen thousand euros</b>. That one is not a fee and it never belongs to us. <b>It stays your money</b>, in an account in your name. The embassy only wants to see that you can support yourself, and after you land it is paid back to you month by month."</p><p>"So what you really spend with us is five thousand plus about one thousand, spread over the months before you leave. <b>How does that sound to you?</b>"</p></div>
-<div class="de"><span class="lab">DEUTSCH</span><p>„Bevor wir über Geld reden, eines klar: <b>Niemand kann Ihnen einen Job oder ein Visum versprechen, und wer das tut, lügt Sie an.</b> Was wir versprechen können: Ihre Akte ist vollständig und korrekt, Sie beantragen in Ihrem eigenen Namen, und rund fünf von sechs dieser Anträge werden genehmigt."</p><p>„Also, das Geld, offen, weil ich später keine Überraschungen will. <b>Heute zahlen Sie nichts.</b> Nach unserem Gespräch sehe ich mir Ihre Unterlagen an und schicke Ihnen ein schriftliches Angebot. Erst wenn Sie Ja sagen, fangen wir an."</p><p>„Unsere Arbeit kostet <b>fünftausend Euro</b> als Paket: Visum und Relocation, die Wohnungssuche und die Begleitung, wenn Sie ankommen. Einzeln gebucht wären das fünftausendfünfhundert, das Paket spart Ihnen also fünfhundert."</p><p>„Und Sie zahlen nicht alles auf einmal. Es folgt den drei Teilen des Pakets: <b>zweitausend</b>, wenn wir Ihre Akte eröffnen und mit dem Visum starten. <b>Tausendfünfhundert</b>, wenn die Wohnungssuche beginnt. Und <b>tausendfünfhundert</b> vor dem Flug, für die Ankunftsbegleitung. Zusammen fünftausend, und Ihr Rabatt von fünfhundert geht vom letzten Schritt ab."</p><p>„Dazu kommen rund <b>tausend Euro</b> echte Kosten, die wir einfach weitergeben: Übersetzungen, die Zeugnisbewertung, die Botschaftsgebühr und Ihr Flug."</p><p>„Und dann gibt es das <b>Sperrkonto: rund dreizehntausend Euro</b>. Das ist keine Gebühr und gehört nie uns. <b>Es bleibt Ihr Geld</b>, auf einem Konto in Ihrem Namen. Die Botschaft will nur sehen, dass Sie sich selbst versorgen können, und nach der Ankunft wird es Ihnen Monat für Monat ausgezahlt."</p><p>„Was Sie also wirklich bei uns ausgeben, sind fünftausend plus rund tausend, verteilt auf die Monate vor der Abreise. <b>Wie klingt das für Sie?</b>"</p></div>
-</div></div>
-  <div class="step"><span class="stepno">Schritt 4</span><h3>Das Commitment, in drei Stufen <span>· The commitment</span></h3><div class="cstep"><div class="cnum">C1</div><div style="flex:1"><h3>Die Investitionsfrage <span>· The investment question</span></h3><p class="cwhy">Hier fällt das innere Ja. Einwände jetzt hören, nicht nach dem Angebot</p><div class="say">
-<div class="en"><span class="lab">SAY · ENGLISH</span><p>"So let me ask you straight: if your documents check out and my written quote says exactly what I just explained, <b>is this something you want to invest in yourself?</b>"</p><p>Bei Zögern: "What would need to be true for this to be a clear yes? The money, your family, the timing?"</p><p>Wenn das Ja kommt: "Good. Then let us do this properly, step by step."</p></div>
-<div class="de"><span class="lab">DEUTSCH</span><p>„Dann frage ich Sie direkt: Wenn Ihre Unterlagen passen und mein schriftliches Angebot genau das sagt, was ich Ihnen gerade erklärt habe, <b>ist das etwas, das Sie in sich selbst investieren wollen?</b>"</p><p>Bei Zögern: „Was müsste zutreffen, damit es ein klares Ja wird? Das Geld, Ihre Familie, der Zeitpunkt?"</p><p>Wenn das Ja kommt: „Gut. Dann machen wir das richtig, Schritt für Schritt."</p></div>
-</div></div></div><div class="cstep"><div class="cnum">C2</div><div style="flex:1"><h3>Unterlagen mit Deadline <span>· Documents with a deadline</span></h3><p class="cwhy">Explizites „yes" abwarten, sonst zählt es nicht</p><div class="say">
-<div class="en"><span class="lab">SAY · ENGLISH</span><p>"Here is your homework: passport, school certificate, language certificate, degree and work certificates on WhatsApp <b>by [Wochentag]</b>. Deal?"</p></div>
-<div class="de"><span class="lab">DEUTSCH</span><p>„Ihre Hausaufgabe: Pass, Schulzeugnis, Sprachzertifikat, Abschluss- und Arbeitszeugnisse per WhatsApp <b>bis [Wochentag]</b>. Abgemacht?"</p></div>
-</div></div></div><div class="cstep"><div class="cnum">C3</div><div style="flex:1"><h3>Folgetermin sofort buchen <span>· Book the next call now</span></h3><p class="cwhy">Der Kalendereintrag entsteht, während Ihr sprecht</p><div class="say">
-<div class="en"><span class="lab">SAY · ENGLISH</span><p>"And let us put our next call in the calendar right now. Fifteen minutes on [Tag], <b>I am sending you the invite while we speak.</b>"</p><p>Schlusssatz: "Then that is a plan. Documents by [Tag A], we speak on [Tag B], and you will have my written quote before that call."</p></div>
-<div class="de"><span class="lab">DEUTSCH</span><p>„Und lassen Sie uns den nächsten Termin gleich jetzt eintragen. Fünfzehn Minuten am [Tag], <b>ich schicke Ihnen die Einladung, während wir sprechen.</b>"</p><p>Schlusssatz: „Dann steht der Plan. Unterlagen bis [Tag A], wir sprechen am [Tag B], und mein schriftliches Angebot haben Sie vor diesem Termin."</p></div>
+  <div class="pathhead a"><span class="ptag"><span lang="en">Route A · qualification completed</span><span lang="de">Weg A · abgeschlossene Qualifikation</span></span><h2>Chancenkarte · Opportunity Card</h2></div>
+  <div class="step"><span class="stepno"><span lang="en">Step 1</span><span lang="de">Schritt 1</span></span><h3><span lang="de">Den Weg erklären</span><span lang="en">Set the frame</span> <span class="sub2" lang="de">· Set the frame</span></h3><p class="frame"><span class="lab">Rahmen setzen · SAY</span>
+          <span class="en">"Then this is simple. You already have your qualification, so you do not need a job offer
+          to come. The Opportunity Card gives you up to a year in Germany to find the right job, and you may work
+          twenty hours a week while you look. Let me show you how we do that together, and what it costs."</span>
+          <span class="de">„Dann ist es einfach. Sie haben Ihren Abschluss schon, Sie brauchen also kein Jobangebot,
+          um herzukommen. Die Chancenkarte gibt Ihnen bis zu einem Jahr in Deutschland, um den richtigen Job zu
+          finden, und Sie dürfen dabei zwanzig Stunden pro Woche arbeiten. Ich zeige Ihnen, wie wir das zusammen
+          machen und was es kostet."</span></p></div>
+  <div class="step"><span class="stepno"><span lang="en">Step 2</span><span lang="de">Schritt 2</span></span><h3><span lang="de">Geld und nächster Schritt</span><span lang="en">Money and the next step</span> <span class="sub2" lang="de">· Money and the next step</span></h3><p class="note">💶 <b>Das steht so in den Bedingungen:</b> Chancenkarte Concierge, Version 1.0 vom 23.09.2026. Module: Visum und Relocation 2.000, Wohnungssuche 1.500, Ankunft und Integration 2.000, einzeln also 5.500, als Paket 5.000 (Ziffer 7.1). Raten: 2.000 bei Vertragsschluss, 1.500 zum Start der Wohnungssuche, 1.500 spätestens 14 Tage vor Abflug (Ziffer 7.3), der Paketvorteil von 500 geht von der letzten Rate ab (Ziffer 7.4). Alle Beträge sind Gesamtpreise, es kommt keine Umsatzsteuer obendrauf.</p><div class="say">
+<div class="en"><span class="lab">SAY · ENGLISH</span><p>"Before the money, one thing straight: <b>nobody can promise you a job or a visa, and anyone who does is lying to you.</b>"</p><p>"What we do promise is this: <b>we walk the whole way with you.</b> Every step done properly, your application always in your own name, and we have gone this road with many people before you, so we know where it gets difficult."</p><p>"And the part that matters most to us is <b>trust</b>. We take the time to build it with you, because this is not paperwork for us, it is your future. That is exactly why we do this work."</p><p>"So, money, openly, because I do not want any surprises later. <b>Today you pay nothing.</b> After our call I look at your documents and send you a written quote. Only when you say yes, we start."</p><ul class="money"><li><b>Our work: €5,000 as one package</b> — the visa and relocation, the apartment search, and the support when you land.</li><li>Booked separately those three would be <b>€5,500</b>, so the package saves you <b>€500</b>.</li><li>You do not pay it all at once. It follows the three parts of the package:<ul><li><b>€2,000</b> when we open your file and start the visa work</li><li><b>€1,500</b> when the apartment search begins</li><li><b>€1,500</b> before you fly, at the latest two weeks before departure</li></ul>Your €500 discount comes off the last step.</li><li>On top: about <b>€1,000</b> of real costs that we simply pass on — translations, the degree comparison, the embassy fee, and your flight.</li><li><b>The blocked account: about €13,000.</b> Not a fee, and it never belongs to us. It stays your money, in an account in your name. The embassy only wants to see that you can support yourself, and after you land it is paid back to you month by month.</li></ul><p>"So what you really spend with us is five thousand plus about one thousand, spread over the months before you leave."</p><p>"And here is what happens after this call. You get <b>three things from me by email</b>: my presentation, so you can read all of this again in peace, and then the two documents that make up our contract, <b>the written service order</b> with exactly the modules and instalments I just described, and <b>the terms of the Chancenkarte Concierge</b>. You sign nothing today. You confirm by email only when everything in there matches what we just discussed. <b>How does that sound to you?</b>"</p></div>
+<div class="de"><span class="lab">DEUTSCH</span><p>„Bevor wir über Geld reden, eines klar: <b>Niemand kann Ihnen einen Job oder ein Visum versprechen, und wer das tut, lügt Sie an.</b>"</p><p>„Was wir versprechen können, ist das: <b>Wir gehen den ganzen Weg mit Ihnen.</b> Jeder Schritt sauber gemacht, Ihr Antrag immer in Ihrem eigenen Namen, und wir sind diesen Weg schon mit vielen Menschen vor Ihnen gegangen, wir wissen also, wo es schwierig wird."</p><p>„Und das Wichtigste für uns ist <b>Vertrauen</b>. Wir nehmen uns die Zeit, es mit Ihnen aufzubauen, denn für uns ist das kein Papierkram, es geht um Ihre Zukunft. Genau dafür machen wir diese Arbeit."</p><p>„Also, das Geld, offen, weil ich später keine Überraschungen will. <b>Heute zahlen Sie nichts.</b> Nach unserem Gespräch sehe ich mir Ihre Unterlagen an und schicke Ihnen ein schriftliches Angebot. Erst wenn Sie Ja sagen, fangen wir an."</p><ul class="money"><li><b>Unsere Arbeit: 5.000 € als Paket</b> — Visum und Relocation, die Wohnungssuche und die Begleitung, wenn Sie ankommen.</li><li>Einzeln gebucht wären das <b>5.500 €</b>, das Paket spart Ihnen also <b>500 €</b>.</li><li>Sie zahlen nicht alles auf einmal. Es folgt den drei Teilen des Pakets:<ul><li><b>2.000 €</b>, wenn wir Ihre Akte eröffnen und mit dem Visum starten</li><li><b>1.500 €</b>, wenn die Wohnungssuche beginnt</li><li><b>1.500 €</b> vor dem Flug, spätestens zwei Wochen vor der Abreise</li></ul>Ihr Rabatt von 500 € geht vom letzten Schritt ab.</li><li>Dazu kommen rund <b>1.000 €</b> echte Kosten, die wir einfach weitergeben — Übersetzungen, die Zeugnisbewertung, die Botschaftsgebühr und Ihr Flug.</li><li><b>Das Sperrkonto: rund 13.000 €.</b> Das ist keine Gebühr und gehört nie uns. Es bleibt Ihr Geld, auf einem Konto in Ihrem Namen. Die Botschaft will nur sehen, dass Sie sich selbst versorgen können, und nach der Ankunft wird es Ihnen Monat für Monat ausgezahlt.</li></ul><p>„Was Sie also wirklich bei uns ausgeben, sind fünftausend plus rund tausend, verteilt auf die Monate vor der Abreise."</p><p>„Und so geht es nach diesem Gespräch weiter. Sie bekommen <b>drei Dinge von mir per E-Mail</b>: meine Präsentation, damit Sie alles in Ruhe nachlesen können, und dann die beiden Dokumente, die zusammen unseren Vertrag bilden, <b>das schriftliche Angebot</b> mit genau den Bausteinen und Raten, die ich Ihnen gerade beschrieben habe, und <b>die Bedingungen des Chancenkarte Concierge</b>. Heute unterschreiben Sie nichts. Sie bestätigen erst per E-Mail, wenn darin genau das steht, was wir besprochen haben. <b>Wie klingt das für Sie?</b>"</p></div>
+</div>
+  <p class="note">📎 <b>Was Du nach dem Call rausschickst:</b> Präsentation, das schriftliche Angebot (Service Order)
+  und <code>20260923-WTE-Companion-TC-Chancenkarte-Concierge.pdf</code>. Der Vertrag kommt erst zustande, wenn er das
+  Angebot in Textform annimmt, es gilt 14 Tage ab Versand.</p></div>
+  <div class="step"><span class="stepno"><span lang="en">Step 3</span><span lang="de">Schritt 3</span></span><h3><span lang="de">Das Commitment, in zwei Stufen</span><span lang="en">The commitment, in two steps</span> <span class="sub2" lang="de">· The commitment</span></h3><div class="cstep"><div class="cnum">C1</div><div style="flex:1"><h3><span lang="de">Die Frage nach dem Ja</span><span lang="en">Asking for the yes</span> <span class="sub2" lang="de">· Asking for the yes</span></h3><p class="cwhy">Hier fällt das innere Ja. Einwände jetzt hören, nicht nach dem Angebot</p><div class="say">
+<div class="en"><span class="lab">SAY · ENGLISH</span><p>"So, does all of that sound good to you? And do you feel like taking the next step with us?"</p></div>
+<div class="de"><span class="lab">DEUTSCH</span><p>„Klingt das alles gut für Sie? Und haben Sie Lust, dass wir den nächsten Schritt zusammen gehen?"</p></div>
+</div></div></div><div class="cstep"><div class="cnum">C2</div><div style="flex:1"><h3><span lang="de">Unterlagen mit Deadline</span><span lang="en">Documents with a deadline</span> <span class="sub2" lang="de">· Documents with a deadline</span></h3><p class="cwhy">Explizites „yes" abwarten, sonst zählt es nicht</p><div class="say">
+<div class="en"><span class="lab">SAY · ENGLISH</span><p>"Here is your homework: passport, school certificate, language certificate, degree and work certificates on WhatsApp <b>by [Wochentag]</b>. Deal?"</p><p>Closing line: "Then that is a plan. Your documents by [Tag], and my written offer comes right after."</p></div>
+<div class="de"><span class="lab">DEUTSCH</span><p>„Ihre Hausaufgabe: Pass, Schulzeugnis, Sprachzertifikat, Abschluss- und Arbeitszeugnisse per WhatsApp <b>bis [Wochentag]</b>. Abgemacht?"</p><p>Schlusssatz: „Dann steht der Plan. Ihre Unterlagen bis [Tag], und mein schriftliches Angebot kommt direkt danach."</p></div>
 </div></div></div></div>
 </div><div class="path b" id="path-b" hidden>
-  <div class="pathhead b"><span class="ptag">Weg B · Beruf erst lernen</span><h2>Ausbildung · Apprenticeship</h2></div>
-  <div class="step"><span class="stepno">Schritt 1</span><h3>Den Weg erklären <span>· Set the frame</span></h3><p class="frame"><span class="lab">Rahmen setzen · SAY</span>
-          "Good. Then we are talking about an apprenticeship, and honestly, that is the route most people abroad
-          underestimate. You come over for up to nine months to find your training place. And once you have it, you
-          earn money from day one while you learn the profession, and at the end you hold a German qualification that
-          employers here really respect. Let me ask you a few things, then I can tell you whether this works for you."
-          <span class="de">„Gut. Dann sprechen wir über eine Ausbildung, und ehrlich gesagt ist das der Weg, den die
-          meisten im Ausland unterschätzen. Sie kommen für bis zu neun Monate her, um Ihren Ausbildungsplatz zu
-          finden. Und sobald Sie ihn haben, verdienen Sie ab dem ersten Tag Geld, während Sie den Beruf lernen, und
-          am Ende halten Sie einen deutschen Abschluss in der Hand, den die Arbeitgeber hier wirklich schätzen. Ich
-          frage Sie kurz ein paar Dinge, dann sage ich Ihnen, ob das für Sie funktioniert."</span></p></div>
-  <div class="step"><span class="stepno">Schritt 2</span><h3>Seine Lage verstehen <span>· Understand his situation</span></h3>
-    <p class="note">Der Reihe nach fragen, das Geld nicht ans Ende schieben. Rechts abhaken, was <b>passt</b>. <span class="prog"></span></p><ol class="qs">
-          <li><label class="ok" title="Antwort passt"><input type="checkbox"></label>"How <b>old</b> are you exactly?"
-            <span class="de">„Wie alt sind Sie genau?"</span>
-            <span class="why">Grenze: unter 35, taggenau</span></li>
-          <li><label class="ok" title="Antwort passt"><input type="checkbox"></label>"Which <b>school certificate</b> do you hold, and does it qualify you for university in your home
-            country?"
-            <span class="de">„Welchen Schulabschluss haben Sie, und berechtigt er in Ihrem Land zum Studium?"</span>
-            <span class="why">Harte gesetzliche Bedingung</span></li>
-          <li><label class="ok" title="Antwort passt"><input type="checkbox"></label>"Which <b>profession</b> do you want to learn, and why this one?"
-            <span class="de">„Welchen Beruf wollen Sie lernen, und warum genau diesen?"</span>
-            <span class="why">Betriebe spüren Beliebigkeit sofort</span></li>
-          <li><label class="ok" title="Antwort passt"><input type="checkbox"></label>"What is your <b>German level</b>, and which certificate can you show?" Danach immer: "German is the
-            make-or-break on this route. If you need more, our language partners start before you fly."
-            <span class="de">„Wie gut ist Ihr Deutsch, und welches Zertifikat können Sie vorlegen?" Danach immer:
-            „Deutsch entscheidet auf diesem Weg. Wenn Sie mehr brauchen, starten unsere Sprachpartner schon vor dem
-            Flug."</span></li>
-          <li><label class="ok" title="Antwort passt"><input type="checkbox"></label>"For nine months the blocked account needs about <b>ten thousand euros</b>. Is that available today,
-            and where does it come from?"
-            <span class="de">„Für neun Monate braucht das Sperrkonto rund <b>zehntausend Euro</b>. Ist das Geld
-            heute verfügbar, und woher kommt es?"</span></li>
-          <li><label class="ok" title="Antwort passt"><input type="checkbox"></label>"Have you been to Germany or Schengen before, and has a <b>visa ever been refused</b>?"
-            <span class="de">„Waren Sie schon einmal in Deutschland oder im Schengenraum, und wurde Ihnen jemals
-            ein Visum abgelehnt?"</span></li>
-          <li><label class="ok" title="Antwort passt"><input type="checkbox"></label>"<b>Who</b> would come with you, and <b>how soon</b> could you leave?"
-            <span class="de">„Wer würde mitkommen, und wie schnell könnten Sie reisen?"</span></li>
-        </ol></div>
-  <div class="step"><span class="stepno">Schritt 3</span><h3>Geld und nächster Schritt <span>· Money and the next step</span></h3><p class="note">💶 <b>So passt es zum Deck:</b> Die drei Raten entsprechen genau den drei Blöcken auf der Preisfolie (Visum und Relocation 2.000, Wohnungssuche 1.500, Integration 2.000, zusammen 5.500, als Paket 5.000). Der Paketvorteil von 500 wird beim letzten Schritt abgezogen. ⚠️ Die Aufteilung ist aus dem Deck abgeleitet, Fabian und Jakob bestätigen sie, bevor sie in einem schriftlichen Angebot oder auf einem Zahlungslink steht.</p><div class="say">
-<div class="en"><span class="lab">SAY · ENGLISH</span><p>"Before the money, one thing straight: <b>nobody can promise you a job or a visa, and anyone who does is lying to you.</b> What we can promise is that your file is complete and correct, that you apply in your own name, and that roughly five in six of these applications get approved."</p><p>"So, money, openly, because I do not want any surprises later. <b>Today you pay nothing.</b> After our call I look at your documents and send you a written quote. Only when you say yes, we start."</p><p>"Our work is <b>five thousand euros</b> as one package: the visa and relocation, the apartment search, and the support when you land. Booked separately those three would be five and a half thousand, so the package saves you five hundred."</p><p>"And you do not pay it all at once. It follows the three parts of the package: <b>two thousand</b> when we open your file and start the visa work. <b>One thousand five hundred</b> when the apartment search begins. And <b>one thousand five hundred</b> before you fly, for the arrival support. That is five thousand in total, and your five hundred discount comes off the last step."</p><p>"On top there are about <b>one thousand euros</b> of real costs that we simply pass on: translations, the degree comparison, the embassy fee, and your flight."</p><p>"And then there is the <b>blocked account: about ten thousand euros</b> for the nine months. That one is not a fee and it never belongs to us. <b>It stays your money</b>, in an account in your name, and after you land it is paid back to you month by month."</p><p>"And one good thing about your route: <b>once you have a training contract, your training salary counts as proof of funds.</b> The blocked account gets smaller then, sometimes it disappears completely."</p><p>"So what you really spend with us is five thousand plus about one thousand, spread over the months before you leave. <b>How does that sound to you?</b>"</p></div>
-<div class="de"><span class="lab">DEUTSCH</span><p>„Bevor wir über Geld reden, eines klar: <b>Niemand kann Ihnen einen Job oder ein Visum versprechen, und wer das tut, lügt Sie an.</b> Was wir versprechen können: Ihre Akte ist vollständig und korrekt, Sie beantragen in Ihrem eigenen Namen, und rund fünf von sechs dieser Anträge werden genehmigt."</p><p>„Also, das Geld, offen, weil ich später keine Überraschungen will. <b>Heute zahlen Sie nichts.</b> Nach unserem Gespräch sehe ich mir Ihre Unterlagen an und schicke Ihnen ein schriftliches Angebot. Erst wenn Sie Ja sagen, fangen wir an."</p><p>„Unsere Arbeit kostet <b>fünftausend Euro</b> als Paket: Visum und Relocation, die Wohnungssuche und die Begleitung, wenn Sie ankommen. Einzeln gebucht wären das fünftausendfünfhundert, das Paket spart Ihnen also fünfhundert."</p><p>„Und Sie zahlen nicht alles auf einmal. Es folgt den drei Teilen des Pakets: <b>zweitausend</b>, wenn wir Ihre Akte eröffnen und mit dem Visum starten. <b>Tausendfünfhundert</b>, wenn die Wohnungssuche beginnt. Und <b>tausendfünfhundert</b> vor dem Flug, für die Ankunftsbegleitung. Zusammen fünftausend, und Ihr Rabatt von fünfhundert geht vom letzten Schritt ab."</p><p>„Dazu kommen rund <b>tausend Euro</b> echte Kosten, die wir einfach weitergeben: Übersetzungen, die Zeugnisbewertung, die Botschaftsgebühr und Ihr Flug."</p><p>„Und dann gibt es das <b>Sperrkonto: rund zehntausend Euro</b> für die neun Monate. Das ist keine Gebühr und gehört nie uns. <b>Es bleibt Ihr Geld</b>, auf einem Konto in Ihrem Namen, und nach der Ankunft wird es Ihnen Monat für Monat ausgezahlt."</p><p>„Und eine gute Nachricht zu Ihrem Weg: <b>Sobald Sie einen Ausbildungsvertrag haben, zählt Ihre Ausbildungsvergütung als Nachweis.</b> Das Sperrkonto wird dann kleiner, manchmal fällt es ganz weg."</p><p>„Was Sie also wirklich bei uns ausgeben, sind fünftausend plus rund tausend, verteilt auf die Monate vor der Abreise. <b>Wie klingt das für Sie?</b>"</p></div>
-</div></div>
-  <div class="step"><span class="stepno">Schritt 4</span><h3>Das Commitment, in drei Stufen <span>· The commitment</span></h3><div class="cstep"><div class="cnum">C1</div><div style="flex:1"><h3>Die Investitionsfrage <span>· The investment question</span></h3><p class="cwhy">Hier fällt das innere Ja. Einwände jetzt hören, nicht nach dem Angebot</p><div class="say">
-<div class="en"><span class="lab">SAY · ENGLISH</span><p>"So let me ask you straight: if your documents check out and my written quote says exactly what I just explained, <b>is this something you want to invest in yourself?</b>"</p><p>Bei Zögern: "What would need to be true for this to be a clear yes? The money, your family, the timing?"</p><p>Wenn das Ja kommt: "Good. Then let us do this properly, step by step."</p></div>
-<div class="de"><span class="lab">DEUTSCH</span><p>„Dann frage ich Sie direkt: Wenn Ihre Unterlagen passen und mein schriftliches Angebot genau das sagt, was ich Ihnen gerade erklärt habe, <b>ist das etwas, das Sie in sich selbst investieren wollen?</b>"</p><p>Bei Zögern: „Was müsste zutreffen, damit es ein klares Ja wird? Das Geld, Ihre Familie, der Zeitpunkt?"</p><p>Wenn das Ja kommt: „Gut. Dann machen wir das richtig, Schritt für Schritt."</p></div>
-</div></div></div><div class="cstep"><div class="cnum">C2</div><div style="flex:1"><h3>Unterlagen mit Deadline <span>· Documents with a deadline</span></h3><p class="cwhy">Explizites „yes" abwarten, sonst zählt es nicht</p><div class="say">
-<div class="en"><span class="lab">SAY · ENGLISH</span><p>"Here is your homework: passport, school certificate, language certificate, and your degree if you have one on WhatsApp <b>by [Wochentag]</b>. Deal?"</p></div>
-<div class="de"><span class="lab">DEUTSCH</span><p>„Ihre Hausaufgabe: Pass, Schulzeugnis, Sprachzertifikat, und Ihr Studienabschluss, falls vorhanden per WhatsApp <b>bis [Wochentag]</b>. Abgemacht?"</p></div>
-</div></div></div><div class="cstep"><div class="cnum">C3</div><div style="flex:1"><h3>Folgetermin sofort buchen <span>· Book the next call now</span></h3><p class="cwhy">Der Kalendereintrag entsteht, während Ihr sprecht</p><div class="say">
-<div class="en"><span class="lab">SAY · ENGLISH</span><p>"And let us put our next call in the calendar right now. Fifteen minutes on [Tag], <b>I am sending you the invite while we speak.</b>"</p><p>Schlusssatz: "Then that is a plan. Documents by [Tag A], we speak on [Tag B], and you will have my written quote before that call."</p></div>
-<div class="de"><span class="lab">DEUTSCH</span><p>„Und lassen Sie uns den nächsten Termin gleich jetzt eintragen. Fünfzehn Minuten am [Tag], <b>ich schicke Ihnen die Einladung, während wir sprechen.</b>"</p><p>Schlusssatz: „Dann steht der Plan. Unterlagen bis [Tag A], wir sprechen am [Tag B], und mein schriftliches Angebot haben Sie vor diesem Termin."</p></div>
+  <div class="pathhead b"><span class="ptag"><span lang="en">Route B · learn a profession first</span><span lang="de">Weg B · Beruf erst lernen</span></span><h2>Ausbildung · Apprenticeship</h2></div>
+  <div class="step"><span class="stepno"><span lang="en">Step 1</span><span lang="de">Schritt 1</span></span><h3><span lang="de">Den Weg erklären</span><span lang="en">Set the frame</span> <span class="sub2" lang="de">· Set the frame</span></h3><p class="frame"><span class="lab">Rahmen setzen · SAY</span>
+          <span class="en">"Then we are talking about an apprenticeship, and that is the route most people abroad
+          underestimate. You come over for up to nine months to find your training place. From the first day of that
+          training you earn money while you learn the profession, and at the end you hold a German qualification that
+          employers here respect. Let me show you how we do that together, and what it costs."</span>
+          <span class="de">„Dann sprechen wir über eine Ausbildung, und das ist der Weg, den die meisten im Ausland
+          unterschätzen. Sie kommen für bis zu neun Monate her, um Ihren Ausbildungsplatz zu finden. Ab dem ersten Tag
+          dieser Ausbildung verdienen Sie Geld, während Sie den Beruf lernen, und am Ende halten Sie einen deutschen
+          Abschluss in der Hand, den die Arbeitgeber hier schätzen. Ich zeige Ihnen, wie wir das zusammen machen und
+          was es kostet."</span></p></div>
+  <div class="step"><span class="stepno"><span lang="en">Step 2</span><span lang="de">Schritt 2</span></span><h3><span lang="de">Geld und nächster Schritt</span><span lang="en">Money and the next step</span> <span class="sub2" lang="de">· Money and the next step</span></h3><p class="note">💶 <b>Das steht so in den Bedingungen:</b> Ausbildungsplatzsuche Concierge (Apprenticeship Search Concierge), Version 1.0 vom 23.09.2026. Module: Visum und Relocation 2.000, Wohnungssuche 1.500, Ankunft und Integration 2.000, einzeln also 5.500, als Paket 5.000 (Ziffer 7.1). Raten: 2.000 bei Vertragsschluss, 1.500 zum Start der Wohnungssuche, 1.500 spätestens 14 Tage vor Abflug (Ziffer 7.3), der Paketvorteil von 500 geht von der letzten Rate ab (Ziffer 7.4). Alle Beträge sind Gesamtpreise, es kommt keine Umsatzsteuer obendrauf.</p><div class="say">
+<div class="en"><span class="lab">SAY · ENGLISH</span><p>"Before the money, one thing straight: <b>nobody can promise you a job or a visa, and anyone who does is lying to you.</b>"</p><p>"What we do promise is this: <b>we walk the whole way with you.</b> Every step done properly, your application always in your own name, and we have gone this road with many people before you, so we know where it gets difficult."</p><p>"And the part that matters most to us is <b>trust</b>. We take the time to build it with you, because this is not paperwork for us, it is your future. That is exactly why we do this work."</p><p>"So, money, openly, because I do not want any surprises later. <b>Today you pay nothing.</b> After our call I look at your documents and send you a written quote. Only when you say yes, we start."</p><ul class="money"><li><b>Our work: €5,000 as one package</b> — the visa and relocation, the apartment search, and the support when you land.</li><li>Booked separately those three would be <b>€5,500</b>, so the package saves you <b>€500</b>.</li><li>You do not pay it all at once. It follows the three parts of the package:<ul><li><b>€2,000</b> when we open your file and start the visa work</li><li><b>€1,500</b> when the apartment search begins</li><li><b>€1,500</b> before you fly, at the latest two weeks before departure</li></ul>Your €500 discount comes off the last step.</li><li>On top: about <b>€1,000</b> of real costs that we simply pass on — translations, the degree comparison, the embassy fee, and your flight.</li><li><b>The blocked account: about €10,000</b> for the nine months. Not a fee, and it never belongs to us. It stays your money, in an account in your name, and after you land it is paid back to you month by month.</li><li>One good thing about your route: <b>once you have a training contract, your training salary counts as proof of funds.</b> The blocked account gets smaller then, sometimes it disappears completely.</li></ul><p>"So what you really spend with us is five thousand plus about one thousand, spread over the months before you leave."</p><p>"And here is what happens after this call. You get <b>three things from me by email</b>: my presentation, so you can read all of this again in peace, and then the two documents that make up our contract, <b>the written service order</b> with exactly the modules and instalments I just described, and <b>the terms of the Apprenticeship Search Concierge</b>. You sign nothing today. You confirm by email only when everything in there matches what we just discussed. <b>How does that sound to you?</b>"</p></div>
+<div class="de"><span class="lab">DEUTSCH</span><p>„Bevor wir über Geld reden, eines klar: <b>Niemand kann Ihnen einen Job oder ein Visum versprechen, und wer das tut, lügt Sie an.</b>"</p><p>„Was wir versprechen können, ist das: <b>Wir gehen den ganzen Weg mit Ihnen.</b> Jeder Schritt sauber gemacht, Ihr Antrag immer in Ihrem eigenen Namen, und wir sind diesen Weg schon mit vielen Menschen vor Ihnen gegangen, wir wissen also, wo es schwierig wird."</p><p>„Und das Wichtigste für uns ist <b>Vertrauen</b>. Wir nehmen uns die Zeit, es mit Ihnen aufzubauen, denn für uns ist das kein Papierkram, es geht um Ihre Zukunft. Genau dafür machen wir diese Arbeit."</p><p>„Also, das Geld, offen, weil ich später keine Überraschungen will. <b>Heute zahlen Sie nichts.</b> Nach unserem Gespräch sehe ich mir Ihre Unterlagen an und schicke Ihnen ein schriftliches Angebot. Erst wenn Sie Ja sagen, fangen wir an."</p><ul class="money"><li><b>Unsere Arbeit: 5.000 € als Paket</b> — Visum und Relocation, die Wohnungssuche und die Begleitung, wenn Sie ankommen.</li><li>Einzeln gebucht wären das <b>5.500 €</b>, das Paket spart Ihnen also <b>500 €</b>.</li><li>Sie zahlen nicht alles auf einmal. Es folgt den drei Teilen des Pakets:<ul><li><b>2.000 €</b>, wenn wir Ihre Akte eröffnen und mit dem Visum starten</li><li><b>1.500 €</b>, wenn die Wohnungssuche beginnt</li><li><b>1.500 €</b> vor dem Flug, spätestens zwei Wochen vor der Abreise</li></ul>Ihr Rabatt von 500 € geht vom letzten Schritt ab.</li><li>Dazu kommen rund <b>1.000 €</b> echte Kosten, die wir einfach weitergeben — Übersetzungen, die Zeugnisbewertung, die Botschaftsgebühr und Ihr Flug.</li><li><b>Das Sperrkonto: rund 10.000 €</b> für die neun Monate. Das ist keine Gebühr und gehört nie uns. Es bleibt Ihr Geld, auf einem Konto in Ihrem Namen, und nach der Ankunft wird es Ihnen Monat für Monat ausgezahlt.</li><li>Eine gute Nachricht zu Ihrem Weg: <b>Sobald Sie einen Ausbildungsvertrag haben, zählt Ihre Ausbildungsvergütung als Nachweis.</b> Das Sperrkonto wird dann kleiner, manchmal fällt es ganz weg.</li></ul><p>„Was Sie also wirklich bei uns ausgeben, sind fünftausend plus rund tausend, verteilt auf die Monate vor der Abreise."</p><p>„Und so geht es nach diesem Gespräch weiter. Sie bekommen <b>drei Dinge von mir per E-Mail</b>: meine Präsentation, damit Sie alles in Ruhe nachlesen können, und dann die beiden Dokumente, die zusammen unseren Vertrag bilden, <b>das schriftliche Angebot</b> mit genau den Bausteinen und Raten, die ich Ihnen gerade beschrieben habe, und <b>die Bedingungen der Ausbildungsplatzsuche Concierge</b>. Heute unterschreiben Sie nichts. Sie bestätigen erst per E-Mail, wenn darin genau das steht, was wir besprochen haben. <b>Wie klingt das für Sie?</b>"</p></div>
+</div>
+  <p class="note">📎 <b>Was Du nach dem Call rausschickst:</b> Präsentation, das schriftliche Angebot (Service Order)
+  und <code>20260923-WTE-Companion-TC-Ausbildungsplatzsuche-Concierge.pdf</code>. Der Vertrag kommt erst zustande,
+  wenn er das Angebot in Textform annimmt, es gilt 14 Tage ab Versand.</p></div>
+  <div class="step"><span class="stepno"><span lang="en">Step 3</span><span lang="de">Schritt 3</span></span><h3><span lang="de">Das Commitment, in zwei Stufen</span><span lang="en">The commitment, in two steps</span> <span class="sub2" lang="de">· The commitment</span></h3><div class="cstep"><div class="cnum">C1</div><div style="flex:1"><h3><span lang="de">Die Frage nach dem Ja</span><span lang="en">Asking for the yes</span> <span class="sub2" lang="de">· Asking for the yes</span></h3><p class="cwhy">Hier fällt das innere Ja. Einwände jetzt hören, nicht nach dem Angebot</p><div class="say">
+<div class="en"><span class="lab">SAY · ENGLISH</span><p>"So, does all of that sound good to you? And do you feel like taking the next step with us?"</p></div>
+<div class="de"><span class="lab">DEUTSCH</span><p>„Klingt das alles gut für Sie? Und haben Sie Lust, dass wir den nächsten Schritt zusammen gehen?"</p></div>
+</div></div></div><div class="cstep"><div class="cnum">C2</div><div style="flex:1"><h3><span lang="de">Unterlagen mit Deadline</span><span lang="en">Documents with a deadline</span> <span class="sub2" lang="de">· Documents with a deadline</span></h3><p class="cwhy">Explizites „yes" abwarten, sonst zählt es nicht</p><div class="say">
+<div class="en"><span class="lab">SAY · ENGLISH</span><p>"Here is your homework: passport, school certificate, language certificate, and your degree if you have one on WhatsApp <b>by [Wochentag]</b>. Deal?"</p><p>Closing line: "Then that is a plan. Your documents by [Tag], and my written offer comes right after."</p></div>
+<div class="de"><span class="lab">DEUTSCH</span><p>„Ihre Hausaufgabe: Pass, Schulzeugnis, Sprachzertifikat, und Ihr Studienabschluss, falls vorhanden per WhatsApp <b>bis [Wochentag]</b>. Abgemacht?"</p><p>Schlusssatz: „Dann steht der Plan. Ihre Unterlagen bis [Tag], und mein schriftliches Angebot kommt direkt danach."</p></div>
 </div></div></div></div>
 </div>
 </section>
 
 <section>
-  <div class="shead"><span class="t">DANACH</span><h2>Rote Flaggen + Nachlauf</h2></div>
+  <div class="shead"><span class="t">DANACH</span><h2><span lang="de">Rote Flaggen + Nachlauf</span><span lang="en">Red flags + follow-up</span></h2></div>
   <div class="flags">
-    <div class="flag"><b>Kein Geld, keine Quelle</b>Freundlich beenden, Tür offen lassen.</div>
-    <div class="flag"><b>Verlangt Jobgarantie</b>Trotz Klarstellung? Raus, das wird eine Beschwerde.</div>
-    <div class="flag"><b>Verschwiegene Visa-Ablehnung</b>Kommt immer raus. Dann wäre die Gebühr weg, das Vertrauen auch.</div>
-    <div class="flag"><b>Zwei Erinnerungen, nichts geliefert</b>Eine finale Nachricht, dann Ablage.</div>
+    <div class="flag"><b><span lang="en">No money, no source</span><span lang="de">Kein Geld, keine Quelle</span></b><span lang="de">Freundlich beenden, Tür offen lassen.</span><span lang="en">End it warmly, leave the door open.</span></div>
+    <div class="flag"><b><span lang="en">Demands a job guarantee</span><span lang="de">Verlangt Jobgarantie</span></b><span lang="de">Trotz Klarstellung? Raus, das wird eine Beschwerde.</span><span lang="en">Even after you set it straight? Out. This becomes a complaint.</span></div>
+    <div class="flag"><b><span lang="en">Hidden visa refusal</span><span lang="de">Verschwiegene Visa-Ablehnung</span></b><span lang="de">Kommt immer raus. Dann wäre die Gebühr weg, das Vertrauen auch.</span><span lang="en">It always surfaces. The fee would be gone, and the trust with it.</span></div>
+    <div class="flag"><b><span lang="en">Two reminders, nothing delivered</span><span lang="de">Zwei Erinnerungen, nichts geliefert</span></b><span lang="de">Eine finale Nachricht, dann Ablage.</span><span lang="en">One final message, then close the file.</span></div>
   </div>
-  <p class="after"><b>2 Minuten nach dem Call:</b> drei Zeilen notieren, Weg (A/B), Geldquelle, vereinbarte
-  Deadlines. Ernsthafte Kandidaten ins CRM nur mit ID/Verweis, Dokumente bleiben in Drive.</p>
+  <p class="after" lang="de"><b>2 Minuten nach dem Call:</b> drei Zeilen notieren, Weg (A/B), Geldquelle,
+  vereinbarte Deadlines. Ernsthafte Kandidaten ins CRM nur mit ID/Verweis, Dokumente bleiben in Drive.</p>
+  <p class="after" lang="en"><b>Two minutes after the call:</b> write three lines, route (A/B), source of funds,
+  agreed deadlines. Serious candidates go into the CRM by ID or reference only, documents stay in Drive.</p>
 </section>
 
 <footer>
@@ -526,20 +461,35 @@ footer{margin-top:64px;border-top:1px solid var(--rule);padding-top:16px;font-si
 </div>
 
 <script>
-document.querySelectorAll('.pick').forEach(function(b){
+document.body.dataset.lang = 'en';
+document.querySelectorAll('.lbtn').forEach(function(b){
   b.addEventListener('click', function(){
-    var id = b.dataset.path;
-    document.querySelectorAll('.pick').forEach(function(x){ x.classList.toggle('on', x === b); });
-    document.querySelectorAll('.path').forEach(function(pnl){ pnl.hidden = (pnl.id !== 'path-' + id); });
-    document.getElementById('path-' + id).scrollIntoView({behavior:'smooth', block:'start'});
+    document.body.dataset.lang = b.dataset.lang;
+    document.querySelectorAll('.lbtn').forEach(function(x){ x.classList.toggle('on', x === b); });
+    document.querySelectorAll('.ccol').forEach(function(c){
+      var bx = c.querySelectorAll('.chk input'), o = c.querySelector('.cprog');
+      var d = c.querySelectorAll('.chk input:checked').length;
+      if(o) o.textContent = document.body.dataset.lang === 'de'
+        ? d + ' von ' + bx.length + ' geprüft' : d + ' of ' + bx.length + ' checked';
+    });
   });
 });
-document.querySelectorAll('.path').forEach(function(pnl){
-  var boxes = pnl.querySelectorAll('.qs .ok input');
-  var out = pnl.querySelector('.prog');
+document.querySelectorAll('.rbtn').forEach(function(b){
+  b.addEventListener('click', function(){
+    var id = b.dataset.path;
+    document.body.dataset.path = id;
+    document.querySelectorAll('.rbtn').forEach(function(x){ x.classList.toggle('on', x === b); });
+    document.querySelectorAll('.path').forEach(function(pnl){ pnl.hidden = (pnl.id !== 'path-' + id); });
+  });
+});
+document.querySelectorAll('.ccol').forEach(function(col){
+  var boxes = col.querySelectorAll('.chk input');
+  var out = col.querySelector('.cprog');
   function upd(){
-    var done = pnl.querySelectorAll('.qs .ok input:checked').length;
-    if(out) out.textContent = done + ' von ' + boxes.length + ' geprüft';
+    var done = col.querySelectorAll('.chk input:checked').length;
+    if(out) out.textContent = document.body.dataset.lang === 'de'
+      ? done + ' von ' + boxes.length + ' geprüft'
+      : done + ' of ' + boxes.length + ' checked';
   }
   boxes.forEach(function(b){ b.addEventListener('change', upd); });
   upd();
